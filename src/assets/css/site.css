@@ -201,6 +201,8 @@ p{margin:0}
 .mform .msg{font-size:.88rem;color:#F7B26B;min-height:1.2em}
 .mform .note{font-size:.8rem;color:#B9AEA5}
 .mform .note a{color:#F7B26B}
+.mform .dl{color:#F7B26B;font-weight:700}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
 @container site (max-width:760px){.magnet{grid-template-columns:1fr;padding:24px}}
 
 .faq{display:grid;gap:10px;max-width:820px}

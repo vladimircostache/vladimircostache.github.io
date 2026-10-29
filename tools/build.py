@@ -9,6 +9,9 @@ TEST = '--test' in sys.argv
 UPD = '29.10.2026'
 SITE = 'https://bigsolutions.ro'
 LEGAL_UPD = '30.10.2026'
+# Cheia publică Web3Forms: cererile din formulare ajung pe vladimir.costache@bigsolutions.ro.
+# Fără cheie (și pe linkul de test) formularele nu trimit nimic.
+FORMS_KEY = '822211f9-55a8-4c8a-910e-6b5f5aa3724a'  # formularul „Formular Contact BSM SRL”, site bigsolutions.ro
 PHONE, PHONE_TEL, WA = '0742 225 222', '+40742225222', 'https://wa.me/40742225222'
 
 def read(rel): return (SRC / rel).read_text(encoding='utf-8')
@@ -136,7 +139,8 @@ def layout(page_path, title, desc, body, scripts=''):
         esc(title), esc(desc), '<meta name="robots" content="noindex">\n' if TEST else '', canonical, esc(title), esc(desc), canonical, SITE, favicon,
         JSONLD if page_path == '/' else '',
         header, body, footer, mbar, scripts)
-    doc = contact_links(route_links(doc)).replace('<body>', '<body data-ix="%s">' % ('index.html' if TEST else ''), 1)
+    fk = '' if TEST else FORMS_KEY
+    doc = contact_links(route_links(doc)).replace('<body>', '<body data-ix="%s"%s>' % ('index.html' if TEST else '', ' data-fk="%s"' % fk if fk else ''), 1)
     return finalize(doc, '/' if page_path == '/404/' else page_path)
 
 # Datele firmei, în formatul citit de Google (doar pe prima pagină). Adresa biroului se adaugă când o primim.
@@ -297,6 +301,8 @@ def build_rest():
 def main():
     if DIST.exists(): shutil.rmtree(DIST)
     shutil.copytree(SRC / 'assets', DIST / 'assets')
+    (DIST / 'assets' / 'fise').mkdir(exist_ok=True)
+    shutil.copy(ROOT / 'fise' / 'e-drive.pdf', DIST / 'assets' / 'fise' / 'e-drive.pdf')
     build_home(); build_autoconsum()
     for p in programs:
         if p['n'] != 'Autoconsum și stocare': build_prog(p['n'])

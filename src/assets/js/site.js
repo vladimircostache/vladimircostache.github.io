@@ -70,6 +70,19 @@
     render();
   }
 
+  /* trimiterea formularelor pe e-mail, prin Web3Forms. Fără cheie (linkul de test) nu se trimite nimic. */
+  var SEND_ERR='Nu am putut trimite. Verificați conexiunea și încercați din nou sau sunați-ne la 0742 225 222.';
+  function send(form,subject,fields,done,fail){
+    var key=document.body.dataset.fk;if(!key){done();return;}
+    var btn=$('button[type=submit]',form),old=btn.textContent;btn.disabled=true;btn.textContent='Se trimite…';
+    var data={access_key:key,subject:subject,from_name:'Site BIG Solutions',botcheck:$('.hp',form).checked};
+    for(var k in fields)if(fields[k])data[k]=fields[k];
+    function end(ok){btn.disabled=false;btn.textContent=old;(ok?done:fail)();}
+    fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(data)})
+      .then(function(r){return r.json();}).then(function(j){end(!!(j&&j.success));}).catch(function(){end(false);});
+  }
+  function labelOf(x){var l=x&&x.closest('label');return l?l.textContent.trim():'';}
+
   /* formularul de eligibilitate, în 4 pași */
   var ef=$('#ef');
   if(ef){
@@ -114,7 +127,12 @@
       if(!/^\S+@\S+\.\S+$/.test(em.value.trim())){miss.push('o adresă de e-mail validă');em.setAttribute('aria-invalid','true');}
       if(miss.length){err('e4','Completați '+miss.join(', ')+'.');return;}
       if(!g.checked){err('e4','Bifați acordul pentru prelucrarea datelor, ca să vă putem contacta.');return;}
-      $('#ef-steps').hidden=true;$('#ef-done').hidden=false;
+      send(ef,'Cerere de eligibilitate: '+nume.value.trim(),{
+        'Tip solicitant':labelOf($('input[name=tip]:checked')),'Mărimea firmei':$('#marime-f').hidden?'':$('#marime').value,
+        'Ce vrea să finanțeze':$$('input[name=ce]:checked').map(function(x){return x.value;}).join(', '),
+        'Județ':$('#judet').value,'Valoare estimată':$('#valoare').value,'Nume':nume.value.trim(),'Telefon':tel.value.trim(),
+        email:em.value.trim(),'CUI':$('#cui').value.trim(),'Mesaj':$('#mesaj').value.trim(),'Acord date personale':'Da'
+      },function(){$('#ef-steps').hidden=true;$('#ef-done').hidden=false;},function(){err('e4',SEND_ERR);});
     });
     function resetForm(){ef.reset();$('#ef-steps').hidden=false;$('#ef-done').hidden=true;['e1','e2','e3','e4'].forEach(ok);$$('#ef [aria-invalid]').forEach(function(x){x.removeAttribute('aria-invalid');});onTip();goStep(1);}
     $('#ef-again').addEventListener('click',resetForm);
@@ -127,7 +145,11 @@
   if(cf)cf.addEventListener('submit',function(e){
     e.preventDefault();
     var good=['c-nume','c-ct','c-msg'].every(function(id){return $('#'+id).value.trim();})&&$('#c-gdpr').checked;
-    $('#c-err').hidden=good;if(good){cf.hidden=true;$('#c-done').hidden=false;}
+    var ce=$('#c-err');ce.textContent='Completați numele, datele de contact și mesajul, apoi bifați acordul.';ce.hidden=good;if(!good)return;
+    var ct=$('#c-ct').value.trim();
+    send(cf,'Mesaj de pe site: '+$('#c-nume').value.trim(),{'Nume':$('#c-nume').value.trim(),'Organizație':$('#c-org').value.trim(),
+      'Telefon sau e-mail':ct,email:ct.indexOf('@')>-1?ct:'','Mesaj':$('#c-msg').value.trim(),'Acord date personale':'Da'},
+      function(){cf.hidden=true;$('#c-done').hidden=false;},function(){ce.textContent=SEND_ERR;ce.hidden=false;});
   });
 
   /* fișa e-DRIVE, de pe prima pagină */
@@ -136,7 +158,8 @@
     mf.addEventListener('submit',function(e){
       e.preventDefault();var v=$('#m-email').value.trim(),m=$('#m-msg');
       if(!/^\S+@\S+\.\S+$/.test(v)){m.textContent='Scrieți o adresă de e-mail validă, de exemplu nume@firma.ro.';return;}
-      m.textContent='Mulțumim! Vă trimitem fișa pe e-mail.';
+      send(mf,'Fișa e-DRIVE: '+v,{email:v,'Vrea apelurile noi pe e-mail':$('#m-news').checked?'Da':'Nu'},
+        function(){m.textContent='Mulțumim! Fișa e gata:';$('#m-dl').hidden=false;},function(){m.textContent=SEND_ERR;});
     });
     $('#m-email').addEventListener('input',function(){$('#m-msg').textContent='';});
   }
