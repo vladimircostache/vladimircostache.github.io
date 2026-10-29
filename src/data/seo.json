@@ -1,0 +1,66 @@
+{
+  "/": {
+    "title": "Fonduri nerambursabile | BIG Solutions",
+    "description": "Consultanță pentru fonduri nerambursabile: fotovoltaice, stocare, mobilitate electrică, echipamente și inovație. Pentru firme, ONG-uri și autorități publice."
+  },
+  "/programe/autoconsum-si-stocare/": {
+    "title": "Fotovoltaice cu stocare pentru entități publice | BIG Solutions",
+    "description": "Până la 100% finanțare pentru panouri fotovoltaice cu baterii la clădirile publice, din Fondul pentru modernizare. Apel deschis până la 23.11.2026."
+  },
+  "/programe/mobilitate-electrica/": {
+    "title": "Finanțare pentru mașini electrice și stații de încărcare | BIG Solutions",
+    "description": "e-DRIVE, e-Mobility, e-MOVE și camioane electrice, din Fondul pentru modernizare: până la 100% finanțare pentru firme. Ce se finanțează și ce pregătiți acum."
+  },
+  "/programe/agricultura-si-procesare/": {
+    "title": "Fonduri AFIR pentru ferme și procesare: DR-12, DR-14, DR-18 | BIG Solutions",
+    "description": "Până la 200.000 € pentru tinerii fermieri (DR-12) și până la 50.000 € pentru fermele mici (DR-14). Ce se finanțează, cât primiți și cât mai e de depus."
+  },
+  "/programe/eficienta-energetica-pentru-cladiri-publice/": {
+    "title": "Fonduri pentru eficiența energetică a clădirilor publice | BIG Solutions",
+    "description": "Renovarea energetică a școlilor, spitalelor și sediilor publice, prin Programele Regionale și PDDTJ. Ce apeluri sunt deschise, ce urmează și cum vă pregătiți."
+  },
+  "/programe/investitii-pentru-imm-uri/": {
+    "title": "Fonduri europene pentru investițiile IMM-urilor | BIG Solutions",
+    "description": "Granturi prin Programele Regionale pentru spații de producție, utilaje și echipamente: până la 1,5 mil. € și 75% finanțare. Ce apeluri urmează."
+  },
+  "/programe/inovare-si-tehnologie/": {
+    "title": "Fonduri pentru inovare și tehnologii noi: STEP, PoCIDIF, TechUp | BIG Solutions",
+    "description": "Granturi pentru cercetare, tehnologii strategice și digitalizare: STEP până la 10 mil. €, servicii EDIH finanțate 100%, TechUp. Ce e deschis și ce urmează."
+  },
+  "/programe/incluziune-sociala/": {
+    "title": "Fonduri pentru servicii sociale: ONG-uri și autorități locale | BIG Solutions",
+    "description": "Proiecte PIDS pentru copii, familii, persoane fără adăpost și alte grupuri vulnerabile. Contribuție proprie: 0% la ONG-uri, 2% la autoritățile locale."
+  },
+  "/programe/iluminat-public/": {
+    "title": "Finanțare AFM pentru iluminat public cu LED | BIG Solutions",
+    "description": "Programul AFM pentru iluminat public: până la 100% finanțare, de la 1 mil. lei pentru comune la 6 mil. lei pentru municipii. Cum vă pregătiți."
+  },
+  "/programe/start-up-nation/": {
+    "title": "Start-Up Nation 2026: până la 250.000 lei pentru o firmă nouă | BIG Solutions",
+    "description": "Start-Up Nation, ediția 2024: curs gratuit de antreprenoriat, apoi până la 250.000 lei pentru o firmă nouă. Cine poate aplica și ce se finanțează."
+  },
+  "/programe/diaspora-investeste-acasa/": {
+    "title": "Diaspora Investește Acasă: credit și grant de până la 200.000 € | BIG Solutions",
+    "description": "Pentru românii din diaspora cu o firmă nouă în România: credit garantat de BID și grant de până la 60% din credit, maximum 200.000 €. Cine se califică."
+  },
+  "/firme/": {
+    "title": "Fonduri nerambursabile pentru firme | BIG Solutions",
+    "description": "Programe pentru IMM-uri și firme noi: investiții, inovare, mobilitate electrică, agricultură, Start-Up Nation, Diaspora Investește Acasă. Ce e deschis acum."
+  },
+  "/ong-uri/": {
+    "title": "Fonduri pentru ONG-uri: servicii sociale și comunitare | BIG Solutions",
+    "description": "Proiecte PIDS pentru asociații și fundații: contribuție proprie de 0%, cheltuieli indirecte de 15%. Cum vă pregătiți capacitatea financiară."
+  },
+  "/autoritati-publice/": {
+    "title": "Fonduri pentru primării și instituții publice | BIG Solutions",
+    "description": "Autoconsum și stocare, eficiența energetică a clădirilor publice, iluminat public, incluziune socială. Ce e deschis acum și cum achiziționați consultanța."
+  },
+  "/despre-noi/": {
+    "title": "Despre BIG Solutions Management | Consultanță pentru fonduri nerambursabile",
+    "description": "Firmă de consultanță din București pentru fonduri nerambursabile, cu sprijinul BCCCA. Scriem și implementăm proiecte pentru firme, ONG-uri și autorități."
+  },
+  "/contact/": {
+    "title": "Contact | BIG Solutions Management",
+    "description": "Sunați, scrieți pe WhatsApp sau pe e-mail. Discuția de principiu e gratuită. Răspundem în 24 de ore lucrătoare."
+  }
+}

@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<title>e-DRIVE: ce să pregătiți până se lansează apelul – BIG Solutions Management</title>
+<style>
+@font-face{font-family:'Bricolage Grotesque';font-weight:700 800;src:url(../src/assets/fonts/bricolage-grotesque-latin.woff2) format('woff2');unicode-range:U+0000-00FF,U+2000-206F,U+20AC,U+2212}
+@font-face{font-family:'Bricolage Grotesque';font-weight:700 800;src:url(../src/assets/fonts/bricolage-grotesque-latin-ext.woff2) format('woff2');unicode-range:U+0100-02FF}
+@font-face{font-family:'Hanken Grotesk';font-weight:400 700;src:url(../src/assets/fonts/hanken-grotesk-latin.woff2) format('woff2');unicode-range:U+0000-00FF,U+2000-206F,U+20AC,U+2212}
+@font-face{font-family:'Hanken Grotesk';font-weight:400 700;src:url(../src/assets/fonts/hanken-grotesk-latin-ext.woff2) format('woff2');unicode-range:U+0100-02FF}
+:root{--or:#F28C28;--or-d:#B4500C;--ink:#1F1B18;--mut:#6B625B;--line:#F1DCC8;--peach:#FFF4EA;
+  --disp:"Bricolage Grotesque",Arial,sans-serif;--body:"Hanken Grotesk",Arial,sans-serif}
+@page{size:A4;margin:0}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{font-family:var(--body);color:var(--ink);font-size:9.6pt;line-height:1.45;-webkit-print-color-adjust:exact;print-color-adjust:exact;font-variant-numeric:tabular-nums}
+.page{width:210mm;height:297mm;position:relative;overflow:hidden;page-break-after:always;display:flex;flex-direction:column}
+.page:last-child{page-break-after:auto}
+h1,h2,h3{font-family:var(--disp);font-weight:800;margin:0;line-height:1.08;letter-spacing:-.01em}
+a{color:inherit;text-decoration:none}
+.in{padding:0 16mm}
+
+/* pagina 1 – zona de sus */
+.topbar{display:flex;justify-content:space-between;align-items:center;padding:8mm 16mm 5mm}
+.topbar svg{width:44mm;height:auto;display:block}
+.top{background:var(--or);padding:8mm 16mm 7mm}
+.tag{font-weight:700;font-size:8pt;letter-spacing:.12em;text-transform:uppercase;background:var(--ink);color:#fff;border-radius:4px;padding:1.6mm 2.6mm}
+.eyebrow{margin-top:0;font-weight:700;font-size:8pt;letter-spacing:.14em;text-transform:uppercase}
+h1{font-size:27pt;margin-top:2.5mm;max-width:150mm}
+.lead{margin:3.5mm 0 0;font-size:11pt;line-height:1.45;max-width:160mm;color:#3A2A1C}
+.status{margin-top:4mm;display:inline-flex;gap:2.5mm;align-items:center;background:rgba(255,255,255,.55);border-radius:6px;padding:2mm 3.2mm;font-size:9pt;font-weight:600}
+.status b{background:var(--ink);color:#fff;border-radius:3px;padding:.4mm 1.8mm;font-size:7.6pt;letter-spacing:.06em;text-transform:uppercase}
+
+/* cifre */
+.nums{display:grid;grid-template-columns:repeat(4,1fr);gap:3mm;margin-top:6mm}
+.num{background:var(--peach);border-radius:6px;padding:3.2mm 3.4mm}
+.num b{display:block;font-family:var(--disp);font-weight:800;font-size:17pt;line-height:1.05;color:var(--or-d)}
+.num span{display:block;margin-top:1.4mm;font-size:8.4pt;line-height:1.35}
+
+h2{font-size:14pt;margin-top:5.5mm}
+h2 small{font-family:var(--body);font-weight:600;font-size:9pt;color:var(--mut);margin-left:2mm;letter-spacing:0}
+
+/* tabel măsuri */
+table{width:100%;border-collapse:collapse;margin-top:3mm;font-size:9pt}
+th,td{text-align:left;vertical-align:top;padding:1.7mm 2.6mm;border-bottom:.3mm solid var(--line)}
+thead th{font-family:var(--disp);font-weight:800;font-size:10.5pt;border-bottom:.6mm solid var(--ink);padding-top:0}
+thead th span{display:block;font-family:var(--body);font-weight:600;font-size:8.4pt;color:var(--or-d);margin-top:.6mm}
+tbody th{font-weight:700;width:28mm;color:var(--mut);font-size:8.6pt}
+td{width:calc((100% - 28mm)/2)}
+
+/* exemplu */
+.ex{display:grid;grid-template-columns:1fr 62mm;gap:5mm;margin-top:3mm;align-items:stretch}
+.ex p{margin:0}
+.ex .calc{background:var(--ink);color:#fff;border-radius:6px;padding:3.6mm 4mm}
+.calc dl{margin:0;display:grid;grid-template-columns:1fr auto;row-gap:1.2mm;font-size:9pt}
+.calc dt{color:#D9CFC6}.calc dd{margin:0;text-align:right;font-weight:600}
+.calc .tot{margin-top:2.6mm;padding-top:2.4mm;border-top:.3mm solid #4A433D;display:flex;justify-content:space-between;align-items:baseline}
+.calc .tot b{font-family:var(--disp);font-size:18pt;color:var(--or)}
+.note{font-size:8.2pt;color:var(--mut);margin-top:2mm}
+
+/* subsol */
+.foot{margin-top:auto;padding:3mm 16mm 8mm;font-size:7.6pt;color:var(--mut);display:flex;justify-content:space-between;gap:8mm;align-items:flex-end}
+.foot p{margin:0;max-width:150mm}
+.foot .pg{font-weight:700;color:var(--ink);white-space:nowrap}
+
+/* pagina 2 */
+.top2{display:flex;justify-content:space-between;align-items:center;padding:8mm 16mm 0}
+.top2 svg{width:34mm;height:auto;display:block}
+.top2 span{font-size:8pt;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--mut)}
+.page2 h2{margin-top:5mm}.page2 h2:first-of-type{margin-top:5mm}
+.sel{display:grid;grid-template-columns:1fr 1fr;gap:4mm;margin-top:3mm}
+.card{border:.35mm solid var(--line);border-radius:6px;padding:3mm 3.6mm}
+.card h3{font-size:10.5pt}
+.card h3 span{font-family:var(--body);font-weight:600;font-size:8.4pt;color:var(--or-d);margin-left:1.5mm}
+.pts{list-style:none;margin:1.6mm 0 0;padding:0}
+.pts li{display:grid;grid-template-columns:12mm 1fr;gap:2mm;padding:.7mm 0;font-size:9pt;border-bottom:.25mm dashed var(--line);align-items:baseline}
+.pts li:last-child{border-bottom:0}
+.pts b{font-family:var(--disp);font-weight:800;font-size:11pt;color:var(--or-d)}
+.card p{margin:2mm 0 0;font-size:8.6pt}
+.rules{display:grid;grid-template-columns:repeat(3,1fr);gap:2.5mm;margin-top:2.6mm}
+.rule{background:var(--peach);border-radius:6px;padding:2.2mm 3mm;font-size:8.4pt;line-height:1.33}
+.rule b{display:block;font-size:9pt;margin-bottom:.6mm}
+.prep{display:grid;grid-template-columns:1fr 1fr;gap:5mm;margin-top:2.4mm}
+.prep h3{font-size:10pt;margin-bottom:1mm}
+.chk{list-style:none;margin:0;padding:0}
+.chk li{position:relative;padding:.55mm 0 .55mm 6mm;font-size:8.8pt;line-height:1.33}
+.chk li::before{content:"";position:absolute;left:0;top:1.2mm;width:3mm;height:3mm;border:.4mm solid var(--or-d);border-radius:.8mm}
+.warn{margin-top:2mm;font-size:8.6pt;font-weight:600;border-left:1mm solid var(--or);padding:1.2mm 0 1.2mm 3mm}
+.dates{display:grid;grid-template-columns:repeat(3,1fr);gap:3mm;margin-top:2.4mm}
+.date{border-top:.6mm solid var(--ink);padding-top:1.4mm;font-size:8.4pt;line-height:1.3}
+.date b{display:block;font-family:var(--disp);font-weight:800;font-size:11pt;margin-bottom:.3mm}
+.cta{margin:5mm 16mm 0;background:var(--or);border-radius:8px;padding:4.4mm 6mm;display:grid;grid-template-columns:1fr auto;gap:6mm;align-items:center}
+.cta h2{margin:0;font-size:13pt}
+.cta p{margin:1.8mm 0 0;font-size:9.4pt;color:#3A2A1C}
+.cta .ct{font-size:9.6pt;font-weight:700;line-height:1.7;text-align:right;white-space:nowrap}
+.cta .ct a{display:block}
+</style>
+</head>
+<body>
+
+<section class="page">
+  <div class="topbar">{{LOGO}}<span class="tag">Fișă gratuită</span></div>
+  <div class="top">
+    <div class="eyebrow">Fondul pentru Modernizare · Ministerul Transporturilor și Infrastructurii</div>
+    <h1>e-DRIVE: ce să pregătiți până se lansează apelul</h1>
+    <p class="lead">Vehicule electrice noi pentru firma dumneavoastră, finanțate nerambursabil până la 100% din cheltuielile eligibile, fără TVA.</p>
+    <div class="status"><b>Situația la 30.10.2026</b>Schema e aprobată. Ghidul solicitantului și apelul nu sunt publicate încă.</div>
+  </div>
+
+  <div class="in">
+    <div class="nums">
+      <div class="num"><b>56,9 mil. €</b><span>buget total, granturi din Fondul pentru Modernizare</span></div>
+      <div class="num"><b>100%</b><span>finanțare maximă din cheltuielile eligibile, fără TVA</span></div>
+      <div class="num"><b>30.000 €</b><span>maximum pentru fiecare autoturism electric (Măsura 1)</span></div>
+      <div class="num"><b>300.000 €</b><span>maximum pe firmă, în orice 3 ani (Măsura 1, de minimis)</span></div>
+    </div>
+
+    <h2>Cine poate aplica <small>două măsuri, pentru două tipuri de firme</small></h2>
+    <table>
+      <thead><tr><th></th><th>Măsura 1<span>15 mil. € · ajutor de minimis</span></th><th>Măsura 2<span>41,9 mil. € · ajutor de stat</span></th></tr></thead>
+      <tbody>
+        <tr><th>Cine aplică</th><td>Microîntreprinderi și IMM-uri din orice domeniu, cu excepția agriculturii primare, pescuitului și acvaculturii</td><td>Transportatori de persoane de orice mărime, inclusiv firme mari, cu CAEN 4931, 4932 sau 4933</td></tr>
+        <tr><th>Ce vehicule</th><td>Autoturisme și microbuze (M1, M2) deținute de firmă de cel puțin un an, înlocuite cu vehicule electrice noi</td><td>Autoturisme, microbuze, autobuze și autocare (M1, M2, M3), deținute și operate de cel puțin un an</td></tr>
+        <tr><th>Ce se finanțează</th><td>Prețul vehiculului electric nou</td><td>Diferența de preț față de un vehicul convențional echivalent</td></tr>
+        <tr><th>Plafon</th><td>30.000 € pe autoturism; 300.000 € pe firmă în orice 3 ani</td><td>4 mil. € pe beneficiar; la autoturisme, 30.000 € pe vehicul</td></tr>
+        <tr><th>Selecție</th><td>Punctaj, apoi ordinea depunerii</td><td>Licitație: câștigă cine cere cel mai mic ajutor pe vehicul</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Cât primiți <small>exemplu pentru Măsura 1</small></h2>
+    <div class="ex">
+      <div>
+        <p>O firmă mică își înlocuiește 3 autoturisme vechi, deținute de mai mult de un an, cu 3 autoturisme electrice noi, de câte 32.000 € fără TVA.</p>
+        <p class="note">La Măsura 1 se finanțează prețul vehiculului electric, până la 30.000 € pe autoturism. TVA-ul și orice sumă peste plafon se plătesc din resursele firmei. Prețurile din exemplu sunt ipotetice.</p>
+        <p class="note">La Măsura 2 se finanțează doar diferența față de un vehicul convențional: de exemplu, un autobuz electric de 450.000 € față de unul diesel de 250.000 € înseamnă un cost eligibil de 200.000 €.</p>
+      </div>
+      <div class="calc">
+        <dl><dt>Preț pe autoturism</dt><dd>32.000 €</dd><dt>Grant pe autoturism</dt><dd>30.000 €</dd><dt>Contribuția firmei</dt><dd>3 × 2.000 € + TVA</dd></dl>
+        <div class="tot"><span>Grant total</span><b>90.000 €</b></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="foot"><p>Sursa: OMTI nr. 2.291/2025, cu modificările ulterioare (ultimele: OMTI nr. 742/2026 și nr. 817/2026), art. 5, 7, 13, 16. Material informativ, sub rezerva Ghidului solicitantului.</p><span class="pg">1 / 2</span></div>
+</section>
+
+<section class="page page2">
+  <div class="top2">{{LOGO}}<span>e-DRIVE · fișă gratuită</span></div>
+  <div class="in">
+    <h2>Cum se face selecția</h2>
+    <div class="sel">
+      <div class="card">
+        <h3>Măsura 1<span>punctaj</span></h3>
+        <ul class="pts">
+          <li><b>80 p</b><span>microîntreprindere</span></li>
+          <li><b>70 p</b><span>întreprindere mică</span></li>
+          <li><b>65 p</b><span>întreprindere mijlocie</span></li>
+          <li><b>+20 p</b><span>vehiculul are asamblarea finală în Uniunea Europeană</span></li>
+        </ul>
+        <p>La egalitate decide asamblarea în UE, apoi data și ora depunerii. Se finanțează până se termină bugetul: un dosar gata dinainte contează.</p>
+      </div>
+      <div class="card">
+        <h3>Măsura 2<span>licitație</span></h3>
+        <ul class="pts">
+          <li><b>70 p</b><span>cel mai mic ajutor cerut pe vehicul</span></li>
+          <li><b>10 p</b><span>peste 70% din kilometri parcurși în România (între 40% și 70%: 5 p)</span></li>
+          <li><b>20 p</b><span>vehiculul are asamblarea finală în Uniunea Europeană</span></li>
+        </ul>
+        <p>Oferta depusă nu se mai negociază. Ponderea kilometrilor în România asumată la depunere se respectă și după finanțare.</p>
+      </div>
+    </div>
+
+    <h2>Condiții care nu se negociază</h2>
+    <div class="rules">
+      <div class="rule"><b>Nicio comandă înainte de depunere</b>O comandă fermă sau un contract semnat înainte de cerere face proiectul neeligibil.</div>
+      <div class="rule"><b>Doar vehicule noi, 100% electrice</b>Electrice cu baterie, încărcate de la o sursă externă. Fără hibride.</div>
+      <div class="rule"><b>Casarea vehiculului vechi</b>În cel mult 60 de zile de la recepția vehiculului nou.</div>
+      <div class="rule"><b>5 ani de durabilitate</b>Vehiculul nu se vinde, iar activitatea finanțată nu încetează.</div>
+      <div class="rule"><b>Indicatori financiari</b>Datorii totale / capitaluri proprii între 0 și 7,5; altfel, scrisoare de confort bancar.</div>
+      <div class="rule"><b>TVA-ul nu se finanțează</b>TVA-ul și orice sumă peste plafon se plătesc din resursele firmei.</div>
+    </div>
+
+    <h2>Ce puteți pregăti de acum</h2>
+    <div class="prep">
+      <div>
+        <h3>Toate firmele</h3>
+        <ul class="chk">
+          <li>Certificatul de înmatriculare al vehiculului vechi</li>
+          <li>Situațiile financiare pentru ultimul an încheiat</li>
+          <li>Ajutoarele de minimis din ultimii 3 ani, inclusiv ale firmelor legate</li>
+          <li>Minimum 2 oferte pentru vehiculul electric, cu specificațiile tehnice</li>
+          <li>Locul de asamblare finală al modelului ales</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Transportatori (Măsura 2), în plus</h3>
+        <ul class="chk">
+          <li>Minimum 2 oferte pentru vehiculul convențional echivalent</li>
+          <li>Kilometrii din anul anterior și ponderea celor din România</li>
+          <li>Dovada operării vehiculului vechi în ultimele 12 luni</li>
+          <li>Evidență contabilă separată, dacă aveți serviciu public</li>
+        </ul>
+      </div>
+    </div>
+    <p class="warn">Cereți oferte, dar nu semnați comenzi până la depunere. Lista finală de documente se confirmă prin Ghidul solicitantului.</p>
+
+    <h2>Termene</h2>
+    <div class="dates">
+      <div class="date"><b>31.12.2026</b>Măsura 2: după această dată, contractele noi depind de noul regulament european.</div>
+      <div class="date"><b>31.12.2028</b>Ultima zi în care se aplică schema.</div>
+      <div class="date"><b>30.06.2030</b>Termenul până la care proiectele trebuie finalizate.</div>
+    </div>
+  </div>
+
+  <div class="cta">
+    <div>
+      <h2>Aflați ce finanțare poate obține firma dumneavoastră</h2>
+      <p>Trimiteți-ne lista vehiculelor (categorie, an, data dobândirii) și ultimul bilanț. Vă spunem ce măsură vi se potrivește și ce sumă puteți cere.</p>
+    </div>
+    <div class="ct"><a href="tel:+40742225222">0742 225 222</a><a href="mailto:vladimir.costache@bigsolutions.ro">vladimir.costache@bigsolutions.ro</a><a href="https://bigsolutions.ro">bigsolutions.ro</a></div>
+  </div>
+
+  <div class="foot"><p>BIG Solutions Management SRL este firmă de consultanță, nu autoritate de finanțare, și nu garantează obținerea finanțării. Material informativ, sub rezerva Ghidului solicitantului. Sursa: OMTI nr. 2.291/2025, cu modificările ulterioare (ultimele: OMTI nr. 742/2026 și nr. 817/2026), art. 5, 10, 11, 12, 16, 17, 18.</p><span class="pg">2 / 2</span></div>
+</section>
+
+</body>
+</html>

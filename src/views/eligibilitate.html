@@ -1,0 +1,73 @@
+      <section class="phead">
+        <div class="wrap">
+          <nav class="crumbs" aria-label="Unde vă aflați"><a href="#acasa" data-go="acasa">Prima pagină</a><span>/</span><span>Verifică eligibilitatea</span></nav>
+          <h1>Verifică eligibilitatea</h1>
+          <p class="lead">Patru pași scurți. Vă contactăm în 24 de ore lucrătoare pentru o discuție de principiu, gratuită: stabilim împreună dacă puteți și dacă merită să depuneți un proiect.</p>
+        </div>
+      </section>
+      <div class="wrap">
+        <div class="fwrap">
+          <form id="ef" novalidate>
+            <div id="ef-steps">
+              <span class="stepnum" id="ef-num">Pasul 1 din 4</span>
+              <div class="prog-bar" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i></div>
+
+              <div class="fcard" data-step="1">
+                <h3>Cine sunteți?</h3>
+                <div class="opts" role="radiogroup" aria-label="Tip de solicitant">
+                  <label class="opt"><input type="radio" name="tip" id="tip-firma" value="firma"><span>Firmă existentă<small>IMM sau întreprindere mare</small></span></label>
+                  <label class="opt"><input type="radio" name="tip" id="tip-noua" value="noua"><span>Firmă nouă<small>sau încă neînființată</small></span></label>
+                  <label class="opt"><input type="radio" name="tip" id="tip-ong" value="ong"><span>ONG<small>asociație sau fundație</small></span></label>
+                  <label class="opt"><input type="radio" name="tip" id="tip-uat" value="uat"><span>Autoritate publică<small>primărie, consiliu județean, instituție</small></span></label>
+                  <label class="opt"><input type="radio" name="tip" id="tip-alta" value="alta"><span>Altă instituție<small>școală, universitate, spital, unitate de cult</small></span></label>
+                </div>
+                <div class="field" id="marime-f" hidden>
+                  <label for="marime">Mărimea firmei</label>
+                  <select id="marime"><option value="">Alegeți</option><option>Microîntreprindere (sub 10 angajați)</option><option>Întreprindere mică (10–49)</option><option>Întreprindere mijlocie (50–249)</option><option>Întreprindere mare (250+)</option></select>
+                </div>
+                <p class="err" id="e1" hidden>Alegeți una dintre variante ca să continuăm.</p>
+                <div class="fnav"><span></span><button type="button" class="btn or" data-next="1">Continuă</button></div>
+              </div>
+
+              <div class="fcard" data-step="2" hidden>
+                <h3>Ce vreți să finanțați?</h3>
+                <p style="color:var(--mut)">Puteți alege mai multe.</p>
+                <div class="opts" id="ce-opts"></div>
+                <p class="err" id="e2" hidden>Alegeți cel puțin o variantă.</p>
+                <div class="fnav"><button type="button" class="btn out" data-back="2">Înapoi</button><button type="button" class="btn or" data-next="2">Continuă</button></div>
+              </div>
+
+              <div class="fcard" data-step="3" hidden>
+                <h3>Unde și cât?</h3>
+                <div class="f2">
+                  <div class="field"><label for="judet">Județul investiției</label><select id="judet"><option value="">Alegeți județul</option></select></div>
+                  <div class="field"><label for="valoare">Valoarea estimată a investiției</label><select id="valoare"><option value="">Alegeți</option><option>sub 50.000 €</option><option>50.000 – 200.000 €</option><option>200.000 € – 1 mil. €</option><option>1 – 5 mil. €</option><option>peste 5 mil. €</option><option>Nu știu încă</option></select></div>
+                </div>
+                <p class="err" id="e3" hidden>Alegeți județul și valoarea estimată.</p>
+                <div class="fnav"><button type="button" class="btn out" data-back="3">Înapoi</button><button type="button" class="btn or" data-next="3">Continuă</button></div>
+              </div>
+
+              <div class="fcard" data-step="4" hidden>
+                <h3>Cum vă contactăm?</h3>
+                <div class="f2">
+                  <div class="field"><label for="nume">Nume și prenume</label><input id="nume" autocomplete="name"></div>
+                  <div class="field"><label for="tel">Telefon</label><input id="tel" type="tel" autocomplete="tel" placeholder="07xx xxx xxx"></div>
+                  <div class="field"><label for="email">E-mail</label><input id="email" type="email" autocomplete="email"></div>
+                  <div class="field"><label for="cui">CUI sau cod fiscal <small>(opțional)</small></label><input id="cui" inputmode="numeric"></div>
+                </div>
+                <div class="field"><label for="mesaj">Mesaj <small>(opțional)</small></label><textarea id="mesaj" placeholder="Pe scurt, despre investiție"></textarea></div>
+                <label class="gdpr"><input type="checkbox" id="gdpr"> <span>Sunt de acord ca BIG Solutions Management SRL să îmi folosească datele pentru a mă contacta despre această cerere, conform <a href="@/politica-de-confidentialitate/" target="_blank" rel="noopener">Politicii de confidențialitate</a>.</span></label>
+                <p class="err" id="e4" hidden></p>
+                <div class="fnav"><button type="button" class="btn out" data-back="4">Înapoi</button><button type="submit" class="btn or">Trimite cererea</button></div>
+              </div>
+            </div>
+            <div class="thanks" id="ef-done" hidden>
+              <span class="lbl">Mulțumim</span>
+              <p class="big">Am primit cererea dumneavoastră.</p>
+              <p class="lead">Vă contactăm în 24 de ore lucrătoare pentru o discuție de principiu, gratuită. Dacă e urgent, sunați la 0742 225 222.</p>
+              <p class="mocknote">Aceasta e o machetă: nu s-a trimis nimic. Pe site-ul real, cererea ajunge la vladimir.costache@bigsolutions.ro.</p>
+              <div><button type="button" class="btn out" id="ef-again">Completează din nou</button></div>
+            </div>
+          </form>
+        </div>
+      </div>
