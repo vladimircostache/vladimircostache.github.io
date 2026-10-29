@@ -1,7 +1,7 @@
 # Generează site-ul static BIG Solutions în dist/.
 #   python3 tools/build.py          → adrese curate (/programe/…/), pentru bigsolutions.ro
 #   python3 tools/build.py --test   → linkuri relative cu index.html, pentru linkul de test
-import html, json, posixpath, re, shutil, sys, unicodedata, pathlib
+import hashlib, html, json, posixpath, re, shutil, sys, unicodedata, pathlib
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 SRC, DIST = ROOT / 'src', ROOT / 'dist'
@@ -17,6 +17,8 @@ PHONE, PHONE_TEL, WA = '0742 225 222', '+40742225222', 'https://wa.me/4074222522
 def read(rel): return (SRC / rel).read_text(encoding='utf-8')
 def data(name): return json.loads(read('data/%s.json' % name))
 calls, pages, programs, featured, seo = data('calls'), data('pages'), data('programs'), data('featured'), data('seo')
+# Versiunea stilurilor și a scriptului se schimbă odată cu conținutul lor, ca browserele să nu păstreze varianta veche.
+ASSET_V = hashlib.md5((read('assets/css/site.css') + read('assets/js/site.js')).encode('utf-8')).hexdigest()[:8]
 
 BL = {'deschis': 'Deschis', 'urmeaza': 'Urmează', 'consultare': 'În consultare', 'inchis': 'Închis'}
 WHO = {'F': 'Firme', 'O': 'ONG-uri', 'A': 'Autorități'}
@@ -135,7 +137,7 @@ def layout(page_path, title, desc, body, scripts=''):
            '<meta property="og:image" content="%s/assets/img/og-big-solutions.png">\n<meta property="og:image:width" content="1200">\n<meta property="og:image:height" content="630">\n'
            '<meta name="twitter:card" content="summary_large_image">\n'
            '<link rel="icon" href="%s">\n<link rel="apple-touch-icon" href="@/assets/img/apple-touch-icon.png">\n<link rel="preload" href="@/assets/fonts/bricolage-grotesque-latin.woff2" as="font" type="font/woff2" crossorigin>\n'
-           '<link rel="stylesheet" href="@/assets/css/site.css">\n%s</head>\n<body>\n<div class="site" id="site">\n%s\n<main id="main">\n%s\n</main>\n%s\n%s\n</div>\n%s<script src="@/assets/js/site.js" defer></script>\n</body>\n</html>\n') % (
+           '<link rel="stylesheet" href="@/assets/css/site.css?v=' + ASSET_V + '">\n%s</head>\n<body>\n<div class="site" id="site">\n%s\n<main id="main">\n%s\n</main>\n%s\n%s\n</div>\n%s<script src="@/assets/js/site.js?v=' + ASSET_V + '" defer></script>\n</body>\n</html>\n') % (
         esc(title), esc(desc), '<meta name="robots" content="noindex">\n' if TEST else '', canonical, esc(title), esc(desc), canonical, SITE, favicon,
         JSONLD if page_path == '/' else '',
         header, body, footer, mbar, scripts)
