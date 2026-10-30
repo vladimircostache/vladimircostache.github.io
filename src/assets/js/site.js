@@ -24,8 +24,11 @@
       var last=Math.min(n,first+vis-1);
       rcnt.textContent=(vis>=n?n:(last>first?first+'–'+last:first)+' din '+n)+(n===1?' apel deschis':' apeluri deschise');
       $('.railnav').hidden=false;rprev.hidden=rnext.hidden=vis>=n;}
-    rprev.addEventListener('click',function(){rail.scrollBy({left:-stepW(),behavior:smooth});});
-    rnext.addEventListener('click',function(){rail.scrollBy({left:stepW(),behavior:smooth});});
+    /* derulare lină; dacă browserul nu o pornește (de ex. filă în fundal), sare direct la cardul următor */
+    function go(dir){var start=rail.scrollLeft;rail.scrollBy({left:dir*stepW(),behavior:smooth});
+      setTimeout(function(){if(Math.abs(rail.scrollLeft-start)<2)rail.scrollBy({left:dir*stepW(),behavior:'auto'});},350);}
+    rprev.addEventListener('click',function(){go(-1);});
+    rnext.addEventListener('click',function(){go(1);});
     rail.addEventListener('keydown',function(e){if(e.key==='ArrowRight'){e.preventDefault();rnext.click();}else if(e.key==='ArrowLeft'){e.preventDefault();rprev.click();}});
     rail.addEventListener('scroll',function(){window.requestAnimationFrame(upd);},{passive:true});
     window.addEventListener('resize',upd);
