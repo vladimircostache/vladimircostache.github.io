@@ -12,6 +12,8 @@ LEGAL_UPD = '30.10.2026'
 # Cheia publică Web3Forms: cererile din formulare ajung pe vladimir.costache@bigsolutions.ro.
 # Fără cheie (și pe linkul de test) formularele nu trimit nimic.
 FORMS_KEY = '822211f9-55a8-4c8a-910e-6b5f5aa3724a'  # formularul „Formular Contact BSM SRL”, site bigsolutions.ro
+# Cheia publică Cloudflare Web Analytics pentru bigsolutions.ro (statistici fără cookie-uri).
+ANALYTICS_TOKEN = '3263195b4cba4ca798d994edc5b5f120'
 PHONE, PHONE_TEL, WA = '0742 225 222', '+40742225222', 'https://wa.me/40742225222'
 
 def read(rel): return (SRC / rel).read_text(encoding='utf-8')
@@ -142,6 +144,9 @@ def layout(page_path, title, desc, body, scripts=''):
         JSONLD if page_path == '/' else '',
         header, body, footer, mbar, scripts)
     fk = '' if TEST else FORMS_KEY
+    # Statistici fără cookie-uri (Cloudflare Web Analytics), doar pe bigsolutions.ro, nu pe linkul de test.
+    if not TEST and ANALYTICS_TOKEN:
+        doc = doc.replace('</body>', '<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon=\'{"token": "%s"}\'></script>\n</body>' % ANALYTICS_TOKEN, 1)
     doc = contact_links(route_links(doc)).replace('<body>', '<body data-ix="%s"%s>' % ('index.html' if TEST else '', ' data-fk="%s"' % fk if fk else ''), 1)
     return finalize(doc, '/' if page_path == '/404/' else page_path)
 
