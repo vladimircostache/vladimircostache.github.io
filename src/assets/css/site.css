@@ -357,6 +357,9 @@ p{margin:0}
 @container site (max-width:600px){.pager .lbl-t{display:none}.pager button{min-width:36px;height:36px;padding:0 8px}}
 .empty{padding:24px 18px;color:var(--mut)}
 .cwrap{display:contents}
+/* textul propriu din fișele de apel: rândul cu sursele, mai mic */
+.own{display:contents}
+.own section:last-child p:last-child{font-size:.85rem;color:var(--mut)}
 /* pagina Proiecte */
 .ptable-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:14px;background:var(--white)}
 .ptable{width:100%;min-width:560px;border-collapse:collapse;font-size:.93rem}

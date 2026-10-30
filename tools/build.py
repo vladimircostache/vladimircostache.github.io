@@ -7,7 +7,7 @@ from zoneinfo import ZoneInfo
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 SRC, DIST = ROOT / 'src', ROOT / 'dist'
 TEST = '--test' in sys.argv
-UPD = '29.10.2026'
+UPD = '30.10.2026'
 SITE = 'https://bigsolutions.ro'
 LEGAL_UPD = '30.10.2026'
 # Cheia publică Web3Forms: cererile din formulare ajung pe vladimir.costache@bigsolutions.ro.
@@ -329,6 +329,10 @@ def build_call(c):
         v = re.sub(r'\s*<a class="link" id="ap-off2"[^>]*></a>', '', v)
     title = '%s | BIG Solutions' % c['n']
     desc = c['rez'] if len(c['rez']) <= 160 else c['rez'][:157].rsplit(' ', 1)[0] + '…'
+    # text propriu (pentru cine merită, unde se greșește, ce documente), scris în src/content/apeluri/<slug>.md
+    own = SRC / 'content' / 'apeluri' / (c['slug'] + '.md')
+    if own.exists():
+        v = v.replace('<section><h2>Cine poate aplica</h2>', '<div class="own">%s</div><section><h2>Cine poate aplica</h2>' % md(own.read_text(encoding='utf-8')), 1)
     if dc(c): v = '<div class="cwrap"%s>%s</div>' % (dc(c), v)
     write_page('/apeluri/%s/' % c['slug'], title, desc, strip_mock(v))
 

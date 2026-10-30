@@ -22,7 +22,7 @@
   ],
   "s": "deschis",
   "open": "28.09.2026",
-  "close": "23.11.2026",
+  "close": "20.11.2026",
   "sum": "500 mil. €",
   "url": "https://oportunitati-ue.gov.ro/apel/apel-sprijinirea-investitiilor-in-noi-capacitati-de-producere-a-energiei-electrice-produsa-din-surse-regenerabile-de-energie-solara-cu-capacitati-de-stocare-integrate-pentru-autoconsum-pentru-enti/",
   "pg": "Autoconsum și stocare",
@@ -30,7 +30,8 @@
   "slug": "fotovoltaice-cu-stocare-pentru-entitati-publice",
   "url2": "https://energie.gov.ro/category/fondul-pentru-modernizare/program-cheie-1/",
   "label2": "Ministerul Energiei: anunțul de lansare (11.09.2026)",
-  "cod": "Fondul pentru modernizare, Program cheie 1"
+  "cod": "Fondul pentru modernizare, Program cheie 1",
+  "srcname": "Ministerul Energiei, anunțul de lansare; oportunitati-ue.gov.ro și fonduri-structurale.ro"
  },
  {
   "n": "Stocarea energiei pentru entități publice",
@@ -55,7 +56,7 @@
   ],
   "s": "deschis",
   "open": "28.09.2026",
-  "close": "23.11.2026",
+  "close": "20.11.2026",
   "sum": "150 mil. €",
   "url": "https://oportunitati-ue.gov.ro/apel/program-cheie-1-surse-regenerabile-de-energie-si-stocarea-energiei-sprijinirea-investitiilor-in-dezvoltarea-de-noi-capacitati-de-stocare-a-energiei-electrice-produsa-din-surse-regenerabile-de-energ/",
   "pg": "Autoconsum și stocare",
@@ -63,7 +64,8 @@
   "slug": "stocarea-energiei-pentru-entitati-publice",
   "url2": "https://energie.gov.ro/category/fondul-pentru-modernizare/program-cheie-1/",
   "label2": "Ministerul Energiei: anunțul de lansare (11.09.2026)",
-  "cod": "Fondul pentru modernizare, Program cheie 1"
+  "cod": "Fondul pentru modernizare, Program cheie 1",
+  "srcname": "Ministerul Energiei, anunțul de lansare; oportunitati-ue.gov.ro și fonduri-structurale.ro"
  },
  {
   "n": "e-Mobility RO: stații de încărcare rapidă",
@@ -1151,11 +1153,11 @@
   ],
   "s": "deschis",
   "open": "01.09.2026",
-  "close": "30.10.2026",
+  "close": "15.11.2026",
   "sum": "150 mil. €",
   "url": "https://oportunitati-ue.gov.ro/apel/apel-sprijinirea-investitiilor-in-dezvoltarea-instalatiilor-autonome-standalone-de-stocare-in-baterii-a-energiei-electrice-cu-finantare-din-fondul-pentru-modernizareprogram-cheie-1-surse/",
-  "url2": "https://energie.gov.ro/category/fondul-pentru-modernizare/program-cheie-1/",
-  "label2": "Ministerul Energiei: anunțul de lansare",
+  "url2": "https://oportunitati-ue.gov.ro/fondul-pentru-modernizare-a-fost-modificat-apelul-sprijinirea-investitiilor-in-dezvoltarea-instalatiilor-autonome-standalone-de-stocare-in-baterii-a-energiei-electrice-cu-finantare-din/",
+  "label2": "Ministerul Energiei: prelungirea termenului (30.10.2026)",
   "pg": null,
   "rez": "Baterii de stocare a energiei, independente de o centrală, pentru firme de orice mărime, inclusiv nou-înființate.",
   "slug": "baterii-stocare-stand-alone-firme",
