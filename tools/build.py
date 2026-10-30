@@ -151,7 +151,8 @@ _VQ = {}
 def vq(path):
     """Versiunea unei imagini sau a unui PDF din assets (?v=…): după o înlocuire, browserul ia imediat fișierul nou."""
     f = DIST / path.lstrip('/')
-    if not (path.startswith('/assets/') and f.is_file()): return ''
+    # doar imaginile și PDF-urile; fonturile se cer din CSS fără versiune, iar preîncărcarea trebuie să aibă aceeași adresă
+    if not (path.startswith(('/assets/img/', '/assets/fise/')) and f.is_file()): return ''
     if path not in _VQ: _VQ[path] = '?v=' + hashlib.md5(f.read_bytes()).hexdigest()[:8]
     return _VQ[path]
 
@@ -196,7 +197,7 @@ def layout(page_path, title, desc, body, scripts=''):
            '<meta property="og:url" content="%s">\n<meta property="og:site_name" content="BIG Solutions Management">\n'
            '<meta property="og:image" content="%s/assets/img/og-big-solutions.png">\n<meta property="og:image:width" content="1200">\n<meta property="og:image:height" content="630">\n'
            '<meta name="twitter:card" content="summary_large_image">\n'
-           '<link rel="icon" href="%s">\n<link rel="apple-touch-icon" href="@/assets/img/apple-touch-icon.png">\n<link rel="preload" href="@/assets/fonts/bricolage-grotesque-latin.woff2" as="font" type="font/woff2" crossorigin>\n'
+           '<link rel="icon" href="%s">\n<link rel="apple-touch-icon" href="@/assets/img/apple-touch-icon.png">\n<link rel="preload" href="@/assets/fonts/bricolage-grotesque-latin.woff2" as="font" type="font/woff2" crossorigin>\n<link rel="preload" href="@/assets/fonts/bricolage-grotesque-latin-ext.woff2" as="font" type="font/woff2" crossorigin>\n'
            '<link rel="stylesheet" href="@/assets/css/site.css?v=' + ASSET_V + '">\n%s</head>\n<body>\n<div class="site" id="site">\n%s\n<main id="main">\n%s\n</main>\n%s\n%s\n</div>\n%s<script src="@/assets/js/site.js?v=' + ASSET_V + '" defer></script>\n</body>\n</html>\n') % (
         esc(title), esc(desc), '<meta name="robots" content="noindex">\n' if TEST else '', canonical, esc(title), esc(desc), canonical, SITE, favicon,
         JSONLD if page_path == '/' else '',
