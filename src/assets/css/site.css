@@ -163,7 +163,7 @@ p{margin:0}
 @container site (max-width:600px){.progs,.progs.two{grid-template-columns:1fr}}
 
 .steps6{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;counter-reset:s}
-.steps6 li{counter-increment:s;border-top:3px solid var(--or);padding-top:14px;display:grid;gap:6px}
+.steps6 li{counter-increment:s;border-top:3px solid var(--or);padding-top:14px;display:grid;gap:6px;align-content:start}
 .steps6 li::before{content:counter(s,decimal-leading-zero);font-family:var(--disp);font-weight:800;font-size:1.4rem;color:var(--or-d)}
 .steps6 p{color:var(--mut);font-size:.95rem}
 @container site (max-width:860px){.steps6{grid-template-columns:1fr 1fr}}
@@ -186,6 +186,7 @@ p{margin:0}
 .person{display:grid;grid-template-columns:120px 1fr;gap:18px;align-items:center;border:1px solid var(--line);border-radius:14px;padding:18px;background:var(--white)}
 .person .photo{min-height:120px;height:120px;border-radius:12px;padding:8px;font-size:.7rem}
 .person p{color:var(--mut);font-size:.95rem}
+.person picture,.hero .photo picture{display:contents}
 .pphoto{width:120px;height:120px;border-radius:14px;object-fit:cover;object-position:50% 35%;display:block}
 .sister{border:1.5px dashed var(--line);border-radius:14px;padding:20px;display:grid;gap:8px;align-content:center;background:var(--white)}
 .sister p{font-size:.98rem}
@@ -218,7 +219,7 @@ p{margin:0}
 
 .ftr{background:var(--ink);color:#D8CFC7;font-size:.9rem}
 .ftr .wrap{display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:28px;padding-block:44px}
-.ftr h4{color:var(--white);font-size:1rem;margin-bottom:10px}
+.ftr .fh{color:var(--white);font-size:1rem;margin-bottom:10px}
 .ftr a{color:#D8CFC7;text-decoration:none}
 .ftr a:hover{color:var(--white);text-decoration:underline}
 .ftr ul{list-style:none;margin:0;padding:0;display:grid;gap:6px}

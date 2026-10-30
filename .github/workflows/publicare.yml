@@ -1,9 +1,12 @@
-# Publică site-ul pe GitHub Pages la fiecare actualizare a ramurii main.
+# Publică site-ul pe GitHub Pages la fiecare actualizare a ramurii main și în fiecare noapte,
+# ca apelurile cu termenul trecut să apară „Închis” fără intervenție.
 name: Publicare site
 on:
   push:
     branches: [main]
   workflow_dispatch:
+  schedule:
+    - cron: '5 22 * * *'   # 00:05 ora României iarna (01:05 vara)
 permissions:
   contents: read
   pages: write

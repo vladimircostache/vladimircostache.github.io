@@ -1,7 +1,8 @@
 # Generează site-ul static BIG Solutions în dist/.
 #   python3 tools/build.py          → adrese curate (/programe/…/), pentru bigsolutions.ro
 #   python3 tools/build.py --test   → linkuri relative cu index.html, pentru linkul de test
-import hashlib, html, json, posixpath, re, shutil, sys, unicodedata, pathlib
+import datetime, hashlib, html, json, os, posixpath, re, shutil, sys, unicodedata, pathlib
+from zoneinfo import ZoneInfo
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 SRC, DIST = ROOT / 'src', ROOT / 'dist'
@@ -19,6 +20,15 @@ PHONE, PHONE_TEL, WA = '0742 225 222', '+40742225222', 'https://wa.me/4074222522
 def read(rel): return (SRC / rel).read_text(encoding='utf-8')
 def data(name): return json.loads(read('data/%s.json' % name))
 calls, pages, programs, featured, seo = data('calls'), data('pages'), data('programs'), data('featured'), data('seo')
+# Starea apelurilor se recalculează la fiecare construcție (site-ul se reconstruiește în fiecare noapte):
+# un apel al cărui termen a trecut devine „Închis”, oricum ar fi scris în calls.json.
+# Pentru încercări se poate simula altă zi: BIG_TODAY=2026-11-28 python3 tools/build.py --test
+TODAY = (datetime.date.fromisoformat(os.environ['BIG_TODAY']) if os.environ.get('BIG_TODAY')
+         else datetime.datetime.now(ZoneInfo('Europe/Bucharest')).date())
+def ddate(d): return datetime.date(*map(int, reversed(d.split('.')))) if d else None
+for _c in calls:
+    if _c['s'] != 'inchis' and _c['close'] and ddate(_c['close']) < TODAY:
+        _c['s'], _c['when'] = 'inchis', ''
 # Versiunea stilurilor și a scriptului se schimbă odată cu conținutul lor, ca browserele să nu păstreze varianta veche.
 ASSET_V = hashlib.md5((read('assets/css/site.css') + read('assets/js/site.js')).encode('utf-8')).hexdigest()[:8]
 
@@ -126,6 +136,9 @@ def by_slug(s): return next(c for c in calls if c['slug'] == s)
 
 def layout(page_path, title, desc, body, scripts=''):
     body = fix_headings(strip_mock(body).replace('src="vladimir.jpg"', 'src="@/assets/img/vladimir-costache.jpg"'))
+    # portretul: WebP de 240 px, cu JPEG ca rezervă
+    body = re.sub(r'(<img class="pphoto" src="@/assets/img/vladimir-costache\.jpg"[^>]*>)',
+                  r'<picture><source type="image/webp" srcset="@/assets/img/vladimir-costache.webp">\1</picture>', body)
     header = route_links(read('partials/header.html'))
     footer = contact_links(route_links(legal_links(read('partials/footer.html'))))
     mbar = read('partials/mbar.html').replace('<a class="c1" href="#contact" data-go="contact">', '<a class="c1" href="tel:%s">' % PHONE_TEL)
@@ -188,8 +201,11 @@ def strip_mock(h):
 # ---- prima pagină
 def build_home():
     v = read('views/acasa.html')
+    # „Ce puteți depune acum”: doar apeluri deschise; cele închise sunt înlocuite cu cele mai apropiate termene.
+    shown = [c for c in map(by_slug, featured) if c['s'] == 'deschis']
+    shown += sorted((c for c in calls if c['s'] == 'deschis' and c['pg'] and c not in shown), key=lambda c: dkey(c['close']))[:4 - len(shown)]
     feat = ''
-    for c in map(by_slug, featured):
+    for c in shown:
         feat += ('<div class="call"><div class="meta">%s<span>%s</span></div><h4>%s</h4><span class="who">%s</span><span class="sum">%s</span>'
                  '<a class="link" href="@%s">Pagina programului&nbsp;→</a></div>') % (badge(c['s']), esc(when(c)), esc(c['n']), esc(c['prog'][-1]), esc(c['sum']), prog_path(c['pg']))
     v = v.replace('<div class="calls" id="featured"></div>', '<div class="calls" id="featured">%s</div>' % feat)
