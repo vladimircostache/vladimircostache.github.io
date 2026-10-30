@@ -37,6 +37,8 @@ WHO = {'F': 'Firme', 'O': 'ONG-uri', 'A': 'Autorități'}
 TRACKS = {'F': ('Firme', '/firme/'), 'O': ('ONG-uri', '/ong-uri/'), 'A': ('Autorități publice', '/autoritati-publice/')}
 TRACK_BY_NAME = {v[0]: (k, v[1]) for k, v in TRACKS.items()}
 PRE = {'F': 'firma', 'O': 'ong', 'A': 'uat'}
+# Sloganul firmei, adaptat pe paginile de traseu (prima pagină păstrează „Business, fără compromis.”).
+SLOGANS = {'Firme': 'Business, fără compromis.', 'ONG-uri': 'Proiecte sociale, fără compromis.', 'Autorități publice': 'Investiții publice, fără compromis.'}
 LEGAL = {'Politica de confidențialitate': '/politica-de-confidentialitate/', 'Politica de cookies': '/politica-cookies/', 'Termeni și condiții': '/termeni-si-conditii/'}
 LEGAL_DESC = {
     'Politica de confidențialitate': 'Cum folosim datele trimise prin site: ce date, de ce, cui le transmitem, cât timp le păstrăm și ce drepturi aveți.',
@@ -201,20 +203,27 @@ def strip_mock(h):
 # ---- prima pagină
 def build_home():
     v = read('views/acasa.html')
-    # „Ce puteți depune acum”: doar apeluri deschise; cele închise sunt înlocuite cu cele mai apropiate termene.
+    # „Ce puteți depune acum”: o bandă derulabilă cu apelurile deschise. Întâi cele alese în featured.json,
+    # apoi celelalte, după termen; apelurile închise dispar singure (starea e calculată după dată).
     shown = [c for c in map(by_slug, featured) if c['s'] == 'deschis']
-    shown += sorted((c for c in calls if c['s'] == 'deschis' and c['pg'] and c not in shown), key=lambda c: dkey(c['close']))[:4 - len(shown)]
+    shown += sorted((c for c in calls if c['s'] == 'deschis' and c['pg'] and c not in shown), key=lambda c: dkey(c['close']))
+    shown = shown[:12]
     feat = ''
     for c in shown:
         feat += ('<div class="call"><div class="meta">%s<span>%s</span></div><h4>%s</h4><span class="who">%s</span><span class="sum">%s</span>'
                  '<a class="link" href="@%s">Pagina programului&nbsp;→</a></div>') % (badge(c['s']), esc(when(c)), esc(c['n']), esc(c['prog'][-1]), esc(c['sum']), prog_path(c['pg']))
-    v = v.replace('<div class="calls" id="featured"></div>', '<div class="calls" id="featured">%s</div>' % feat)
-    cards = ''
-    for p in programs:
-        tags = ''.join('<span class="tag">%s</span>' % WHO[t] for t in p['t'])
-        cards += '<a class="prog" href="@%s" data-t="%s"><h4>%s</h4><p>%s</p><div class="tags">%s</div><span class="go">Pagina programului&nbsp;→</span></a>' % (
-            prog_path(p['n']), ' '.join(p['t']), esc(p['n']), esc(p['d']), tags)
-    v = v.replace('<div class="progs" id="progs"></div>', '<div class="progs" id="progs">%s</div>' % cards)
+    v = re.sub(r'(<div class="calls[^"]*" id="featured"[^>]*>)(</div>)', lambda m: m.group(1) + feat + m.group(2), v, count=1)
+    # „Unde vă putem ajuta”: liste scurte de linkuri pe tip de solicitant, cu numărul de apeluri deschise
+    groups = ''
+    for f, title in [('F', 'Pentru firme'), ('O', 'Pentru ONG-uri'), ('A', 'Pentru autorități publice')]:
+        items = ''
+        for p in (p for p in programs if f in p['t']):
+            mine = [c for c in calls if c['pg'] == p['n']]
+            n_open = sum(1 for c in mine if c['s'] == 'deschis')
+            note = n_apel(n_open, 'apel deschis', 'apeluri deschise') if n_open else ('urmează' if any(c['s'] == 'urmeaza' for c in mine) else '')
+            items += '<li><a href="@%s"><span>%s</span>%s</a></li>' % (prog_path(p['n']), esc(p['n']), '<span class="pc%s">%s</span>' % (' on' if n_open else '', note) if note else '')
+        groups += '<div class="pl"><h3>%s</h3><ul>%s</ul></div>' % (title, items)
+    v = v.replace('<div class="plinks" id="plinks"></div>', '<div class="plinks" id="plinks">%s</div>' % groups)
     s = seo['/']
     write_page('/', s['title'], s['description'], strip_mock(v))
 
@@ -247,7 +256,7 @@ def build_prog(name, track=None):
     st = ('<span class="bdg b-deschis">%s</span>' % n_apel(n_open, 'apel deschis', 'apeluri deschise')) if n_open else '<span class="bdg b-inchis">Niciun apel deschis acum</span>'
     v = v.replace('<span id="pg-cr"></span>', crumb)
     v = v.replace('<span class="bdg b-consultare" id="pg-b1">Pagină în lucru</span><span id="pg-b2">Textele se scriu în Etapa 5</span>', st + '<span>Actualizat la %s</span>' % UPD)
-    v = v.replace('<h1 id="pg-t"></h1>', '<h1 id="pg-t">%s</h1>' % esc(pg['t']))
+    v = v.replace('<h1 id="pg-t"></h1>', '%s<h1 id="pg-t">%s</h1>' % ('<span class="slog">%s</span>' % SLOGANS[name] if track else '', esc(pg['t'])))
     v = v.replace('<p class="lead" id="pg-l"></p>', '<p class="lead" id="pg-l">%s</p>' % esc(pg['l']))
     v = re.sub(r'\s*<p class="mocknote" id="pg-note"></p>', '', v)
     v = re.sub(r'\s*<section style="display:grid;gap:12px" id="pg-osec">.*?</section>', '', v, flags=re.S)

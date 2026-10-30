@@ -147,6 +147,17 @@ p{margin:0}
 .call .who{font-size:.82rem;color:var(--mut)}
 @container site (max-width:1000px){.calls{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @container site (max-width:600px){.calls{grid-template-columns:1fr}}
+/* prima pagină: banda derulabilă cu apeluri (4 vizibile pe calculator, 2 pe tabletă, 1 și puțin din următorul pe telefon) */
+.calls.rail{grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:calc((100% - 48px)/4);overflow-x:auto;scroll-snap-type:x mandatory;overscroll-behavior-x:contain;padding-bottom:10px;scrollbar-width:thin}
+.calls.rail>.call{scroll-snap-align:start}
+.calls.rail:focus-visible{outline:3px solid var(--or-d);outline-offset:4px;border-radius:14px}
+.calls.rail.dragging{scroll-snap-type:none;cursor:grabbing;user-select:none}
+.calls.rail a{-webkit-user-drag:none}
+@container site (max-width:1000px){.calls.rail{grid-template-columns:none;grid-auto-columns:calc((100% - 16px)/2)}}
+@container site (max-width:600px){.calls.rail{grid-template-columns:none;grid-auto-columns:86%}}
+.railnav{display:flex;justify-content:flex-end;align-items:center;gap:8px;margin-top:10px}
+.railcount{font-size:.85rem;color:var(--mut);margin-right:auto}
+.railnav .btn[disabled]{opacity:.35;cursor:default}
 
 .progs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:20px}
 .prog{border:1px solid var(--line);border-radius:14px;padding:18px;display:grid;gap:8px;align-content:start;background:var(--white);text-decoration:none;cursor:pointer;text-align:left}
@@ -154,6 +165,15 @@ p{margin:0}
 .prog .tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
 .prog p{color:var(--mut);font-size:.93rem}
 .prog .go{color:var(--or-d);font-weight:600;font-size:.9rem;margin-top:4px}
+/* prima pagină: programele, ca liste scurte de linkuri */
+.plinks{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px;margin-top:22px}
+.pl{border-top:3px solid var(--or);padding-top:12px}
+.pl h3{font-size:1.05rem;margin-bottom:4px}
+.pl ul{list-style:none;margin:0;padding:0}
+.pl a{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:11px 0;border-bottom:1px solid var(--line);text-decoration:none;color:var(--ink);font-weight:600}
+.pl a:hover span:first-child{color:var(--or-d);text-decoration:underline}
+.pl .pc{font-size:.8rem;font-weight:500;color:var(--mut);white-space:nowrap}.pl .pc.on{color:var(--ok)}
+@container site (max-width:860px){.plinks{grid-template-columns:1fr;gap:16px}}
 .progs.one{grid-template-columns:1fr}.progs.two{grid-template-columns:repeat(2,minmax(0,1fr))}
 .facts2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
 .facts2 div{background:var(--peach);border-radius:12px;padding:16px;display:grid;gap:4px;align-content:start}
@@ -247,6 +267,7 @@ p{margin:0}
 .phead .wrap{padding-block:36px 40px;display:grid;grid-template-columns:minmax(0,1fr);gap:14px}
 .phead .st{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;font-size:.88rem;color:var(--mut)}
 .phead h1{max-width:22ch}
+.phead .slog{font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--or-d)}
 .pgrid{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:44px;align-items:start;padding-block:44px}
 .pmain{display:grid;grid-template-columns:minmax(0,1fr);gap:44px}
 .pmain section{display:grid;grid-template-columns:minmax(0,1fr);gap:14px}

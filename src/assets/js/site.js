@@ -12,12 +12,34 @@
   var burger=$('#burger'),mnav=$('#mnav');
   if(burger&&mnav)burger.addEventListener('click',function(){mnav.hidden=!mnav.hidden;burger.setAttribute('aria-expanded',String(!mnav.hidden));});
 
-  /* prima pagină: filtrul programelor */
-  var pf=$('#pfilter');
-  if(pf)$$('button',pf).forEach(function(b){b.addEventListener('click',function(){
-    $$('button',pf).forEach(function(x){x.setAttribute('aria-pressed',String(x===b));});
-    $$('#progs .prog').forEach(function(a){a.hidden=!(b.dataset.f==='all'||(a.dataset.t||'').split(' ').indexOf(b.dataset.f)>-1);});
-  });});
+  /* prima pagină: banda cu apeluri deschise – săgeți, tastatură și tragere cu mouse-ul */
+  var rail=$('#featured.rail');
+  if(rail){
+    var rprev=$('#railprev'),rnext=$('#railnext'),rcnt=$('#railcount'),GAP=16;
+    var smooth=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth';
+    function stepW(){var c=$('.call',rail);return c?c.getBoundingClientRect().width+GAP:300;}
+    function upd(){var max=rail.scrollWidth-rail.clientWidth-2,n=rail.children.length,w=stepW();
+      rprev.disabled=rail.scrollLeft<=2;rnext.disabled=rail.scrollLeft>=max;
+      var first=Math.min(n,Math.round(rail.scrollLeft/w)+1),vis=Math.max(1,Math.floor((rail.clientWidth+GAP)/w));
+      var last=Math.min(n,first+vis-1);
+      rcnt.textContent=(vis>=n?n:(last>first?first+'–'+last:first)+' din '+n)+(n===1?' apel deschis':' apeluri deschise');
+      $('.railnav').hidden=false;rprev.hidden=rnext.hidden=vis>=n;}
+    rprev.addEventListener('click',function(){rail.scrollBy({left:-stepW(),behavior:smooth});});
+    rnext.addEventListener('click',function(){rail.scrollBy({left:stepW(),behavior:smooth});});
+    rail.addEventListener('keydown',function(e){if(e.key==='ArrowRight'){e.preventDefault();rnext.click();}else if(e.key==='ArrowLeft'){e.preventDefault();rprev.click();}});
+    rail.addEventListener('scroll',function(){window.requestAnimationFrame(upd);},{passive:true});
+    window.addEventListener('resize',upd);
+    var drag=null;
+    rail.addEventListener('dragstart',function(e){e.preventDefault();});
+    rail.addEventListener('pointerdown',function(e){if(e.pointerType==='mouse'&&e.button===0)drag={x:e.clientX,s:rail.scrollLeft,moved:false};});
+    window.addEventListener('pointermove',function(e){if(!drag)return;var dx=e.clientX-drag.x;
+      if(!drag.moved&&Math.abs(dx)>6){drag.moved=true;rail.classList.add('dragging');}if(drag.moved)rail.scrollLeft=drag.s-dx;});
+    window.addEventListener('pointerup',function(){if(!drag)return;
+      if(drag.moved){rail.classList.remove('dragging');var block=function(ev){ev.preventDefault();ev.stopPropagation();};
+        rail.addEventListener('click',block,true);setTimeout(function(){rail.removeEventListener('click',block,true);},0);}
+      drag=null;});
+    upd();
+  }
 
   /* calendarul apelurilor */
   var crows=$('#crows');

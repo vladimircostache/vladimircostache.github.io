@@ -24,17 +24,15 @@
       <section class="sec peach">
         <div class="wrap">
           <div class="sechead"><div><span class="lbl">În atenție</span><h2>Ce puteți depune acum</h2><p>Doar din programele pe care lucrăm. Fiecare card duce la pagina programului.</p><a class="btn out sm" href="#apeluri" data-go="apeluri" style="margin-top:20px">Vedeți calendarul complet →</a></div></div>
-          <div class="calls" id="featured"></div>
+          <div class="calls rail" id="featured" tabindex="0" role="region" aria-label="Apelurile deschise acum. Derulați orizontal sau folosiți săgețile."></div>
+          <div class="railnav"><span class="railcount" id="railcount" aria-live="polite"></span><button type="button" class="btn out sm" id="railprev" aria-label="Apelurile anterioare">←</button><button type="button" class="btn out sm" id="railnext" aria-label="Apelurile următoare">→</button></div>
         </div>
       </section>
 
       <section class="sec">
         <div class="wrap">
           <div class="sechead"><div><span class="lbl">Programele noastre</span><h2 style="margin-top:6px">Unde vă putem ajuta</h2></div></div>
-          <div class="chips" role="group" aria-label="Arată programele pentru" id="pfilter">
-            <button type="button" data-f="all" aria-pressed="true">Toate</button><button type="button" data-f="F" aria-pressed="false">Firme</button><button type="button" data-f="O" aria-pressed="false">ONG-uri</button><button type="button" data-f="A" aria-pressed="false">Autorități publice</button>
-          </div>
-          <div class="progs" id="progs"></div>
+          <div class="plinks" id="plinks"></div>
         </div>
       </section>
 
