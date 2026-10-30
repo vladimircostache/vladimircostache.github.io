@@ -10,7 +10,7 @@ Pentru orice întrebare despre datele personale ne scrieți la [vladimir.costach
 - **Formularul de contact:** numele, telefonul sau e-mailul și mesajul.
 - **Formularul pentru fișa e-DRIVE:** adresa de e-mail și, dacă bifați, acordul de a primi apelurile noi pe e-mail.
 - **Telefon, e-mail sau WhatsApp:** datele pe care ni le dați în conversație.
-- **Date tehnice:** ca orice server, serverul care găzduiește site-ul înregistrează adresa IP, data și ora, pagina cerută și tipul de browser. Le folosim doar pentru securitate.
+- **Date tehnice:** ca orice server, serverul care găzduiește site-ul (GitHub Pages) înregistrează adresa IP, data și ora, pagina cerută și tipul de browser. Ele se folosesc doar pentru securitate.
 - **Statistici:** numărăm vizitele cu un instrument fără cookie-uri, care arată date agregate (pagini vizitate, țara, tipul de dispozitiv). Nu vă identifică și nu vă urmărește pe alte site-uri.
 
 Nu vă cerem date sensibile, cum ar fi CNP-ul sau date despre sănătate. Vă rugăm să nu ne trimiteți prin formulare documente cu datele altor persoane.
@@ -18,7 +18,7 @@ Nu vă cerem date sensibile, cum ar fi CNP-ul sau date despre sănătate. Vă ru
 ## De ce folosim datele și pe ce temei legal
 
 - **Ca să vă răspundem la cerere** și să stabilim, într-o discuție de principiu, dacă proiectul poate primi finanțare. Temeiul: demersurile făcute la cererea dumneavoastră, înainte de un eventual contract (art. 6 alin. (1) lit. b) din Regulamentul UE 2016/679, GDPR). Bifa din formular confirmă că ați citit această politică și că sunteți de acord să vă contactăm.
-- **Ca să vă trimitem fișa e-DRIVE** pe care ați cerut-o. Temeiul: cererea dumneavoastră (art. 6 alin. (1) lit. b) GDPR).
+- **Ca să vă dăm fișa e-DRIVE** pe care ați cerut-o și să vă putem anunța când apare versiunea ei actualizată, după publicarea Ghidului solicitantului. Temeiul: cererea dumneavoastră (art. 6 alin. (1) lit. b) GDPR).
 - **Ca să vă trimitem apelurile noi pe e-mail**, doar dacă ați bifat această opțiune. Temeiul: consimțământul dumneavoastră (art. 6 alin. (1) lit. a) GDPR), pe care îl puteți retrage oricând, din linkul de dezabonare din fiecare e-mail sau printr-un mesaj către noi.
 - **Ca să ne îndeplinim contractul de consultanță**, dacă lucrăm împreună (art. 6 alin. (1) lit. b) GDPR), și obligațiile legale, de exemplu cele contabile și de arhivare (art. 6 alin. (1) lit. c) GDPR).
 - **Pentru securitatea site-ului și statistici agregate.** Temeiul: interesul nostru legitim de a avea un site sigur și de a ști ce pagini sunt utile (art. 6 alin. (1) lit. f) GDPR).
@@ -28,9 +28,16 @@ Nu luăm decizii automate despre dumneavoastră, nu vă facem profil și nu vind
 ## Cui transmitem datele
 
 - **BCCCA** (Biroul de Consultanță Carmen Ciobanu și Asociații, din Drobeta-Turnu Severin), firma noastră soră, atunci când lucrăm împreună la proiectul dumneavoastră. BCCCA folosește datele doar pentru acel proiect și are aceleași obligații de confidențialitate ca noi.
-- **Furnizorii care ne ajută să funcționăm**, doar cât au nevoie pentru serviciul lor și pe bază de contract (art. 28 GDPR): găzduirea e-mailului (Hostinger), găzduirea site-ului, serviciul care ne trimite formularele pe e-mail, serviciul de newsletter și statisticile fără cookie-uri (Cloudflare Web Analytics).
+- **Găzduirea site-ului:** GitHub Pages (GitHub, Inc., SUA).
+- **Mesajele din formulare:** Web3Forms ni le transmite pe e-mail și le păstrează cel mult 30 de zile.
+- **E-mailul firmei și setările domeniului:** Hostinger.
+- **Statisticile fără cookie-uri:** Cloudflare Web Analytics (Cloudflare, Inc., SUA).
 - **Finanțatorii** (de exemplu ADR, AFIR, AFM sau ministerele), doar când depunem proiectul pentru dumneavoastră, ca parte a cererii de finanțare.
 - **Autoritățile publice**, doar când legea ne obligă.
+
+Furnizorii de mai sus folosesc datele doar cât au nevoie pentru serviciul lor, pe bază de contract (art. 28 GDPR).
+
+Deocamdată nu folosim un serviciu de newsletter: adresele celor care vor apelurile noi ajung în căsuța noastră de e-mail. Când vom folosi unul, îl trecem aici.
 
 Dacă ne scrieți pe WhatsApp, conversația trece prin serviciul WhatsApp (Meta), conform politicii acestuia.
 
@@ -43,7 +50,8 @@ Unii furnizori pot prelucra date și în afara Spațiului Economic European. În
 - **Cererile din formulare și mesajele care nu duc la un contract:** 12 luni de la ultimul contact. Apoi le ștergem.
 - **Abonații la apelurile noi:** până vă dezabonați.
 - **Clienții:** pe durata contractului, apoi cât cer legea contabilității și regulile programelor de finanțare, care pot impune păstrarea documentelor proiectului mai mulți ani după finalizare.
-- **Jurnalele serverului:** cât le păstrează furnizorul de găzduire, de regulă câteva săptămâni.
+- **Copiile mesajelor la Web3Forms:** cel mult 30 de zile.
+- **Jurnalele serverului:** cât le păstrează GitHub, pentru securitate.
 
 ## Drepturile dumneavoastră
 
