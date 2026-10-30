@@ -12,6 +12,19 @@
   var burger=$('#burger'),mnav=$('#mnav');
   if(burger&&mnav)burger.addEventListener('click',function(){mnav.hidden=!mnav.hidden;burger.setAttribute('aria-expanded',String(!mnav.hidden));});
 
+  /* termenele trecute: site-ul se reconstruiește în fiecare noapte, dar dacă reconstruirea nu rulează,
+     un apel cu termenul depășit apare oricum „Închis” și dispare de pe prima pagină (data din București) */
+  var TODAY=(function(){try{return new Intl.DateTimeFormat('en-CA',{timeZone:'Europe/Bucharest'}).format(new Date()).replace(/\D/g,'');}
+    catch(e){var d=new Date();return ''+d.getFullYear()+('0'+(d.getMonth()+1)).slice(-2)+('0'+d.getDate()).slice(-2);}})();
+  function past(k){return !!k&&k<TODAY;}
+  $$('[data-close]').forEach(function(x){
+    var k=x.dataset.close;if(!past(k))return;
+    if(x.matches('#featured .call, .pl-calls li')){x.parentNode.removeChild(x);return;}
+    $$('.bdg.b-deschis',x).forEach(function(b){b.className='bdg b-inchis';b.textContent=BL.inchis;});
+    $$('.js-when',x).forEach(function(w){w.textContent='închis la '+k.slice(6)+'.'+k.slice(4,6)+'.'+k.slice(0,4);});
+    $$('.js-st',x).forEach(function(s){s.textContent=BL.inchis;});
+  });
+
   /* prima pagină: banda cu apeluri deschise – săgeți, tastatură și tragere cu mouse-ul */
   var rail=$('#featured.rail');
   if(rail){
@@ -19,11 +32,13 @@
     var smooth=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth';
     function stepW(){var c=$('.call',rail);return c?c.getBoundingClientRect().width+GAP:300;}
     function upd(){var max=rail.scrollWidth-rail.clientWidth-2,n=rail.children.length,w=stepW();
+      $('.railnav').hidden=false;
+      if(!n){rcnt.textContent='Nu sunt apeluri deschise acum. Vedeți calendarul pentru cele care urmează.';rprev.hidden=rnext.hidden=true;return;}
       rprev.disabled=rail.scrollLeft<=2;rnext.disabled=rail.scrollLeft>=max;
       var first=Math.min(n,Math.round(rail.scrollLeft/w)+1),vis=Math.max(1,Math.floor((rail.clientWidth+GAP)/w));
       var last=Math.min(n,first+vis-1);
-      rcnt.textContent=(vis>=n?n:(last>first?first+'–'+last:first)+' din '+n)+(n===1?' apel deschis':' apeluri deschise');
-      $('.railnav').hidden=false;rprev.hidden=rnext.hidden=vis>=n;}
+      rcnt.textContent=(vis>=n?n:(last>first?first+'–'+last:first)+' din '+n)+(n===1?' apel selectat':' apeluri selectate');
+      rprev.hidden=rnext.hidden=vis>=n;}
     /* derulare lină; dacă browserul nu o pornește (de ex. filă în fundal), sare direct la cardul următor */
     function go(dir){var start=rail.scrollLeft;rail.scrollBy({left:dir*stepW(),behavior:smooth});
       setTimeout(function(){if(Math.abs(rail.scrollLeft-start)<2)rail.scrollBy({left:dir*stepW(),behavior:'auto'});},350);}
@@ -53,6 +68,9 @@
     function cur(id){var b=$('#'+id+' button[aria-pressed="true"]');return b?b.dataset.v:'all';}
     function setChip(id,v){$$('#'+id+' button').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.v===v));});}
     function dkey(d){return d?d.split('.').reverse().join(''):'99999999';}
+    calls.forEach(function(c){if(c.s!=='inchis'&&c.close&&past(dkey(c.close))){c.s='inchis';c.when='';}});
+    /* linkurile de tipul /apeluri/?solicitant=ong&stare=deschis deschid calendarul filtrat */
+    var qs=new URLSearchParams(location.search),preWho={firma:'F',ong:'O',uat:'A'}[qs.get('solicitant')],preSt=BL[qs.get('stare')]?qs.get('stare'):'';
     function nApel(n){var r=n%100;return n===1?'1 apel':n+((n>=20&&(r===0||r>=20))?' de apeluri':' apeluri');}
     function pageSize(){var v=cur('cf-n');return v==='all'?Infinity:+v;}
     /* căutarea ignoră diacriticele: „stocare”, „ștocare” și „STOCARE” găsesc același lucru */
@@ -78,20 +96,24 @@
       var from=size===Infinity?0:(cpage-1)*size,vis=list.slice(from,from+size);
       $('#ccount').textContent=(pages>1?'Afișăm '+(from+1)+'–'+(from+vis.length)+' din '+nApel(total):nApel(total))+(q.length?' pentru „'+qin.value.trim()+'”':'');
       renderPager(pages);
-      if(!list.length){crows.appendChild(el('div','empty',q.length?'Niciun apel nu se potrivește cu „'+qin.value.trim()+'”. Încercați alt cuvânt sau ștergeți căutarea.':'Niciun apel pentru filtrele alese. Schimbați solicitantul, programul sau starea.'));return;}
+      /* tabel accesibil: fiecare rând are rolul „row”, fiecare celulă rolul „cell” */
+      function cell(cls){var d=el('div',cls);d.setAttribute('role','cell');return d;}
+      if(!list.length){var er=el('div','empty');er.setAttribute('role','row');var ec=cell();ec.textContent=q.length?'Niciun apel nu se potrivește cu „'+qin.value.trim()+'”. Încercați alt cuvânt sau ștergeți căutarea.':'Niciun apel pentru filtrele alese. Schimbați solicitantul, programul sau starea.';er.appendChild(ec);crows.appendChild(er);return;}
       vis.forEach(function(c){
         var r=el('div','crow');r.setAttribute('role','row');
-        var c1=el('div');var t=el('div','t');t.appendChild(link(c,c.n));c1.appendChild(t);c1.appendChild(el('div','f',c.prog.join(' · ')));r.appendChild(c1);
-        var c2=el('div','w');c.w.forEach(function(x){c2.appendChild(el('span','tag',WHO[x]));});r.appendChild(c2);
-        var c3=el('div','d');c3.appendChild(badge(c.s));c3.appendChild(el('small',null,when(c)));r.appendChild(c3);
-        r.appendChild(el('div','s',c.sum));
-        var c5=el('div','x');c5.appendChild(link(c,'Fișa apelului'));r.appendChild(c5);
+        var c1=cell();var t=el('div','t');t.appendChild(link(c,c.n));c1.appendChild(t);c1.appendChild(el('div','f',c.prog.join(' · ')));r.appendChild(c1);
+        var c2=cell('w');c.w.forEach(function(x){c2.appendChild(el('span','tag',WHO[x]));});r.appendChild(c2);
+        var c3=cell('d');c3.appendChild(badge(c.s));c3.appendChild(el('small',null,when(c)));r.appendChild(c3);
+        var c4=cell('s');c4.textContent=c.sum;r.appendChild(c4);
+        var c5=cell('x');c5.appendChild(link(c,'Fișa apelului'));r.appendChild(c5);
         crows.appendChild(r);
       });
     }
     ['cf-who','cf-st','cf-n'].forEach(function(id){$$('#'+id+' button').forEach(function(b){b.addEventListener('click',function(){setChip(id,b.dataset.v);render();});});});
     psel.addEventListener('change',function(){render();});
     if(qin){qin.addEventListener('input',function(){render();});qin.addEventListener('keydown',function(e){if(e.key==='Escape'){qin.value='';render();}});}
+    if(preWho)setChip('cf-who',preWho);
+    if(preSt)setChip('cf-st',preSt);
     render();
   }
 
@@ -102,6 +124,9 @@
     var btn=$('button[type=submit]',form),old=btn.textContent;btn.disabled=true;btn.textContent='Se trimite…';
     var data={access_key:key,subject:subject,from_name:'Site BIG Solutions',botcheck:$('.hp',form).checked};
     for(var k in fields)if(fields[k])data[k]=fields[k];
+    /* de unde vine cererea: pagina formularului și pagina (sau site-ul, de ex. google.com) de pe care s-a ajuns la ea */
+    var from='';try{var u=new URL(document.referrer);from=u.host===location.host?u.pathname:u.host;}catch(e){}
+    data['Pagina']=location.pathname+(from&&from!==location.pathname?' (venit de la '+from+')':'');
     function end(ok){btn.disabled=false;btn.textContent=old;(ok?done:fail)();}
     fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(data)})
       .then(function(r){return r.json();}).then(function(j){end(!!(j&&j.success));}).catch(function(){end(false);});
@@ -183,7 +208,7 @@
     mf.addEventListener('submit',function(e){
       e.preventDefault();var v=$('#m-email').value.trim(),m=$('#m-msg');
       if(!/^\S+@\S+\.\S+$/.test(v)){m.textContent='Scrieți o adresă de e-mail validă, de exemplu nume@firma.ro.';return;}
-      send(mf,'Fișa e-DRIVE: '+v,{email:v,'Vrea apelurile noi pe e-mail':$('#m-news').checked?'Da':'Nu'},
+      send(mf,'Fișa e-DRIVE: '+v,{email:v},
         function(){m.textContent='Mulțumim! Fișa e gata:';$('#m-dl').hidden=false;},function(){m.textContent=SEND_ERR;});
     });
     $('#m-email').addEventListener('input',function(){$('#m-msg').textContent='';});

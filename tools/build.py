@@ -74,6 +74,10 @@ def when(c):
     if c['s'] == 'urmeaza': return ('se deschide la ' + c['open']) if c['open'] else 'dată neanunțată'
     return 'închis la ' + c['close']
 def dkey(d): return ''.join(reversed(d.split('.'))) if d else '99999999'
+def dc(c):
+    """Termenul unui apel deschis, pentru site.js: dacă trece și reconstruirea de noapte nu a rulat,
+    browserul îl arată oricum ca „Închis” (și îl scoate de pe prima pagină)."""
+    return ' data-close="%s"' % dkey(c['close']) if c['s'] == 'deschis' and c['close'] else ''
 RANK = {'deschis': 0, 'urmeaza': 1, 'consultare': 2, 'inchis': 3}
 def sort_calls(lst): return sorted(lst, key=lambda c: (RANK[c['s']], dkey(c['close'])))
 def n_apel(n, sg, pl):
@@ -90,6 +94,7 @@ def target(attrs):
     if go == 'apel': return '@/apeluri/%s/' % attrs['data-slug']
     if go == 'eligibilitate': return '@/verifica-eligibilitatea/' + (('?tip=' + attrs['data-preset']) if attrs.get('data-preset') else '')
     if go == 'despre': return '@/despre-noi/'
+    if go == 'proiecte': return '@/proiecte/'
     if go == 'contact': return '@/contact/'
     raise ValueError(go)
 def route_links(h):
@@ -131,8 +136,8 @@ def call_list(lst, empty):
     if not lst: return '<p class="empty">%s</p>' % esc(empty)
     out = []
     for c in lst:
-        out.append('<div class="cl"><div class="meta">%s<span>%s</span></div><a class="cl-t" href="@/apeluri/%s/">%s</a><span class="cl-m">%s · %s</span></div>'
-                   % (badge(c['s']), esc(when(c)), c['slug'], esc(c['n']), esc(c['prog'][-1]), esc(c['sum'])))
+        out.append('<div class="cl"%s><div class="meta">%s<span class="js-when">%s</span></div><a class="cl-t" href="@/apeluri/%s/">%s</a><span class="cl-m">%s · %s</span></div>'
+                   % (dc(c), badge(c['s']), esc(when(c)), c['slug'], esc(c['n']), esc(c['prog'][-1]), esc(c['sum'])))
     return ''.join(out)
 def by_slug(s): return next(c for c in calls if c['slug'] == s)
 
@@ -210,9 +215,12 @@ def build_home():
     shown = shown[:12]
     feat = ''
     for c in shown:
-        feat += ('<div class="call"><div class="meta">%s<span>%s</span></div><h4>%s</h4><span class="who">%s</span><span class="sum">%s</span>'
-                 '<a class="link" href="@%s">Pagina programului&nbsp;→</a></div>') % (badge(c['s']), esc(when(c)), esc(c['n']), esc(c['prog'][-1]), esc(c['sum']), prog_path(c['pg']))
+        feat += ('<div class="call"%s><div class="meta">%s<span>%s</span></div><h4>%s</h4><span class="who">%s</span><span class="sum">%s</span>'
+                 '<a class="link" href="@%s">Pagina programului&nbsp;→</a></div>') % (dc(c), badge(c['s']), esc(when(c)), esc(c['n']), esc(c['prog'][-1]), esc(c['sum']), prog_path(c['pg']))
     v = re.sub(r'(<div class="calls[^"]*" id="featured"[^>]*>)(</div>)', lambda m: m.group(1) + feat + m.group(2), v, count=1)
+    # banda arată o selecție; butonul spune câte apeluri deschise sunt în total, ca cifrele să nu se contrazică
+    n_all = sum(1 for c in calls if c['s'] == 'deschis')
+    v = v.replace('>Vedeți calendarul complet\u00a0→</a>', '>Toate cele %s\u00a0→</a>' % n_apel(n_all, 'apel deschis', 'apeluri deschise'), 1)
     # „Unde vă putem ajuta”: liste scurte de linkuri pe tip de solicitant, cu numărul de apeluri deschise
     groups = ''
     for f, title in [('F', 'Pentru firme'), ('O', 'Pentru ONG-uri'), ('A', 'Pentru autorități publice')]:
@@ -220,9 +228,18 @@ def build_home():
         for p in (p for p in programs if f in p['t']):
             mine = [c for c in calls if c['pg'] == p['n']]
             n_open = sum(1 for c in mine if c['s'] == 'deschis')
-            note = n_apel(n_open, 'apel deschis', 'apeluri deschise') if n_open else ('urmează' if any(c['s'] == 'urmeaza' for c in mine) else '')
-            items += '<li><a href="@%s"><span>%s</span>%s</a></li>' % (prog_path(p['n']), esc(p['n']), '<span class="pc%s">%s</span>' % (' on' if n_open else '', note) if note else '')
-        groups += '<div class="pl"><h3>%s</h3><ul>%s</ul></div>' % (title, items)
+            note = n_apel(n_open, 'apel deschis', 'apeluri deschise') if n_open else ('urmează' if any(c['s'] == 'urmeaza' for c in mine) else 'niciun apel acum')
+            items += '<li><a href="@%s"><span>%s</span><span class="pc%s">%s</span></a></li>' % (prog_path(p['n']), esc(p['n']), ' on' if n_open else '', note)
+        extra = ''
+        if f == 'O':
+            # ONG-urile au un singur program: dedesubt, apelurile deschise pentru ele, cu termenul
+            lst = sorted((c for c in calls if c['s'] == 'deschis' and 'O' in c['w']), key=lambda c: dkey(c['close']))
+            extra = ''.join('<li%s><a href="@/apeluri/%s/"><span>%s</span><span class="pc">%s</span></a></li>'
+                            % (dc(c), c['slug'], esc(c['n']), esc('până la ' + c['close'][:5] if c['close'] else when(c))) for c in lst[:5])
+            if extra:
+                more = '<a class="link pl-more" href="@/apeluri/?solicitant=ong&amp;stare=deschis">Toate cele %s pentru ONG-uri →</a>' % n_apel(len(lst), 'apel', 'apeluri') if len(lst) > 5 else ''
+                extra = '<p class="pl-sub">Apeluri deschise acum</p><ul class="pl-calls">%s</ul>%s' % (extra, more)
+        groups += '<div class="pl"><h3>%s</h3><ul>%s</ul>%s</div>' % (title, items, extra)
     v = v.replace('<div class="plinks" id="plinks"></div>', '<div class="plinks" id="plinks">%s</div>' % groups)
     s = seo['/']
     write_page('/', s['title'], s['description'], strip_mock(v))
@@ -271,9 +288,14 @@ def build_prog(name, track=None):
 # ---- fișa fiecărui apel
 def build_call(c):
     v = read('views/apel.html')
-    st = badge(c['s']) + '<span>%s</span><span>Actualizat la %s</span>' % (esc(when(c)), UPD)
-    facts = [[(c['open'] + ' – ' + c['close']) if c['open'] and c['close'] else when(c), 'perioada de depunere'], [c['sum'], 'buget'], [BL[c['s']], 'starea apelului'], [c['tip'], 'tipul apelului']] + (c.get('extra') or [])
-    fh = ''.join('<div><b>%s</b><span>%s</span></div>' % (esc(a), esc(b)) for a, b in facts)
+    st = badge(c['s']) + '<span class="js-when">%s</span><span>Actualizat la %s</span>' % (esc(when(c)), UPD)
+    # Tipul apelului are doar 3 variante (calls.json). Unde sursa nu-l spune, arătăm ce știm despre ghid, nu „conform ghidului”.
+    if c.get('tip'): tip = [[c['tip'], 'tipul apelului']]
+    elif c.get('ghid'): tip = [[c['ghid'], 'data ghidului solicitantului']]
+    elif c['s'] == 'urmeaza' and not c.get('extra') and 'ghid' not in when(c): tip = [['nepublicat încă', 'ghidul solicitantului']]
+    else: tip = []
+    facts = [[(c['open'] + ' – ' + c['close']) if c['open'] and c['close'] else when(c), 'perioada de depunere'], [c['sum'], 'buget'], [BL[c['s']], 'starea apelului']] + tip + (c.get('extra') or [])
+    fh = ''.join('<div><b%s>%s</b><span>%s</span></div>' % (' class="js-st"' if b == 'starea apelului' else '', esc(a), esc(b)) for a, b in facts)
     ben = ''.join('<span class="tag">%s</span>' % esc(x) for x in c['ben']) or '<span>Categoriile exacte sunt în ghidul oficial.</span>'
     if c.get('pg'):
         pgl = '<a class="link" href="@%s">Pagina programului: %s&nbsp;→</a>' % (prog_path(c['pg']), esc(c['pg']))
@@ -289,7 +311,7 @@ def build_call(c):
            '<div class="chipsx" id="ap-b"></div>': '<div class="chipsx" id="ap-b">%s</div>' % ben,
            '<p id="ap-p"></p>': '<p id="ap-p">%s</p>' % esc(' · '.join(c['prog'])),
            '<p id="ap-pg"></p>': '<p id="ap-pg">%s</p>' % pgl,
-           'id="ap-full"></p>': 'id="ap-full">%s</p>' % esc(c['full']),
+           'id="ap-full"></p>': 'id="ap-full">%s</p>' % (esc(c['full']) + ('<br><small>Cod: %s</small>' % esc(c['cod']) if c.get('cod') else '')),
            '<span id="ap-badge" style="justify-self:start"></span>': '<span id="ap-badge" style="justify-self:start">%s</span>' % badge(c['s']),
            '<dl id="ap-dl"></dl>': '<dl id="ap-dl">%s</dl>' % dl,
            'data-go="eligibilitate" id="ap-elig"': 'data-go="eligibilitate" data-preset="%s" id="ap-elig"' % PRE[c['w'][-1]],
@@ -304,20 +326,21 @@ def build_call(c):
         v = re.sub(r'\s*<a class="link" id="ap-off2"[^>]*></a>', '', v)
     title = '%s | BIG Solutions' % c['n']
     desc = c['rez'] if len(c['rez']) <= 160 else c['rez'][:157].rsplit(' ', 1)[0] + '…'
+    if dc(c): v = '<div class="cwrap"%s>%s</div>' % (dc(c), v)
     write_page('/apeluri/%s/' % c['slug'], title, desc, strip_mock(v))
 
 # ---- calendar, eligibilitate, despre, contact, pagini legale (în lucru), 404
 def build_rest():
     keep = ['n', 'prog', 'w', 's', 'open', 'close', 'when', 'sum', 'slug']
     def plain(t): return ''.join(ch for ch in unicodedata.normalize('NFD', t.lower()) if unicodedata.category(ch) != 'Mn')
-    rows = [dict({k: c.get(k) for k in keep}, q=plain(' '.join([c['n'], ' '.join(c['prog']), c.get('full', ''), c.get('rez', ''), ' '.join(c.get('ben') or [])]))) for c in calls]
+    rows = [dict({k: c.get(k) for k in keep}, q=plain(' '.join([c['n'], ' '.join(c['prog']), c.get('full', ''), c.get('cod', ''), c.get('rez', ''), ' '.join(c.get('ben') or [])]))) for c in calls]
     data_js = '<script>window.CALLS=%s;</script>\n' % json.dumps(rows, ensure_ascii=False, separators=(',', ':'))
     write_page('/apeluri/', 'Calendar apeluri de finanțare | BIG Solutions',
                'Apelurile deschise și cele care urmează din programele pe care lucrăm: cine poate aplica, termenul și bugetul. Actualizat săptămânal.',
                read('views/apeluri.html'), data_js)
     write_page('/verifica-eligibilitatea/', 'Verifică eligibilitatea | BIG Solutions',
                'În 4 pași aflați dacă proiectul dumneavoastră poate primi finanțare. Discuția de principiu e gratuită.', read('views/eligibilitate.html'))
-    for path, view in [('/despre-noi/', 'despre'), ('/contact/', 'contact')]:
+    for path, view in [('/despre-noi/', 'despre'), ('/contact/', 'contact'), ('/proiecte/', 'proiecte')]:
         v = read('views/%s.html' % view).replace('src="vladimir.jpg"', 'src="@/assets/img/vladimir-costache.jpg"')
         v = v.replace('<div class="st"><span class="bdg b-consultare">Text de aprobat</span><span>Scris în Etapa 5</span></div>\n', '')
         write_page(path, seo[path]['title'], seo[path]['description'], v)

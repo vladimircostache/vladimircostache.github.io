@@ -115,7 +115,7 @@ p{margin:0}
 .mnav{border-top:1px solid var(--line);padding:12px 18px 18px;display:grid;gap:4px;background:var(--white)}
 .mnav a{padding:10px 4px;text-decoration:none;font-weight:500;border-bottom:1px solid var(--peach)}
 .mnav .btn{margin-top:10px}
-@container site (max-width:1000px){.mainnav,.hdr .tel,.hdr .cta{display:none}.burger{display:inline-block}}
+@container site (max-width:1100px){.mainnav,.hdr .tel,.hdr .cta{display:none}.burger{display:inline-block}}
 @container site (min-width:1001px){.mnav{display:none!important}}
 @container site (max-width:760px){.logo svg{width:150px}.hdr .wrap{min-height:62px}}
 
@@ -173,6 +173,9 @@ p{margin:0}
 .pl a{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:11px 0;border-bottom:1px solid var(--line);text-decoration:none;color:var(--ink);font-weight:600}
 .pl a:hover span:first-child{color:var(--or-d);text-decoration:underline}
 .pl .pc{font-size:.8rem;font-weight:500;color:var(--mut);white-space:nowrap}.pl .pc.on{color:var(--ok)}
+.pl-sub{margin:18px 0 0;font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;font-weight:600;color:var(--mut)}
+.pl .pl-calls a{font-weight:500;padding:9px 0;font-size:.95rem}
+.pl .pl-more{display:inline-block;margin-top:10px;padding:0;border:0;font-size:.9rem;color:var(--or-d)}
 @container site (max-width:860px){.plinks{grid-template-columns:1fr;gap:16px}}
 .progs.one{grid-template-columns:1fr}.progs.two{grid-template-columns:repeat(2,minmax(0,1fr))}
 .facts2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
@@ -200,6 +203,7 @@ p{margin:0}
 .num span{font-size:.92rem}
 .num em{font-style:normal;font-size:.78rem;color:var(--mut)}
 .nums .cap{grid-column:1/-1;font-size:.82rem;color:var(--mut)}
+.nums>.link{grid-column:1/-1}
 @container site (max-width:860px){.why{grid-template-columns:1fr;gap:28px}}
 
 .team{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px;align-items:stretch}
@@ -294,7 +298,9 @@ p{margin:0}
 .nonneg li{border-left:0;padding:12px 14px;background:var(--peach);border-radius:10px}
 .check{list-style:none!important;padding:0!important}
 .check li{display:flex;gap:10px}
-.check li::before{content:"";flex:none;width:18px;height:18px;margin-top:3px;border:2px solid var(--or);border-radius:5px}
+/* avantajele și listele „ce se finanțează” au bife pline; căsuțele goale rămân doar la listele de bifat (Autoconsum) */
+.check li::before{content:"";flex:none;width:20px;height:20px;margin-top:2px;border-radius:50%;background:var(--or) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3.8 8.4l2.8 2.8 5.6-6.4' fill='none' stroke='%231F1B18' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/13px no-repeat}
+.check.prep-list li::before{width:18px;height:18px;margin-top:3px;border:2px solid var(--or);border-radius:5px;background:none}
 .howto{list-style:none;margin:0;padding:0;display:grid;gap:10px;counter-reset:h}
 .howto li{counter-increment:h;display:grid;grid-template-columns:36px 1fr;gap:12px;align-items:start}
 .howto li::before{content:counter(h);font-family:var(--disp);font-weight:800;background:var(--or);color:var(--ink);border-radius:50%;width:32px;height:32px;display:grid;place-items:center}
@@ -349,8 +355,23 @@ p{margin:0}
 .pager .gap{min-width:20px;text-align:center;color:var(--mut)}
 @container site (max-width:600px){.pager .lbl-t{display:none}.pager button{min-width:36px;height:36px;padding:0 8px}}
 .empty{padding:24px 18px;color:var(--mut)}
+.cwrap{display:contents}
+/* pagina Proiecte */
+.ptable-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:14px;background:var(--white)}
+.ptable{width:100%;min-width:560px;border-collapse:collapse;font-size:.93rem}
+.ptable th{text-align:left;font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;color:var(--mut);font-weight:600;padding:10px 14px;background:var(--peach)}
+.ptable td{padding:14px;border-top:1px solid var(--line);vertical-align:top;line-height:1.45}
+.ptable .val{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+.ptable small{display:block;color:var(--mut);font-size:.82rem}
+.ptable .grp th{background:none;color:var(--ink);text-transform:none;letter-spacing:0;font-size:.9rem;font-weight:700;padding:18px 14px 4px;border-top:1px solid var(--line)}
+.ptable tbody:first-of-type .grp th{border-top:0}
+.ptable .grp+tr td{border-top:0}
+.ptable .tot td{font-weight:700;background:var(--peach)}
+.photo-tbd{border:2px dashed var(--line);border-radius:14px;padding:40px 20px;text-align:center;color:var(--mut);background:var(--peach)}
+/* marcaj pentru datele care se confirmă, doar pe schițe */
+.tbd{background:#FFF1B8;color:var(--ink);padding:1px 6px;border-radius:4px;font-size:.85em;font-weight:600;outline:1px dashed #B38F00}
 @container site (max-width:860px){
-  .crow.head{display:none}
+  .crow.head{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
   .crow{grid-template-columns:minmax(0,1fr) auto;gap:8px 14px}
   .crow>div:nth-child(1){grid-column:1/-1}
   .crow .w{grid-column:1/-1}

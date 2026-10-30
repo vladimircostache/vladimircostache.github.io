@@ -62,5 +62,9 @@
   "/contact/": {
     "title": "Contact | BIG Solutions Management",
     "description": "Sunați, scrieți pe WhatsApp sau pe e-mail. Discuția de principiu e gratuită. Răspundem în 24 de ore lucrătoare."
+  },
+  "/proiecte/": {
+    "title": "Proiecte | BIG Solutions",
+    "description": "Proiectele echipei BIG: 5 în implementare, de 65,2 mil. lei, la UNSTPB și în Oltenia, și 7 proiecte fotovoltaice și de stocare depuse în 2026, de 37,5 mil. lei."
   }
 }
