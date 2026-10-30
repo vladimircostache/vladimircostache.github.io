@@ -202,15 +202,15 @@
       function(){cf.hidden=true;$('#c-done').hidden=false;},function(){ce.textContent=SEND_ERR;ce.hidden=false;});
   });
 
-  /* fișa e-DRIVE, de pe prima pagină */
-  var mf=$('#mform');
-  if(mf){
+  /* fișele gratuite (e-DRIVE pe prima pagină, fișa pentru primării pe paginile pentru autorități) */
+  $$('form.mform').forEach(function(mf){
+    var inp=$('input[type=email]',mf),m=$('.msg',mf),dl=$('.dl',mf),subj=mf.dataset.subject||'Fișă gratuită';
     mf.addEventListener('submit',function(e){
-      e.preventDefault();var v=$('#m-email').value.trim(),m=$('#m-msg');
+      e.preventDefault();var v=inp.value.trim();
       if(!/^\S+@\S+\.\S+$/.test(v)){m.textContent='Scrieți o adresă de e-mail validă, de exemplu nume@firma.ro.';return;}
-      send(mf,'Fișa e-DRIVE: '+v,{email:v},
-        function(){m.textContent='Mulțumim! Fișa e gata:';$('#m-dl').hidden=false;},function(){m.textContent=SEND_ERR;});
+      send(mf,subj+': '+v,{email:v},
+        function(){m.textContent='Mulțumim! Fișa e gata:';dl.hidden=false;},function(){m.textContent=SEND_ERR;});
     });
-    $('#m-email').addEventListener('input',function(){$('#m-msg').textContent='';});
-  }
+    inp.addEventListener('input',function(){m.textContent='';});
+  });
 })();

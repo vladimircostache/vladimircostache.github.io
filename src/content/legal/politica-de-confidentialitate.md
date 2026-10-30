@@ -8,7 +8,7 @@ Pentru orice întrebare despre datele personale ne scrieți la [vladimir.costach
 
 - **Formularul „Verifică eligibilitatea”:** tipul de solicitant, ce vreți să finanțați, județul, valoarea estimată a investiției, numele, telefonul și e-mailul. Opțional: CUI-ul și un mesaj.
 - **Formularul de contact:** numele, telefonul sau e-mailul și mesajul.
-- **Formularul pentru fișa e-DRIVE:** adresa de e-mail.
+- **Formularele pentru fișele gratuite (e-DRIVE și fișa pentru primării):** adresa de e-mail.
 - **Pagina de proveniență:** odată cu fiecare formular primim adresa paginii de pe care l-ați trimis și pagina sau site-ul de pe care ați ajuns la ea (de exemplu, google.com).
 - **Telefon, e-mail sau WhatsApp:** datele pe care ni le dați în conversație.
 - **Date tehnice:** ca orice server, serverul care găzduiește site-ul (GitHub Pages) înregistrează adresa IP, data și ora, pagina cerută și tipul de browser. Ele se folosesc doar pentru securitate.
@@ -19,7 +19,7 @@ Nu vă cerem date sensibile, cum ar fi CNP-ul sau date despre sănătate. Vă ru
 ## De ce folosim datele și pe ce temei legal
 
 - **Ca să vă răspundem la cerere** și să stabilim, într-o discuție de principiu, dacă proiectul poate primi finanțare. Temeiul: demersurile făcute la cererea dumneavoastră, înainte de un eventual contract (art. 6 alin. (1) lit. b) din Regulamentul UE 2016/679, GDPR). Bifa din formular confirmă că ați citit această politică și că sunteți de acord să vă contactăm.
-- **Ca să vă dăm fișa e-DRIVE** pe care ați cerut-o și să vă putem anunța când apare versiunea ei actualizată, după publicarea Ghidului solicitantului. Temeiul: cererea dumneavoastră (art. 6 alin. (1) lit. b) GDPR).
+- **Ca să vă dăm fișa gratuită** pe care ați cerut-o (e-DRIVE sau fișa pentru primării) și să vă putem anunța când apare versiunea ei actualizată. Temeiul: cererea dumneavoastră (art. 6 alin. (1) lit. b) GDPR).
 - **Ca să ne îndeplinim contractul de consultanță**, dacă lucrăm împreună (art. 6 alin. (1) lit. b) GDPR), și obligațiile legale, de exemplu cele contabile și de arhivare (art. 6 alin. (1) lit. c) GDPR).
 - **Pentru securitatea site-ului și statistici agregate.** Temeiul: interesul nostru legitim de a avea un site sigur și de a ști ce pagini sunt utile (art. 6 alin. (1) lit. f) GDPR).
 

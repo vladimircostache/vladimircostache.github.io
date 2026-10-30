@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<title>Cum pregătește o primărie un proiect de energie – BIG Solutions Management</title>
+<style>
+@font-face{font-family:'Bricolage Grotesque';font-weight:700 800;src:url(../src/assets/fonts/bricolage-grotesque-latin.woff2) format('woff2');unicode-range:U+0000-00FF,U+2000-206F,U+20AC,U+2212}
+@font-face{font-family:'Bricolage Grotesque';font-weight:700 800;src:url(../src/assets/fonts/bricolage-grotesque-latin-ext.woff2) format('woff2');unicode-range:U+0100-02FF}
+@font-face{font-family:'Hanken Grotesk';font-weight:400 700;src:url(../src/assets/fonts/hanken-grotesk-latin.woff2) format('woff2');unicode-range:U+0000-00FF,U+2000-206F,U+20AC,U+2212}
+@font-face{font-family:'Hanken Grotesk';font-weight:400 700;src:url(../src/assets/fonts/hanken-grotesk-latin-ext.woff2) format('woff2');unicode-range:U+0100-02FF}
+:root{--or:#F28C28;--or-d:#B4500C;--ink:#1F1B18;--mut:#6B625B;--line:#F1DCC8;--peach:#FFF4EA;
+  --disp:"Bricolage Grotesque",Arial,sans-serif;--body:"Hanken Grotesk",Arial,sans-serif}
+@page{size:A4;margin:0}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{font-family:var(--body);color:var(--ink);font-size:9.6pt;line-height:1.45;-webkit-print-color-adjust:exact;print-color-adjust:exact;font-variant-numeric:tabular-nums}
+.page{width:210mm;height:297mm;position:relative;overflow:hidden;page-break-after:always;display:flex;flex-direction:column}
+.page:last-child{page-break-after:auto}
+h1,h2,h3{font-family:var(--disp);font-weight:800;margin:0;line-height:1.08;letter-spacing:-.01em}
+a{color:inherit;text-decoration:none}
+.in{padding:0 16mm}
+
+/* pagina 1 – zona de sus */
+.topbar{display:flex;justify-content:space-between;align-items:center;padding:8mm 16mm 5mm}
+.topbar svg{width:44mm;height:auto;display:block}
+.top{background:var(--or);padding:8mm 16mm 7mm}
+.tag{font-weight:700;font-size:8pt;letter-spacing:.12em;text-transform:uppercase;background:var(--ink);color:#fff;border-radius:4px;padding:1.6mm 2.6mm}
+.eyebrow{margin-top:0;font-weight:700;font-size:8pt;letter-spacing:.14em;text-transform:uppercase}
+h1{font-size:27pt;margin-top:2.5mm;max-width:150mm}
+.lead{margin:3.5mm 0 0;font-size:11pt;line-height:1.45;max-width:160mm;color:#3A2A1C}
+.status{margin-top:4mm;display:inline-flex;gap:2.5mm;align-items:center;background:rgba(255,255,255,.55);border-radius:6px;padding:2mm 3.2mm;font-size:9pt;font-weight:600}
+.status b{background:var(--ink);color:#fff;border-radius:3px;padding:.4mm 1.8mm;font-size:7.6pt;letter-spacing:.06em;text-transform:uppercase}
+
+/* cifre */
+.nums{display:grid;grid-template-columns:repeat(4,1fr);gap:3mm;margin-top:6mm}
+.num{background:var(--peach);border-radius:6px;padding:3.2mm 3.4mm}
+.num b{display:block;font-family:var(--disp);font-weight:800;font-size:17pt;line-height:1.05;color:var(--or-d)}
+.num span{display:block;margin-top:1.4mm;font-size:8.4pt;line-height:1.35}
+
+h2{font-size:14pt;margin-top:5.5mm}
+h2 small{font-family:var(--body);font-weight:600;font-size:9pt;color:var(--mut);margin-left:2mm;letter-spacing:0}
+
+/* tabel măsuri */
+table{width:100%;border-collapse:collapse;margin-top:3mm;font-size:9pt}
+th,td{text-align:left;vertical-align:top;padding:1.7mm 2.6mm;border-bottom:.3mm solid var(--line)}
+thead th{font-family:var(--disp);font-weight:800;font-size:10.5pt;border-bottom:.6mm solid var(--ink);padding-top:0}
+thead th span{display:block;font-family:var(--body);font-weight:600;font-size:8.4pt;color:var(--or-d);margin-top:.6mm}
+tbody th{font-weight:700;width:28mm;color:var(--mut);font-size:8.6pt}
+td{width:calc((100% - 28mm)/2)}
+
+/* exemplu */
+.ex{display:grid;grid-template-columns:1fr 62mm;gap:5mm;margin-top:3mm;align-items:stretch}
+.ex p{margin:0}
+.ex .calc{background:var(--ink);color:#fff;border-radius:6px;padding:3.6mm 4mm}
+.calc dl{margin:0;display:grid;grid-template-columns:1fr auto;row-gap:1.2mm;font-size:9pt}
+.calc dt{color:#D9CFC6}.calc dd{margin:0;text-align:right;font-weight:600}
+.calc .tot{margin-top:2.6mm;padding-top:2.4mm;border-top:.3mm solid #4A433D;display:flex;justify-content:space-between;align-items:baseline}
+.calc .tot b{font-family:var(--disp);font-size:18pt;color:var(--or)}
+.note{font-size:8.2pt;color:var(--mut);margin-top:2mm}
+
+/* subsol */
+.foot{margin-top:auto;padding:3mm 16mm 8mm;font-size:7.6pt;color:var(--mut);display:flex;justify-content:space-between;gap:8mm;align-items:flex-end}
+.foot p{margin:0;max-width:150mm}
+.foot .pg{font-weight:700;color:var(--ink);white-space:nowrap}
+
+/* pagina 2 */
+.top2{display:flex;justify-content:space-between;align-items:center;padding:8mm 16mm 0}
+.top2 svg{width:34mm;height:auto;display:block}
+.top2 span{font-size:8pt;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--mut)}
+.page2 h2{margin-top:5mm}.page2 h2:first-of-type{margin-top:5mm}
+.sel{display:grid;grid-template-columns:1fr 1fr;gap:4mm;margin-top:3mm}
+.card{border:.35mm solid var(--line);border-radius:6px;padding:3mm 3.6mm}
+.card h3{font-size:10.5pt}
+.card h3 span{font-family:var(--body);font-weight:600;font-size:8.4pt;color:var(--or-d);margin-left:1.5mm}
+.pts{list-style:none;margin:1.6mm 0 0;padding:0}
+.pts li{display:grid;grid-template-columns:12mm 1fr;gap:2mm;padding:.7mm 0;font-size:9pt;border-bottom:.25mm dashed var(--line);align-items:baseline}
+.pts li:last-child{border-bottom:0}
+.pts b{font-family:var(--disp);font-weight:800;font-size:11pt;color:var(--or-d)}
+.card p{margin:2mm 0 0;font-size:8.6pt}
+.rules{display:grid;grid-template-columns:repeat(3,1fr);gap:2.5mm;margin-top:2.6mm}
+.rule{background:var(--peach);border-radius:6px;padding:2.2mm 3mm;font-size:8.4pt;line-height:1.33}
+.rule b{display:block;font-size:9pt;margin-bottom:.6mm}
+.prep{display:grid;grid-template-columns:1fr 1fr;gap:5mm;margin-top:2.4mm}
+.prep h3{font-size:10pt;margin-bottom:1mm}
+.chk{list-style:none;margin:0;padding:0}
+.chk li{position:relative;padding:.55mm 0 .55mm 6mm;font-size:8.8pt;line-height:1.33}
+.chk li::before{content:"";position:absolute;left:0;top:1.2mm;width:3mm;height:3mm;border:.4mm solid var(--or-d);border-radius:.8mm}
+.warn{margin-top:2mm;font-size:8.6pt;font-weight:600;border-left:1mm solid var(--or);padding:1.2mm 0 1.2mm 3mm}
+.dates{display:grid;grid-template-columns:repeat(3,1fr);gap:3mm;margin-top:2.4mm}
+.date{border-top:.6mm solid var(--ink);padding-top:1.4mm;font-size:8.4pt;line-height:1.3}
+.date b{display:block;font-family:var(--disp);font-weight:800;font-size:11pt;margin-bottom:.3mm}
+.cta{margin:5mm 16mm 0;background:var(--or);border-radius:8px;padding:4.4mm 6mm;display:grid;grid-template-columns:1fr auto;gap:6mm;align-items:center}
+.cta h2{margin:0;font-size:13pt}
+.cta p{margin:1.8mm 0 0;font-size:9.4pt;color:#3A2A1C}
+.cta .ct{font-size:9.6pt;font-weight:700;line-height:1.7;text-align:right;white-space:nowrap}
+.cta .ct a{display:block}
+
+/* elemente comune fișelor pentru autorități */
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:6mm;margin-top:2.6mm}
+.cols h3{font-size:10.5pt;margin-bottom:1.2mm}
+.tick{list-style:none;margin:0;padding:0}
+.tick li{position:relative;padding:.6mm 0 .6mm 5mm;font-size:9pt;line-height:1.35}
+.tick li::before{content:"";position:absolute;left:0;top:1.9mm;width:2.4mm;height:2.4mm;border-radius:50%;background:var(--or)}
+.steps{counter-reset:s;list-style:none;margin:2.6mm 0 0;padding:0;display:grid;gap:1.8mm}
+.steps li{counter-increment:s;display:grid;grid-template-columns:7mm 1fr;gap:2.4mm;font-size:9.2pt;line-height:1.38;align-items:start}
+.steps li::before{content:counter(s);font-family:var(--disp);font-weight:800;background:var(--or);border-radius:50%;width:6.4mm;height:6.4mm;display:grid;place-items:center;font-size:9.5pt}
+.refs{font-size:8.2pt;margin-top:2.4mm}
+.refs th,.refs td{padding:1.05mm 2mm;width:auto}
+.refs thead th{font-family:var(--body);font-weight:700;font-size:7.6pt;letter-spacing:.08em;text-transform:uppercase;color:var(--mut);border-bottom:.4mm solid var(--ink)}
+.refs .g td{background:var(--peach);font-weight:700;font-size:8.4pt;padding-top:1.5mm}
+.refs .v{text-align:right;white-space:nowrap;font-weight:700}
+.refs .t td{font-weight:700;border-bottom:0}
+.txt{margin:2.4mm 0 0;font-size:9.2pt;line-height:1.45}
+.prog{font-size:8.6pt}
+.prog td,.prog th{padding:1.3mm 2.2mm;width:auto}
+.prog thead th{font-family:var(--body);font-weight:700;font-size:7.6pt;letter-spacing:.08em;text-transform:uppercase;color:var(--mut);border-bottom:.4mm solid var(--ink)}
+.prog .d{white-space:nowrap;font-weight:700;text-align:right}
+</style>
+</head>
+<body>
+
+<section class="page">
+  <div class="topbar">{{LOGO}}<span class="tag">Fișă gratuită</span></div>
+  <div class="top">
+    <div class="eyebrow">Pentru primării, consilii județene și instituțiile din subordinea lor</div>
+    <h1>Cum pregătește o primărie un proiect de energie</h1>
+    <p class="lead">Fotovoltaice cu stocare, eficiența energetică a clădirilor, iluminat public: pașii, documentele și hotărârile de care aveți nevoie, oricare ar fi apelul.</p>
+    <div class="status"><b>Situația la 30.10.2026</b>Programele deschise acum sunt pe pagina 2. Calendarul actualizat: bigsolutions.ro/apeluri</div>
+  </div>
+
+  <div class="in">
+    <h2>Pașii, în ordine</h2>
+    <ol class="steps">
+      <li><span><b>Faceți inventarul.</b> Clădirile și terenurile, cu actele lor, consumul de energie din facturi și starea tehnică a fiecărei clădiri.</span></li>
+      <li><span><b>Alegeți programul potrivit.</b> Autoconsumul se potrivește unui consum mare, ziua. Eficiența energetică cere o clădire de renovat. Iluminatul public cere o rețea de modernizat.</span></li>
+      <li><span><b>Achiziționați consultanța și proiectarea, separat.</b> Consultantul scrie cererea și se ocupă de implementare. Proiectantul acreditat întocmește documentația tehnică.</span></li>
+      <li><span><b>Pregătiți documentația tehnică.</b> Studiul de fezabilitate sau DALI, auditul energetic și, unde e cazul, expertiza tehnică și avizul de racordare.</span></li>
+      <li><span><b>Aprobați proiectul prin hotărâre de consiliu (HCL),</b> cu indicatorii, valoarea și sumele din bugetul local.</span></li>
+      <li><span><b>Depuneți la timp.</b> La apelurile „primul venit, primul evaluat”, un dosar complet din prima zi contează. Un proiect respins pentru documente lipsă își pierde locul.</span></li>
+    </ol>
+
+    <h2>Documentele de bază</h2>
+    <div class="prep">
+      <div>
+        <h3>Pentru orice proiect</h3>
+        <ul class="chk">
+          <li>Actele de proprietate sau de administrare și extrasul de carte funciară</li>
+          <li>Certificatul de urbanism și planul de amplasament</li>
+          <li>Actul de mediu sau dovada că l-ați solicitat</li>
+          <li>Hotărârea consiliului local de aprobare a proiectului</li>
+          <li>Suma din bugetul local pentru contribuția proprie și pentru cheltuielile neeligibile</li>
+        </ul>
+      </div>
+      <div>
+        <h3>În plus, după tipul proiectului</h3>
+        <ul class="chk">
+          <li>Autoconsum: facturile la energie electrică pe 12 luni consecutive</li>
+          <li>Autoconsum: avizul tehnic de racordare; la unele apeluri poate veni și după depunere</li>
+          <li>Eficiență energetică: facturile de energie din ultimii 3 ani</li>
+          <li>Eficiență energetică: auditul energetic sau certificatul de performanță energetică</li>
+          <li>Expertiza tehnică, dacă clădirea are probleme structurale</li>
+        </ul>
+      </div>
+    </div>
+    <p class="warn">Lista exactă diferă de la un apel la altul și se confirmă prin Ghidul solicitantului. Documentele de mai sus se pot pregăti însă înainte de lansarea apelului.</p>
+  </div>
+
+  <div class="foot"><p>Material informativ, sub rezerva Ghidului solicitantului fiecărui apel. Surse: ghidurile apelurilor pentru autorități publice din Fondul pentru modernizare, Programele Regionale și Programul Dezvoltare Durabilă și Tranziție Justă; oportunitati-ue.gov.ro.</p><span class="pg">1 / 2</span></div>
+</section>
+
+<section class="page page2">
+  <div class="top2">{{LOGO}}<span>Fișă gratuită pentru primării</span></div>
+  <div class="in">
+    <h2>Hotărârea consiliului local: ce cuprinde</h2>
+    <div class="cols">
+      <ul class="tick">
+        <li>aprobarea proiectului și a depunerii cererii de finanțare</li>
+        <li>aprobarea documentației tehnico-economice și a indicatorilor: valoarea totală și cea eligibilă</li>
+        <li>aprobarea contribuției proprii și a cheltuielilor neeligibile, din bugetul local</li>
+      </ul>
+      <ul class="tick">
+        <li>angajamentul de a asigura banii pentru implementare, până la rambursare, și pentru întreținere, pe durata de durabilitate</li>
+        <li>persoana împuternicită să semneze documentele proiectului</li>
+      </ul>
+    </div>
+    <p class="warn">Titlul proiectului și valorile trebuie să fie identice în HCL, în studiul de fezabilitate și în cererea de finanțare. O diferență duce la clarificări sau la respingere.</p>
+
+    <h2>Achiziția consultanței</h2>
+    <p class="txt">Consultanța pentru fonduri se achiziționează, de regulă, cu codul CPV 79411000-8 „Servicii generale de consultanță în management”. Dacă valoarea estimată e sub pragul pentru achiziția directă de servicii (Legea nr. 98/2016, art. 7 alin. (5)), o puteți cumpăra direct din catalogul electronic SEAP. Proiectarea se achiziționează separat. La unele programe, consultanța e cheltuială eligibilă: la Fondul pentru modernizare, autoconsum, până la 20.000&nbsp;€ fără TVA.</p>
+
+    <h2>Programe pentru primării <small>situația la 30.10.2026</small></h2>
+    <table class="prog">
+      <thead><tr><th>Program</th><th>Ce finanțează</th><th class="d">Termen</th></tr></thead>
+      <tbody>
+        <tr><td>Fondul pentru modernizare · Fotovoltaice cu stocare</td><td>panouri fotovoltaice cu baterii, pentru autoconsum, până la 100%</td><td class="d">20.11.2026</td></tr>
+        <tr><td>Fondul pentru modernizare · Stocare</td><td>baterii pentru instalațiile regenerabile existente, până la 100%</td><td class="d">20.11.2026</td></tr>
+        <tr><td>PR Nord-Est · clădiri rezidențiale</td><td>renovarea energetică a blocurilor din orașe, prin autoritățile locale</td><td class="d">16.11.2026</td></tr>
+        <tr><td>PR Sud-Est · acțiunea 2.1.B (ELENA)</td><td>renovarea energetică a clădirilor publice din proiectul ELENA</td><td class="d">30.12.2026</td></tr>
+        <tr><td>PDDTJ · blocuri multifamiliale</td><td>renovarea blocurilor, în Dolj, Galați, Gorj, Hunedoara, Mureș și Prahova</td><td class="d">03.02.2027</td></tr>
+        <tr><td>PR Sud Muntenia · Facilitatea ELENA</td><td>renovarea clădirilor publice cu documentația pregătită prin ELENA</td><td class="d">21.05.2027</td></tr>
+        <tr><td>PDDTJ · acțiunea 4.6</td><td>eficiența energetică a clădirilor publice</td><td class="d">estimat: dec. 2026 – iun. 2027</td></tr>
+      </tbody>
+    </table>
+    <p class="note">Termenele se pot schimba, iar unele apeluri se închid mai devreme, când se termină bugetul. Calendarul complet, actualizat săptămânal: bigsolutions.ro/apeluri</p>
+  </div>
+
+  <div class="cta">
+    <div>
+      <h2>Vă spunem ce program se potrivește clădirilor dumneavoastră</h2>
+      <p>Trimiteți-ne lista clădirilor (destinație, suprafață, anul construcției) și facturile la energie. Discuția de principiu e gratuită.</p>
+    </div>
+    <div class="ct"><a href="tel:+40742225222">0742 225 222</a><a href="mailto:vladimir.costache@bigsolutions.ro">vladimir.costache@bigsolutions.ro</a><a href="https://bigsolutions.ro">bigsolutions.ro</a></div>
+  </div>
+
+  <div class="foot"><p>BIG Solutions Management SRL este firmă de consultanță, nu autoritate de finanțare, și nu garantează obținerea finanțării. Suntem în catalogul SEAP, cu codul CPV 79411000-8.</p><span class="pg">2 / 2</span></div>
+</section>
+
+</body>
+</html>

@@ -46,6 +46,17 @@ LEGAL_DESC = {
     'Politica de cookies': 'Site-ul nu folosește cookie-uri de reclamă, de urmărire sau de statistică. Ce folosim în schimb și cum controlați cookie-urile.',
     'Termeni și condiții': 'Condițiile de folosire a site-ului: informațiile despre programe, verificarea eligibilității, drepturile de autor și litigiile.'}
 
+# Fișa gratuită pentru primării: formularul apare pe paginile pentru autorități (trimiterea e în site.js, ca la e-DRIVE).
+MAGNET_PRIMARII = ('<section class="magnet sm" id="fisa-primarii"><div><span class="lbl">Fișă gratuită pentru primării</span>'
+    '<h2 style="margin-top:6px">Cum pregătește o primărie un proiect de energie</h2>'
+    '<p>Pe 2 pagini: pașii în ordine, documentele de bază, ce cuprinde hotărârea consiliului local, cum se achiziționează consultanța și programele deschise acum.</p></div>'
+    '<form class="mform" data-subject="Fișa pentru primării" novalidate><input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">'
+    '<label for="p-email" style="font-weight:600">Adresa de e-mail</label><input type="email" id="p-email" placeholder="nume@primaria.ro" autocomplete="email">'
+    '<button class="btn or" type="submit">Trimite-mi fișa</button>'
+    '<small class="note">Folosim adresa doar ca să vă anunțăm când apare fișa actualizată. Detalii în <a href="@/politica-de-confidentialitate/" target="_blank" rel="noopener">Politica de confidențialitate</a>.</small>'
+    '<span class="msg" aria-live="polite"></span>'
+    '<a class="dl" href="@/assets/fise/primarii-energie.pdf" download hidden>Descarcă fișa pentru primării (PDF, 2 pagini)</a></form></section>')
+
 def esc(s): return html.escape(s or '', quote=True)
 def md(t):
     """Markdown simplu pentru paginile legale: ## titluri, liste cu „- ”, **îngroșat**, [text](adresă)."""
@@ -252,6 +263,9 @@ def build_autoconsum():
     v = read('views/program.html')
     lst = sort_calls([c for c in calls if c['pg'] == 'Autoconsum și stocare' and c['s'] != 'inchis'])
     v = v.replace('<div class="cls" id="pr-calls"></div>', '<div class="cls" id="pr-calls">%s</div>' % call_list(lst, 'Nu sunt apeluri deschise acum.'))
+    a = '<section>\n            <h2>Apelurile deschise acum</h2>'
+    assert a in v
+    v = v.replace(a, MAGNET_PRIMARII + a, 1)
     s = seo['/programe/autoconsum-si-stocare/']
     write_page('/programe/autoconsum-si-stocare/', s['title'], s['description'], strip_mock(v))
 
@@ -281,6 +295,7 @@ def build_prog(name, track=None):
     v = re.sub(r'\s*<p class="mocknote" id="pg-note"></p>', '', v)
     v = re.sub(r'\s*<section style="display:grid;gap:12px" id="pg-osec">.*?</section>', '', v, flags=re.S)
     body = pg['h'].replace('class="btn ink prep-elig" href="#eligibilitate" data-go="eligibilitate"', 'class="btn ink prep-elig" href="#eligibilitate" data-go="eligibilitate" data-preset="%s"' % preset)
+    if name in ('Autorități publice', 'Eficiență energetică pentru clădiri publice'): body += MAGNET_PRIMARII
     v = v.replace('<div class="pmain" id="pg-full" hidden></div>', '<div class="pmain" id="pg-full">%s</div>' % body)
     v = v.replace('id="pg-ch">Apelurile deschise și cele care urmează<', 'id="pg-ch">%s<' % heading)
     v = v.replace('<div class="cls" id="pg-calls"></div>', '<div class="cls" id="pg-calls">%s</div>' % call_list(lst, 'Nu sunt apeluri deschise acum. Când apare unul, îl vedeți aici și în calendar.'))
@@ -364,7 +379,7 @@ def main():
     if DIST.exists(): shutil.rmtree(DIST)
     shutil.copytree(SRC / 'assets', DIST / 'assets')
     (DIST / 'assets' / 'fise').mkdir(exist_ok=True)
-    shutil.copy(ROOT / 'fise' / 'e-drive.pdf', DIST / 'assets' / 'fise' / 'e-drive.pdf')
+    for pdf in (ROOT / 'fise').glob('*.pdf'): shutil.copy(pdf, DIST / 'assets' / 'fise' / pdf.name)
     build_home(); build_autoconsum()
     for p in programs:
         if p['n'] != 'Autoconsum și stocare': build_prog(p['n'])

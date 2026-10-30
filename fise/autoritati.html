@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<title>BIG Solutions Management pentru autorități publice</title>
+<style>
+@font-face{font-family:'Bricolage Grotesque';font-weight:700 800;src:url(../src/assets/fonts/bricolage-grotesque-latin.woff2) format('woff2');unicode-range:U+0000-00FF,U+2000-206F,U+20AC,U+2212}
+@font-face{font-family:'Bricolage Grotesque';font-weight:700 800;src:url(../src/assets/fonts/bricolage-grotesque-latin-ext.woff2) format('woff2');unicode-range:U+0100-02FF}
+@font-face{font-family:'Hanken Grotesk';font-weight:400 700;src:url(../src/assets/fonts/hanken-grotesk-latin.woff2) format('woff2');unicode-range:U+0000-00FF,U+2000-206F,U+20AC,U+2212}
+@font-face{font-family:'Hanken Grotesk';font-weight:400 700;src:url(../src/assets/fonts/hanken-grotesk-latin-ext.woff2) format('woff2');unicode-range:U+0100-02FF}
+:root{--or:#F28C28;--or-d:#B4500C;--ink:#1F1B18;--mut:#6B625B;--line:#F1DCC8;--peach:#FFF4EA;
+  --disp:"Bricolage Grotesque",Arial,sans-serif;--body:"Hanken Grotesk",Arial,sans-serif}
+@page{size:A4;margin:0}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{font-family:var(--body);color:var(--ink);font-size:9.6pt;line-height:1.45;-webkit-print-color-adjust:exact;print-color-adjust:exact;font-variant-numeric:tabular-nums}
+.page{width:210mm;height:297mm;position:relative;overflow:hidden;page-break-after:always;display:flex;flex-direction:column}
+.page:last-child{page-break-after:auto}
+h1,h2,h3{font-family:var(--disp);font-weight:800;margin:0;line-height:1.08;letter-spacing:-.01em}
+a{color:inherit;text-decoration:none}
+.in{padding:0 16mm}
+
+/* pagina 1 – zona de sus */
+.topbar{display:flex;justify-content:space-between;align-items:center;padding:8mm 16mm 5mm}
+.topbar svg{width:44mm;height:auto;display:block}
+.top{background:var(--or);padding:8mm 16mm 7mm}
+.tag{font-weight:700;font-size:8pt;letter-spacing:.12em;text-transform:uppercase;background:var(--ink);color:#fff;border-radius:4px;padding:1.6mm 2.6mm}
+.eyebrow{margin-top:0;font-weight:700;font-size:8pt;letter-spacing:.14em;text-transform:uppercase}
+h1{font-size:27pt;margin-top:2.5mm;max-width:150mm}
+.lead{margin:3.5mm 0 0;font-size:11pt;line-height:1.45;max-width:160mm;color:#3A2A1C}
+.status{margin-top:4mm;display:inline-flex;gap:2.5mm;align-items:center;background:rgba(255,255,255,.55);border-radius:6px;padding:2mm 3.2mm;font-size:9pt;font-weight:600}
+.status b{background:var(--ink);color:#fff;border-radius:3px;padding:.4mm 1.8mm;font-size:7.6pt;letter-spacing:.06em;text-transform:uppercase}
+
+/* cifre */
+.nums{display:grid;grid-template-columns:repeat(4,1fr);gap:3mm;margin-top:6mm}
+.num{background:var(--peach);border-radius:6px;padding:3.2mm 3.4mm}
+.num b{display:block;font-family:var(--disp);font-weight:800;font-size:17pt;line-height:1.05;color:var(--or-d)}
+.num span{display:block;margin-top:1.4mm;font-size:8.4pt;line-height:1.35}
+
+h2{font-size:14pt;margin-top:5.5mm}
+h2 small{font-family:var(--body);font-weight:600;font-size:9pt;color:var(--mut);margin-left:2mm;letter-spacing:0}
+
+/* tabel măsuri */
+table{width:100%;border-collapse:collapse;margin-top:3mm;font-size:9pt}
+th,td{text-align:left;vertical-align:top;padding:1.7mm 2.6mm;border-bottom:.3mm solid var(--line)}
+thead th{font-family:var(--disp);font-weight:800;font-size:10.5pt;border-bottom:.6mm solid var(--ink);padding-top:0}
+thead th span{display:block;font-family:var(--body);font-weight:600;font-size:8.4pt;color:var(--or-d);margin-top:.6mm}
+tbody th{font-weight:700;width:28mm;color:var(--mut);font-size:8.6pt}
+td{width:calc((100% - 28mm)/2)}
+
+/* exemplu */
+.ex{display:grid;grid-template-columns:1fr 62mm;gap:5mm;margin-top:3mm;align-items:stretch}
+.ex p{margin:0}
+.ex .calc{background:var(--ink);color:#fff;border-radius:6px;padding:3.6mm 4mm}
+.calc dl{margin:0;display:grid;grid-template-columns:1fr auto;row-gap:1.2mm;font-size:9pt}
+.calc dt{color:#D9CFC6}.calc dd{margin:0;text-align:right;font-weight:600}
+.calc .tot{margin-top:2.6mm;padding-top:2.4mm;border-top:.3mm solid #4A433D;display:flex;justify-content:space-between;align-items:baseline}
+.calc .tot b{font-family:var(--disp);font-size:18pt;color:var(--or)}
+.note{font-size:8.2pt;color:var(--mut);margin-top:2mm}
+
+/* subsol */
+.foot{margin-top:auto;padding:3mm 16mm 8mm;font-size:7.6pt;color:var(--mut);display:flex;justify-content:space-between;gap:8mm;align-items:flex-end}
+.foot p{margin:0;max-width:150mm}
+.foot .pg{font-weight:700;color:var(--ink);white-space:nowrap}
+
+/* pagina 2 */
+.top2{display:flex;justify-content:space-between;align-items:center;padding:8mm 16mm 0}
+.top2 svg{width:34mm;height:auto;display:block}
+.top2 span{font-size:8pt;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--mut)}
+.page2 h2{margin-top:5mm}.page2 h2:first-of-type{margin-top:5mm}
+.sel{display:grid;grid-template-columns:1fr 1fr;gap:4mm;margin-top:3mm}
+.card{border:.35mm solid var(--line);border-radius:6px;padding:3mm 3.6mm}
+.card h3{font-size:10.5pt}
+.card h3 span{font-family:var(--body);font-weight:600;font-size:8.4pt;color:var(--or-d);margin-left:1.5mm}
+.pts{list-style:none;margin:1.6mm 0 0;padding:0}
+.pts li{display:grid;grid-template-columns:12mm 1fr;gap:2mm;padding:.7mm 0;font-size:9pt;border-bottom:.25mm dashed var(--line);align-items:baseline}
+.pts li:last-child{border-bottom:0}
+.pts b{font-family:var(--disp);font-weight:800;font-size:11pt;color:var(--or-d)}
+.card p{margin:2mm 0 0;font-size:8.6pt}
+.rules{display:grid;grid-template-columns:repeat(3,1fr);gap:2.5mm;margin-top:2.6mm}
+.rule{background:var(--peach);border-radius:6px;padding:2.2mm 3mm;font-size:8.4pt;line-height:1.33}
+.rule b{display:block;font-size:9pt;margin-bottom:.6mm}
+.prep{display:grid;grid-template-columns:1fr 1fr;gap:5mm;margin-top:2.4mm}
+.prep h3{font-size:10pt;margin-bottom:1mm}
+.chk{list-style:none;margin:0;padding:0}
+.chk li{position:relative;padding:.55mm 0 .55mm 6mm;font-size:8.8pt;line-height:1.33}
+.chk li::before{content:"";position:absolute;left:0;top:1.2mm;width:3mm;height:3mm;border:.4mm solid var(--or-d);border-radius:.8mm}
+.warn{margin-top:2mm;font-size:8.6pt;font-weight:600;border-left:1mm solid var(--or);padding:1.2mm 0 1.2mm 3mm}
+.dates{display:grid;grid-template-columns:repeat(3,1fr);gap:3mm;margin-top:2.4mm}
+.date{border-top:.6mm solid var(--ink);padding-top:1.4mm;font-size:8.4pt;line-height:1.3}
+.date b{display:block;font-family:var(--disp);font-weight:800;font-size:11pt;margin-bottom:.3mm}
+.cta{margin:5mm 16mm 0;background:var(--or);border-radius:8px;padding:4.4mm 6mm;display:grid;grid-template-columns:1fr auto;gap:6mm;align-items:center}
+.cta h2{margin:0;font-size:13pt}
+.cta p{margin:1.8mm 0 0;font-size:9.4pt;color:#3A2A1C}
+.cta .ct{font-size:9.6pt;font-weight:700;line-height:1.7;text-align:right;white-space:nowrap}
+.cta .ct a{display:block}
+
+/* elemente comune fișelor pentru autorități */
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:6mm;margin-top:2.6mm}
+.cols h3{font-size:10.5pt;margin-bottom:1.2mm}
+.tick{list-style:none;margin:0;padding:0}
+.tick li{position:relative;padding:.6mm 0 .6mm 5mm;font-size:9pt;line-height:1.35}
+.tick li::before{content:"";position:absolute;left:0;top:1.9mm;width:2.4mm;height:2.4mm;border-radius:50%;background:var(--or)}
+.steps{counter-reset:s;list-style:none;margin:2.6mm 0 0;padding:0;display:grid;gap:1.8mm}
+.steps li{counter-increment:s;display:grid;grid-template-columns:7mm 1fr;gap:2.4mm;font-size:9.2pt;line-height:1.38;align-items:start}
+.steps li::before{content:counter(s);font-family:var(--disp);font-weight:800;background:var(--or);border-radius:50%;width:6.4mm;height:6.4mm;display:grid;place-items:center;font-size:9.5pt}
+.refs{font-size:8.2pt;margin-top:2.4mm}
+.refs th,.refs td{padding:1.05mm 2mm;width:auto}
+.refs thead th{font-family:var(--body);font-weight:700;font-size:7.6pt;letter-spacing:.08em;text-transform:uppercase;color:var(--mut);border-bottom:.4mm solid var(--ink)}
+.refs .g td{background:var(--peach);font-weight:700;font-size:8.4pt;padding-top:1.5mm}
+.refs .v{text-align:right;white-space:nowrap;font-weight:700}
+.refs .t td{font-weight:700;border-bottom:0}
+.txt{margin:2.4mm 0 0;font-size:9.2pt;line-height:1.45}
+.prog{font-size:8.6pt}
+.prog td,.prog th{padding:1.3mm 2.2mm;width:auto}
+.prog thead th{font-family:var(--body);font-weight:700;font-size:7.6pt;letter-spacing:.08em;text-transform:uppercase;color:var(--mut);border-bottom:.4mm solid var(--ink)}
+.prog .d{white-space:nowrap;font-weight:700;text-align:right}
+</style>
+</head>
+<body>
+
+<section class="page">
+  <div class="topbar">{{LOGO}}<span class="tag">Pentru autorități publice</span></div>
+  <div class="top">
+    <div class="eyebrow">Consultanță pentru fonduri nerambursabile · CPV 79411000-8</div>
+    <h1>BIG Solutions Management pentru autorități publice</h1>
+    <p class="lead">Scriem, depunem și implementăm proiecte finanțate pentru primării, consilii județene, spitale, universități și alte instituții publice: de la eligibilitate până la ultimul raport de monitorizare.</p>
+    <div class="status"><b>Achiziție</b>Suntem în catalogul electronic SEAP, cu codul CPV 79411000-8 – Servicii generale de consultanță în management.</div>
+  </div>
+
+  <div class="in">
+    <div class="nums">
+      <div class="num"><b>5</b><span>proiecte în implementare, cu o valoare eligibilă de 65,2 mil. lei</span></div>
+      <div class="num"><b>7</b><span>proiecte depuse în 2026, cu o valoare eligibilă de 37,5 mil. lei</span></div>
+      <div class="num"><b>7,04 MW</b><span>cel mai mare proiect: fotovoltaice pe 56 de clădiri ale UNSTPB</span></div>
+      <div class="num"><b>6 + București</b><span>județe în care avem beneficiari</span></div>
+    </div>
+
+    <h2>Ce facem pentru dumneavoastră</h2>
+    <div class="cols">
+      <div>
+        <h3>Până la contractare</h3>
+        <ul class="tick">
+          <li>verificăm eligibilitatea și alegem programul potrivit</li>
+          <li>planificăm proiectul: termene, buget, indicatori</li>
+          <li>pregătim proiectul de hotărâre (HCL) și cererea de finanțare, cu anexele</li>
+          <li>depunem online și răspundem la clarificări</li>
+          <li>participăm la vizitele de verificare în teren, dacă e cazul</li>
+          <li>pregătim dosarul de contractare</li>
+        </ul>
+      </div>
+      <div>
+        <h3>În implementare: managementul proiectului</h3>
+        <ul class="tick">
+          <li>gestionarea documentelor proiectului</li>
+          <li>organizarea dosarelor de achiziții</li>
+          <li>cererile de prefinanțare, de plată și de rambursare</li>
+          <li>rapoartele de progres și planul de monitorizare</li>
+          <li>actele adiționale</li>
+          <li>comunicarea cu finanțatorul și întâlnirile de lucru</li>
+        </ul>
+      </div>
+    </div>
+
+    <h2>Ce nu facem</h2>
+    <div class="rules">
+      <div class="rule"><b>Proiectare și studii tehnice</b>Studiul de fezabilitate, auditul energetic și expertiza le întocmesc specialiști acreditați. Vă punem în legătură cu proiectanți care pot participa la achiziția dumneavoastră.</div>
+      <div class="rule"><b>Caiete de sarcini</b>Nu redactăm caietele de sarcini pentru achizițiile proiectului. Organizăm dosarele și calendarul lor.</div>
+      <div class="rule"><b>Promisiuni de finanțare</b>Nu suntem finanțator și nu garantăm finanțarea. Vă spunem din prima discuție dacă proiectul merită depus.</div>
+    </div>
+
+    <h2>Cum lucrăm cu BCCCA</h2>
+    <p class="txt">Biroul de Consultanță Carmen Ciobanu și Asociații (BCCCA), din Drobeta-Turnu Severin, activ din 2015, este firma noastră soră. Lucrăm împreună la aproape toate proiectele, inclusiv la proiectul UNSTPB. Echipa: Vladimir Costache, fondator BIG Solutions Management, și Carmen Ciobanu, consultant senior, fondator BCCCA.</p>
+  </div>
+
+  <div class="foot"><p>BIG SOLUTIONS MANAGEMENT SRL · CUI 45692645 · J40/3437/2022 · sediul social: Ale. Petre Antonescu nr. 1, București. Firmă de consultanță, nu autoritate de finanțare.</p><span class="pg">1 / 2</span></div>
+</section>
+
+<section class="page page2">
+  <div class="top2">{{LOGO}}<span>BIG pentru autorități publice</span></div>
+  <div class="in">
+    <h2>Referințe <small>proiecte publice, cu acordul beneficiarilor</small></h2>
+    <table class="refs">
+      <thead><tr><th>Beneficiar</th><th>Investiția</th><th class="v">Valoare eligibilă</th></tr></thead>
+      <tbody>
+        <tr class="g"><td colspan="3">În implementare</td></tr>
+        <tr><td>UNSTPB, București, împreună cu BCCCA</td><td>7,04 MW fotovoltaice pe 56 de clădiri · Fondul pentru modernizare</td><td class="v">29,4 mil. lei</td></tr>
+        <tr><td>Comuna Vaideeni, jud. Vâlcea</td><td>Școala gimnazială „Luca Solomon”: reabilitare, extindere, eficiență energetică · PR Sud-Vest Oltenia</td><td class="v">14,9 mil. lei</td></tr>
+        <tr><td>Comuna Corlățel, jud. Mehedinți</td><td>Eficiență energetică și surse regenerabile la școală · PR Sud-Vest Oltenia</td><td class="v">8,7 mil. lei</td></tr>
+        <tr><td>Orașul Baia de Aramă, jud. Mehedinți</td><td>Eficiența energetică a Colegiului Tehnologic „Constantin Brâncoveanu” · PR Sud-Vest Oltenia</td><td class="v">6,5 mil. lei</td></tr>
+        <tr><td>Comuna Punghina, jud. Mehedinți</td><td>Eficiența energetică a căminului cultural · PR Sud-Vest Oltenia</td><td class="v">5,7 mil. lei</td></tr>
+        <tr class="g"><td colspan="3">Depuse în 2026 · Fondul pentru modernizare</td></tr>
+        <tr><td>UNSTPB, București</td><td>17,68 MWh baterii de stocare, la 21 de locuri de consum</td><td class="v">22,1 mil. lei</td></tr>
+        <tr><td>Sanatoriul Balnear și de Recuperare Techirghiol</td><td>800 kW fotovoltaice și 1,8 MWh stocare</td><td class="v">4,6 mil. lei</td></tr>
+        <tr><td>UNSTPB, Centrul Universitar Pitești</td><td>811 kW fotovoltaice și 2,1 MWh stocare</td><td class="v">3,8 mil. lei</td></tr>
+        <tr><td>Institutul de Fonoaudiologie și Chirurgie Funcțională ORL „Prof. Dr. Dorin Hociotă”</td><td>550 kW fotovoltaice și 1,3 MWh stocare</td><td class="v">3,0 mil. lei</td></tr>
+        <tr><td>Comuna Slimnic, jud. Sibiu</td><td>250 kW fotovoltaice și 522 kWh stocare</td><td class="v">1,4 mil. lei</td></tr>
+        <tr><td>DGASPC Ialomița</td><td>245 kW fotovoltaice și 661 kWh stocare, pentru 5 centre sociale</td><td class="v">1,4 mil. lei</td></tr>
+        <tr><td>Spitalul Clinic de Recuperare, Medicină Fizică și Balneologie Eforie Nord</td><td>200 kW fotovoltaice și 595 kWh stocare</td><td class="v">1,1 mil. lei</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Cum ne achiziționați</h2>
+    <ol class="steps">
+      <li><span><b>Discuția de principiu, gratuită.</b> Stabilim ce program se potrivește și ce servicii vă trebuie.</span></li>
+      <li><span><b>Primiți oferta noastră</b>, pe etape: scrierea și depunerea cererii, apoi managementul proiectului.</span></li>
+      <li><span><b>Referatul de necesitate</b>, cu valoarea estimată și codul CPV 79411000-8.</span></li>
+      <li><span><b>Achiziția directă din catalogul SEAP</b>, unde suntem înscriși, dacă valoarea estimată e sub pragul pentru achiziția directă de servicii (Legea nr. 98/2016, art. 7 alin. (5)).</span></li>
+    </ol>
+
+    <h2>Cum se plătește</h2>
+    <p class="txt">Pe etape, fără avans. Tranșa pentru scrierea și depunerea cererii se plătește după ce primiți decizia de contractare. Tranșa pentru implementare se plătește proporțional cu tranșele de plată ale proiectului. La unele programe, consultanța și managementul proiectului sunt cheltuieli eligibile: de exemplu, la Fondul pentru modernizare, autoconsum, până la 20.000&nbsp;€ fără TVA.</p>
+  </div>
+
+  <div class="cta">
+    <div>
+      <h2>Vorbim despre proiectul instituției dumneavoastră?</h2>
+      <p>Trimiteți-ne investiția pe care o aveți în vedere, iar pentru proiectele de energie, facturile pe 12 luni. Vă spunem ce program se potrivește și cât puteți cere.</p>
+    </div>
+    <div class="ct"><a href="tel:+40742225222">0742 225 222</a><a href="mailto:vladimir.costache@bigsolutions.ro">vladimir.costache@bigsolutions.ro</a><a href="https://bigsolutions.ro">bigsolutions.ro</a></div>
+  </div>
+
+  <div class="foot"><p>Valorile eligibile includ TVA și sunt cele din cererile de finanțare și din contracte. Lista completă și actualizată: bigsolutions.ro/proiecte. BIG Solutions Management nu garantează obținerea finanțării.</p><span class="pg">2 / 2</span></div>
+</section>
+
+</body>
+</html>
