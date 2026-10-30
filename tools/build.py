@@ -15,6 +15,7 @@ LEGAL_UPD = '30.10.2026'
 FORMS_KEY = '822211f9-55a8-4c8a-910e-6b5f5aa3724a'  # formularul „Formular Contact BSM SRL”, site bigsolutions.ro
 # Cheia publică Cloudflare Web Analytics pentru bigsolutions.ro (statistici fără cookie-uri).
 ANALYTICS_TOKEN = '3263195b4cba4ca798d994edc5b5f120'
+PORTRAITS = {'vladimir.jpg': 'vladimir-costache', 'carmen.jpg': 'carmen-ciobanu'}
 PHONE, PHONE_TEL, WA = '0742 225 222', '+40742225222', 'https://wa.me/40742225222'
 
 def read(rel): return (SRC / rel).read_text(encoding='utf-8')
@@ -142,10 +143,11 @@ def call_list(lst, empty):
 def by_slug(s): return next(c for c in calls if c['slug'] == s)
 
 def layout(page_path, title, desc, body, scripts=''):
-    body = fix_headings(strip_mock(body).replace('src="vladimir.jpg"', 'src="@/assets/img/vladimir-costache.jpg"'))
-    # portretul: WebP de 240 px, cu JPEG ca rezervă
-    body = re.sub(r'(<img class="pphoto" src="@/assets/img/vladimir-costache\.jpg"[^>]*>)',
-                  r'<picture><source type="image/webp" srcset="@/assets/img/vladimir-costache.webp">\1</picture>', body)
+    body = fix_headings(strip_mock(body))
+    # portretele echipei: WebP de 240 px, cu JPEG ca rezervă
+    for short, name in PORTRAITS.items():
+        body = re.sub(r'(<img class="pphoto") src="%s"([^>]*>)' % re.escape(short),
+                      r'<picture><source type="image/webp" srcset="@/assets/img/%s.webp">\1 src="@/assets/img/%s.jpg"\2</picture>' % (name, name), body)
     header = route_links(read('partials/header.html'))
     footer = contact_links(route_links(legal_links(read('partials/footer.html'))))
     mbar = read('partials/mbar.html').replace('<a class="c1" href="#contact" data-go="contact">', '<a class="c1" href="tel:%s">' % PHONE_TEL)
@@ -226,7 +228,8 @@ def build_home():
     for f, title in [('F', 'Pentru firme'), ('O', 'Pentru ONG-uri'), ('A', 'Pentru autorități publice')]:
         items = ''
         for p in (p for p in programs if f in p['t']):
-            mine = [c for c in calls if c['pg'] == p['n']]
+            # se numără doar apelurile pentru acest tip de solicitant (la Incluziune socială, ONG-urile au 7 din 8)
+            mine = [c for c in calls if c['pg'] == p['n'] and f in c['w']]
             n_open = sum(1 for c in mine if c['s'] == 'deschis')
             note = n_apel(n_open, 'apel deschis', 'apeluri deschise') if n_open else ('urmează' if any(c['s'] == 'urmeaza' for c in mine) else 'niciun apel acum')
             items += '<li><a href="@%s"><span>%s</span><span class="pc%s">%s</span></a></li>' % (prog_path(p['n']), esc(p['n']), ' on' if n_open else '', note)
@@ -341,7 +344,7 @@ def build_rest():
     write_page('/verifica-eligibilitatea/', 'Verifică eligibilitatea | BIG Solutions',
                'În 4 pași aflați dacă proiectul dumneavoastră poate primi finanțare. Discuția de principiu e gratuită.', read('views/eligibilitate.html'))
     for path, view in [('/despre-noi/', 'despre'), ('/contact/', 'contact'), ('/proiecte/', 'proiecte')]:
-        v = read('views/%s.html' % view).replace('src="vladimir.jpg"', 'src="@/assets/img/vladimir-costache.jpg"')
+        v = read('views/%s.html' % view)
         v = v.replace('<div class="st"><span class="bdg b-consultare">Text de aprobat</span><span>Scris în Etapa 5</span></div>\n', '')
         write_page(path, seo[path]['title'], seo[path]['description'], v)
     for name, path in LEGAL.items():
