@@ -127,7 +127,10 @@
     /* de unde vine cererea: pagina formularului și pagina (sau site-ul, de ex. google.com) de pe care s-a ajuns la ea */
     var from='';try{var u=new URL(document.referrer);from=u.host===location.host?u.pathname:u.host;}catch(e){}
     data['Pagina']=location.pathname+(from&&from!==location.pathname?' (venit de la '+from+')':'');
-    function end(ok){btn.disabled=false;btn.textContent=old;(ok?done:fail)();}
+    function end(ok){btn.disabled=false;btn.textContent=old;
+      /* statistici Umami (doar pe bigsolutions.ro, dacă e activ): un formular trimis, fără date personale */
+      if(ok&&window.umami)window.umami.track('Formular trimis',{formular:subject.split(':')[0],pagina:location.pathname});
+      (ok?done:fail)();}
     fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(data)})
       .then(function(r){return r.json();}).then(function(j){end(!!(j&&j.success));}).catch(function(){end(false);});
   }

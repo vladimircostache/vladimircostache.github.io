@@ -15,12 +15,27 @@ LEGAL_UPD = '30.10.2026'
 FORMS_KEY = '822211f9-55a8-4c8a-910e-6b5f5aa3724a'  # formularul „Formular Contact BSM SRL”, site bigsolutions.ro
 # Cheia publică Cloudflare Web Analytics pentru bigsolutions.ro (statistici fără cookie-uri).
 ANALYTICS_TOKEN = '3263195b4cba4ca798d994edc5b5f120'
+# Umami Cloud (fără cookie-uri): numără formularele trimise și apăsările pe telefon, WhatsApp și e-mail.
+# Codul site-ului („Website ID”) din contul Umami; cât timp e gol, scriptul nu se încarcă.
+UMAMI_ID = ''
+UMAMI_EVT = {'tel:': 'Sunați', 'https://wa.me/': 'WhatsApp', 'mailto:': 'E-mail'}
 PORTRAITS = {'vladimir.jpg': 'vladimir-costache', 'carmen.jpg': 'carmen-ciobanu'}
 PHONE, PHONE_TEL, WA = '0742 225 222', '+40742225222', 'https://wa.me/40742225222'
 
 def read(rel): return (SRC / rel).read_text(encoding='utf-8')
 def data(name): return json.loads(read('data/%s.json' % name))
 calls, pages, programs, featured, seo = data('calls'), data('pages'), data('programs'), data('featured'), data('seo')
+# Noutăți: câte un fișier src/content/noutati/AAAA-LL-ZZ-<slug>.md, cu un antet „cheie: valoare”
+# (titlu, data, descriere, apeluri = sluguri din calls.json), apoi un rând „---” și textul articolului.
+def read_news():
+    out = []
+    for f in sorted((SRC / 'content' / 'noutati').glob('*.md'), reverse=True):
+        head, body = f.read_text(encoding='utf-8').split('\n---\n', 1)
+        n = dict(l.split(': ', 1) for l in head.strip().split('\n'))
+        n.update(slug=f.stem[11:], body=body, calls=[s.strip() for s in n.get('apeluri', '').split(',') if s.strip()])
+        out.append(n)
+    return out
+news = read_news()
 # Starea apelurilor se recalculează la fiecare construcție (site-ul se reconstruiește în fiecare noapte):
 # un apel al cărui termen a trecut devine „Închis”, oricum ar fi scris în calls.json.
 # Pentru încercări se poate simula altă zi: BIG_TODAY=2026-11-28 python3 tools/build.py --test
@@ -107,6 +122,7 @@ def target(attrs):
     if go == 'eligibilitate': return '@/verifica-eligibilitatea/' + (('?tip=' + attrs['data-preset']) if attrs.get('data-preset') else '')
     if go == 'despre': return '@/despre-noi/'
     if go == 'proiecte': return '@/proiecte/'
+    if go == 'noutati': return '@/noutati/'
     if go == 'contact': return '@/contact/'
     raise ValueError(go)
 def route_links(h):
@@ -189,7 +205,10 @@ def layout(page_path, title, desc, body, scripts=''):
     # Statistici fără cookie-uri (Cloudflare Web Analytics), doar pe bigsolutions.ro, nu pe linkul de test.
     if not TEST and ANALYTICS_TOKEN:
         doc = doc.replace('</body>', '<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon=\'{"token": "%s"}\'></script>\n</body>' % ANALYTICS_TOKEN, 1)
+    if not TEST and UMAMI_ID:
+        doc = doc.replace('</body>', '<script defer src="https://cloud.umami.is/script.js" data-website-id="%s"></script>\n</body>' % UMAMI_ID, 1)
     doc = contact_links(route_links(doc)).replace('<body>', '<body data-ix="%s"%s>' % ('index.html' if TEST else '', ' data-fk="%s"' % fk if fk else ''), 1)
+    doc = re.sub(r'<a\b([^>]*?) href="(tel:|https://wa\.me/|mailto:)', lambda m: '<a%s data-umami-event="%s" href="%s' % (m.group(1), UMAMI_EVT[m.group(2)], m.group(2)), doc)
     return finalize(doc, '/' if page_path == '/404/' else page_path)
 
 # Datele firmei, în formatul citit de Google (doar pe prima pagină). Adresa biroului se adaugă când o primim.
@@ -357,10 +376,40 @@ def build_call(c):
     own = SRC / 'content' / 'apeluri' / (c['slug'] + '.md')
     if own.exists():
         v = v.replace('<section><h2>Cine poate aplica</h2>', '<div class="own">%s</div><section><h2>Cine poate aplica</h2>' % md(own.read_text(encoding='utf-8')), 1)
+    rel = [n for n in news if c['slug'] in n['calls']]
+    if rel:
+        v = v.replace('<div class="acard dark">', '<div class="acard"><b>Noutăți despre acest apel</b>%s</div><div class="acard dark">'
+                      % ''.join('<a class="link" href="@/noutati/%s/">%s&nbsp;→</a>' % (n['slug'], esc(n['titlu'])) for n in rel), 1)
     if dc(c): v = '<div class="cwrap"%s>%s</div>' % (dc(c), v)
     write_page('/apeluri/%s/' % c['slug'], title, desc, strip_mock(v))
 
 # ---- calendar, eligibilitate, despre, contact, pagini legale (în lucru), 404
+# ---- Noutăți: lista și pagina fiecărui articol
+def build_news():
+    items = ''.join('<article class="news"><span class="nd">%s</span><h2><a href="@/noutati/%s/">%s</a></h2><p>%s</p></article>'
+                    % (esc(n['data']), n['slug'], esc(n['titlu']), esc(n['descriere'])) for n in news)
+    body = ('<section class="phead"><div class="wrap"><nav class="crumbs" aria-label="Unde vă aflați"><a href="@/">Prima pagină</a><span>/</span><span>Noutăți</span></nav>'
+            '<h1>Noutăți</h1><p class="lead">Lansări, prelungiri și schimbări importante la apelurile din programele pe care lucrăm, explicate pe scurt. '
+            'Calendarul complet e în <a class="link" href="@/apeluri/">Calendar apeluri</a>.</p></div></section>'
+            '<div class="wrap" style="padding-block:36px 56px"><div class="newslist">%s</div></div>') % (items or '<p class="empty">Primele articole apar în curând.</p>')
+    write_page('/noutati/', 'Noutăți despre fonduri nerambursabile | BIG Solutions',
+               'Lansări, prelungiri și schimbări la apelurile de finanțare pentru firme, ONG-uri și autorități publice, explicate pe scurt de BIG Solutions.', body)
+    for n in news:
+        rel = [c for c in calls if c['slug'] in n['calls']]
+        aside = ('<div class="acard"><b>Apelurile din articol</b><div class="cls">%s</div><a class="btn or" href="@/verifica-eligibilitatea/">Verifică eligibilitatea</a></div>' % call_list(rel, '')) if rel else ''
+        body = ('<section class="phead"><div class="wrap"><nav class="crumbs" aria-label="Unde vă aflați"><a href="@/">Prima pagină</a><span>/</span><a href="@/noutati/">Noutăți</a></nav>'
+                '<div class="st"><span>Publicat pe %s</span></div><h1>%s</h1><p class="lead">%s</p></div></section>'
+                '<div class="wrap pgrid"><div class="pmain">%s</div><aside class="aside">%s'
+                '<div class="acard dark"><b>Preferați să vorbim?</b><p>0742 225 222 · luni–vineri, 9:00–18:00.</p></div></aside></div>') % (
+            esc(n['data']), esc(n['titlu']), esc(n['descriere']), md(n['body']), aside)
+        ld = '<script type="application/ld+json">%s</script>\n' % json.dumps({
+            '@context': 'https://schema.org', '@type': 'NewsArticle', 'headline': n['titlu'], 'description': n['descriere'],
+            'datePublished': '-'.join(reversed(n['data'].split('.'))), 'inLanguage': 'ro',
+            'author': {'@type': 'Organization', 'name': 'BIG Solutions Management'},
+            'publisher': {'@type': 'Organization', 'name': 'BIG Solutions Management', 'logo': {'@type': 'ImageObject', 'url': SITE + '/assets/img/logo-big-solutions.png'}},
+            'mainEntityOfPage': SITE + '/noutati/%s/' % n['slug']}, ensure_ascii=False)
+        write_page('/noutati/%s/' % n['slug'], '%s | BIG Solutions' % n['titlu'], n['descriere'], body, ld)
+
 def build_rest():
     keep = ['n', 'prog', 'w', 's', 'open', 'close', 'when', 'sum', 'slug']
     def plain(t): return ''.join(ch for ch in unicodedata.normalize('NFD', t.lower()) if unicodedata.category(ch) != 'Mn')
@@ -394,7 +443,7 @@ def main():
         if p['n'] != 'Autoconsum și stocare': build_prog(p['n'])
     for t in TRACK_BY_NAME: build_prog(t, track=True)
     for c in calls: build_call(c)
-    build_rest()
+    build_news(); build_rest()
     pages_all = sorted(p.relative_to(DIST).parent.as_posix() for p in DIST.rglob('index.html'))
     urls = [SITE + '/' + ('' if p == '.' else p + '/') for p in pages_all]
     (DIST / 'sitemap.xml').write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n%s</urlset>\n'

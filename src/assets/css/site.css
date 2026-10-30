@@ -115,7 +115,7 @@ p{margin:0}
 .mnav{border-top:1px solid var(--line);padding:12px 18px 18px;display:grid;gap:4px;background:var(--white)}
 .mnav a{padding:10px 4px;text-decoration:none;font-weight:500;border-bottom:1px solid var(--peach)}
 .mnav .btn{margin-top:10px}
-@container site (max-width:1100px){.mainnav,.hdr .tel,.hdr .cta{display:none}.burger{display:inline-block}}
+@container site (max-width:1180px){.mainnav,.hdr .tel,.hdr .cta{display:none}.burger{display:inline-block}}
 @container site (min-width:1001px){.mnav{display:none!important}}
 @container site (max-width:760px){.logo svg{width:150px}.hdr .wrap{min-height:62px}}
 
@@ -365,6 +365,15 @@ p{margin:0}
 /* textul propriu din fișele de apel: rândul cu sursele, mai mic */
 .own{display:contents}
 .own section:last-child p:last-child{font-size:.85rem;color:var(--mut)}
+/* Noutăți */
+.newslist{display:grid;gap:14px;max-width:780px}
+.news{border:1px solid var(--line);border-radius:14px;padding:18px 20px;background:var(--white)}
+.news .nd{font-size:.8rem;color:var(--mut);font-weight:600}
+.news h2{font-size:1.25rem;margin-top:6px}
+.news h2 a{color:inherit;text-decoration:none}
+.news h2 a:hover{text-decoration:underline}
+.news p{color:var(--mut);margin-top:6px}
+.acard .cls{display:grid;gap:10px}
 /* pagina Proiecte */
 .ptable-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:14px;background:var(--white)}
 .ptable{width:100%;min-width:560px;border-collapse:collapse;font-size:.93rem}
