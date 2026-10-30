@@ -131,12 +131,21 @@ def contact_links(h):
     h = h.replace('<p><b>%s</b>' % PHONE, '<p><a href="tel:%s"><b>%s</b></a>' % (PHONE_TEL, PHONE))
     return h
 
+_VQ = {}
+def vq(path):
+    """Versiunea unei imagini sau a unui PDF din assets (?v=…): după o înlocuire, browserul ia imediat fișierul nou."""
+    f = DIST / path.lstrip('/')
+    if not (path.startswith('/assets/') and f.is_file()): return ''
+    if path not in _VQ: _VQ[path] = '?v=' + hashlib.md5(f.read_bytes()).hexdigest()[:8]
+    return _VQ[path]
+
 def finalize(h, page_path):
     """Adresele „@/…” devin absolute (site) sau relative cu index.html (test)."""
     here = page_path.strip('/')
     def url(u):
-        if not TEST: return u
         path, rest = re.match(r'([^?#]*)(.*)', u).groups()
+        rest = rest or vq(path)
+        if not TEST: return path + rest
         rel = posixpath.relpath(path.strip('/') or '.', here or '.')
         if path.endswith('/'): rel = 'index.html' if rel == '.' else rel + '/index.html'
         return rel + rest
