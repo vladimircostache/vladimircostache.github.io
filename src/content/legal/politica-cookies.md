@@ -8,7 +8,7 @@ Cookie-urile sunt fișiere mici pe care un site le salvează în browserul dumne
 
 ## Ce folosim noi
 
-- **Statistici fără cookie-uri.** Numărăm vizitele cu Cloudflare Web Analytics, care nu salvează nimic în browserul dumneavoastră și nu vă urmărește pe alte site-uri. Vedem doar date agregate: pagini vizitate, țara, tipul de dispozitiv.
+- **Statistici fără cookie-uri.** Numărăm vizitele cu Cloudflare Web Analytics și, cu Umami, formularele trimise și apăsările pe butoanele de telefon, WhatsApp și e-mail. Niciunul nu salvează nimic în browserul dumneavoastră și nu vă urmărește pe alte site-uri. Vedem doar date agregate: pagini vizitate, țara, tipul de dispozitiv, numărul de cereri.
 - **Fonturi găzduite pe site.** Literele site-ului se încarcă de pe serverul nostru, nu de la Google sau de la alți furnizori.
 - **Formulare.** Datele pe care le scrieți în formulare pleacă doar când apăsați butonul de trimitere. Nu le salvăm în browser.
 - **Cookie-uri de securitate.** Furnizorul de găzduire poate folosi, doar pentru protecția site-ului împotriva atacurilor, un cookie strict necesar. Acesta nu cere acord.

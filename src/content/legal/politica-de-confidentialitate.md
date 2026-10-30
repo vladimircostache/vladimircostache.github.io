@@ -12,7 +12,7 @@ Pentru orice întrebare despre datele personale ne scrieți la [vladimir.costach
 - **Pagina de proveniență:** odată cu fiecare formular primim adresa paginii de pe care l-ați trimis și pagina sau site-ul de pe care ați ajuns la ea (de exemplu, google.com).
 - **Telefon, e-mail sau WhatsApp:** datele pe care ni le dați în conversație.
 - **Date tehnice:** ca orice server, serverul care găzduiește site-ul (GitHub Pages) înregistrează adresa IP, data și ora, pagina cerută și tipul de browser. Ele se folosesc doar pentru securitate.
-- **Statistici:** numărăm vizitele cu un instrument fără cookie-uri, care arată date agregate (pagini vizitate, țara, tipul de dispozitiv). Nu vă identifică și nu vă urmărește pe alte site-uri.
+- **Statistici:** numărăm vizitele cu instrumente fără cookie-uri, care arată date agregate (pagini vizitate, țara, tipul de dispozitiv). Tot așa numărăm câte formulare se trimit și de câte ori se apasă pe butoanele de telefon, WhatsApp și e-mail, fără conținutul formularelor. Nu vă identifică și nu vă urmărește pe alte site-uri.
 
 Nu vă cerem date sensibile, cum ar fi CNP-ul sau date despre sănătate. Vă rugăm să nu ne trimiteți prin formulare documente cu datele altor persoane.
 
@@ -31,7 +31,7 @@ Nu luăm decizii automate despre dumneavoastră, nu vă facem profil și nu vind
 - **Găzduirea site-ului:** GitHub Pages (GitHub, Inc., SUA).
 - **Mesajele din formulare:** Web3Forms ni le transmite pe e-mail și le păstrează cel mult 30 de zile.
 - **E-mailul firmei și setările domeniului:** Hostinger.
-- **Statisticile fără cookie-uri:** Cloudflare Web Analytics (Cloudflare, Inc., SUA).
+- **Statisticile fără cookie-uri:** Cloudflare Web Analytics (Cloudflare, Inc., SUA) și Umami (Umami Software, Inc., SUA).
 - **Finanțatorii** (de exemplu ADR, AFIR, AFM sau ministerele), doar când depunem proiectul pentru dumneavoastră, ca parte a cererii de finanțare.
 - **Autoritățile publice**, doar când legea ne obligă.
 

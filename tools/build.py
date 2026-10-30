@@ -17,7 +17,7 @@ FORMS_KEY = '822211f9-55a8-4c8a-910e-6b5f5aa3724a'  # formularul „Formular Con
 ANALYTICS_TOKEN = '3263195b4cba4ca798d994edc5b5f120'
 # Umami Cloud (fără cookie-uri): numără formularele trimise și apăsările pe telefon, WhatsApp și e-mail.
 # Codul site-ului („Website ID”) din contul Umami; cât timp e gol, scriptul nu se încarcă.
-UMAMI_ID = ''
+UMAMI_ID = '2e7890f2-d9a2-4fc4-8d71-a3872cebf317'  # site-ul „Big Solutions Management SRL”, bigsolutions.ro
 UMAMI_EVT = {'tel:': 'Sunați', 'https://wa.me/': 'WhatsApp', 'mailto:': 'E-mail'}
 PORTRAITS = {'vladimir.jpg': 'vladimir-costache', 'carmen.jpg': 'carmen-ciobanu'}
 PHONE, PHONE_TEL, WA = '0742 225 222', '+40742225222', 'https://wa.me/40742225222'
