@@ -328,6 +328,9 @@ p{margin:0}
 .acard dd{margin:0;font-weight:600}
 .acard.dark{background:var(--ink);color:var(--white);border-color:var(--ink)}
 .acard.dark p{color:#D8CFC7;font-size:.92rem}
+.acard>.bdg{justify-self:start}
+.acard.dark a{color:var(--white);font-weight:600;text-decoration:underline;text-underline-offset:2px}
+@container site (max-width:1100px){.pgrid .facts4{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @container site (max-width:960px){.pgrid{grid-template-columns:1fr}.aside{position:static}}
 @container site (max-width:760px){.facts4{grid-template-columns:repeat(2,minmax(0,1fr))}.facts4 b{overflow-wrap:anywhere}.cols2{grid-template-columns:1fr}}
 

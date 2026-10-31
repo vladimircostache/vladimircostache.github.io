@@ -4,6 +4,20 @@
   "d": "Panouri fotovoltaice cu baterii pentru clădirile publice, prin Fondul pentru modernizare.",
   "t": [
    "A"
+  ],
+  "card": [
+   [
+    "Finanțator",
+    "Ministerul Energiei, Fondul pentru modernizare"
+   ],
+   [
+    "Cine aplică",
+    "Doar entități publice"
+   ],
+   [
+    "Finanțare",
+    "până la 100%, max. 10 mil. €"
+   ]
   ]
  },
  {
@@ -11,6 +25,20 @@
   "d": "Renovarea energetică a școlilor, spitalelor și sediilor publice, prin Programele Regionale.",
   "t": [
    "A"
+  ],
+  "card": [
+   [
+    "Finanțator",
+    "Programele Regionale și PDDTJ"
+   ],
+   [
+    "Cine aplică",
+    "Autoritățile locale și instituțiile din subordine"
+   ],
+   [
+    "Contribuție proprie",
+    "2% sau 5% la apelurile deschise acum"
+   ]
   ]
  },
  {
@@ -18,6 +46,20 @@
   "d": "Autoturisme electrice (e-DRIVE) și stații de încărcare (e-Mobility, e-MOVE), prin Fondul pentru modernizare.",
   "t": [
    "F"
+  ],
+  "card": [
+   [
+    "Finanțator",
+    "Fondul pentru modernizare, prin schemele Ministerului Transporturilor"
+   ],
+   [
+    "Cine aplică",
+    "Firme, după linia de finanțare"
+   ],
+   [
+    "Finanțare",
+    "până la 100% la e-DRIVE, Măsura 1"
+   ]
   ]
  },
  {
@@ -25,6 +67,20 @@
   "d": "Modernizarea iluminatului public, prin programul AFM.",
   "t": [
    "A"
+  ],
+  "card": [
+   [
+    "Finanțator",
+    "AFM"
+   ],
+   [
+    "Cine aplică",
+    "Comune, orașe și municipii"
+   ],
+   [
+    "Finanțare",
+    "până la 100%, în limita plafonului"
+   ]
   ]
  },
  {
@@ -32,6 +88,20 @@
   "d": "Echipamente, producție și extinderea afacerii, prin Programele Regionale.",
   "t": [
    "F"
+  ],
+  "card": [
+   [
+    "Finanțator",
+    "Programele Regionale"
+   ],
+   [
+    "Cine aplică",
+    "Micro, mici și mijlocii, din regiunea apelului"
+   ],
+   [
+    "Grant",
+    "până la 1,5 mil. € la ultimele apeluri"
+   ]
   ]
  },
  {
@@ -39,6 +109,20 @@
   "d": "Tehnologii strategice (STEP), inovare și digitalizare, prin Programele Regionale și PoCIDIF.",
   "t": [
    "F"
+  ],
+  "card": [
+   [
+    "Finanțatori",
+    "Programele Regionale (STEP), PoCIDIF, TechUp România"
+   ],
+   [
+    "Cine aplică",
+    "Firme; la STEP, și universități și institute de cercetare"
+   ],
+   [
+    "Grant",
+    "500.000 – 10 mil. € la STEP Sud-Vest Oltenia"
+   ]
   ]
  },
  {
@@ -46,6 +130,20 @@
   "d": "Ferme, procesare și energie în agricultură, prin AFIR.",
   "t": [
    "F"
+  ],
+  "card": [
+   [
+    "Finanțator",
+    "AFIR, prin Planul Strategic PAC 2023–2027"
+   ],
+   [
+    "Cine aplică",
+    "Fermieri, cooperative și grupuri de producători"
+   ],
+   [
+    "Finanțare",
+    "65–85%, după măsură; max. 200.000 € la DR-12"
+   ]
   ]
  },
  {
@@ -54,6 +152,20 @@
   "t": [
    "O",
    "A"
+  ],
+  "card": [
+   [
+    "Finanțator",
+    "în principal, Programul Incluziune și Demnitate Socială"
+   ],
+   [
+    "Cine aplică",
+    "ONG-uri, furnizori de servicii sociale, autorități locale"
+   ],
+   [
+    "Contribuție proprie",
+    "0% pentru ONG-uri, 2% pentru autorități locale"
+   ]
   ]
  },
  {
@@ -61,6 +173,20 @@
   "d": "Pentru firme noi sau încă neînființate.",
   "t": [
    "F"
+  ],
+  "card": [
+   [
+    "Finanțator",
+    "Programul Educație și Ocupare"
+   ],
+   [
+    "Cine aplică",
+    "Tineri de 18–35 de ani care își înființează firma"
+   ],
+   [
+    "Finanțare",
+    "până la 90%, max. 250.000 lei"
+   ]
   ]
  },
  {
@@ -68,6 +194,20 @@
   "d": "Credit cu garanție BID și grant de până la 60%, pentru firmele noi ale românilor întorși acasă.",
   "t": [
    "F"
+  ],
+  "card": [
+   [
+    "Cum funcționează",
+    "Credit bancar garantat de BID, plus grant de la stat"
+   ],
+   [
+    "Cine aplică",
+    "Firme noi ale românilor din diaspora"
+   ],
+   [
+    "Grant",
+    "până la 60% din credit, max. 200.000 €"
+   ]
   ]
  }
 ]

@@ -7,7 +7,7 @@ Site static pentru bigsolutions.ro. Codul stă aici, în afara OneDrive. La fiec
 - `src/data/`: datele.
   - `calls.json`: apelurile din calendar;
   - `pages.json`: paginile de program și de traseu;
-  - `programs.json`, `featured.json`: lista programelor și apelurile alese pentru prima pagină;
+  - `programs.json`, `featured.json`: lista programelor și apelurile alese pentru prima pagină. La fiecare program, `card` are rândurile fixe din cardul din dreapta al paginii (finanțator, cine aplică, finanțare). Starea și termenul din card vin din calendar;
   - `seo.json`: titlurile și descrierile pentru Google.
 - `src/views/`, `src/partials/`: paginile și bucățile comune (antet, subsol, bara de pe telefon).
 - `src/content/`: textele scrise în Markdown simplu (`## ` titluri, `- ` liste, `**îngroșat**`, `[text](adresă)`).
