@@ -1,7 +1,8 @@
 # Generează site-ul static BIG Solutions în dist/.
 #   python3 tools/build.py          → adrese curate (/programe/…/), pentru bigsolutions.ro
 #   python3 tools/build.py --test   → linkuri relative cu index.html, pentru linkul de test
-import datetime, hashlib, html, json, os, posixpath, re, shutil, sys, unicodedata, pathlib
+#   python3 tools/build.py --fise   → doar fișele PDF, salvate în fise/ (rezerva folosită când nu există Chrome)
+import datetime, hashlib, html, json, os, posixpath, re, shutil, subprocess, sys, unicodedata, pathlib
 from zoneinfo import ZoneInfo
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
@@ -287,6 +288,13 @@ def build_home():
                 extra = '<p class="pl-sub">Apeluri deschise acum</p><ul class="pl-calls">%s</ul>%s' % (extra, more)
         groups += '<div class="pl"><h3>%s</h3><ul>%s</ul>%s</div>' % (title, items, extra)
     v = v.replace('<div class="plinks" id="plinks"></div>', '<div class="plinks" id="plinks">%s</div>' % groups)
+    # ultimele articole din Noutăți, ca să se vadă că site-ul e ținut la zi; fără articole, secțiunea dispare
+    if news:
+        v = v.replace('<div class="newsgrid" id="home-news"></div>', '<div class="newsgrid" id="home-news">%s</div>' % ''.join(
+            '<article class="news"><span class="nd">%s</span><h3><a href="@/noutati/%s/">%s</a></h3><p>%s</p></article>'
+            % (esc(n['data']), n['slug'], esc(n['titlu']), esc(n['descriere'])) for n in news[:3]))
+    else:
+        v = re.sub(r'\s*<section class="sec" id="noutati-acasa">.*?</section>', '', v, flags=re.S)
     s = seo['/']
     write_page('/', s['title'], s['description'], strip_mock(v))
 
@@ -311,7 +319,7 @@ def prog_side(card, lst, preset):
     elif nx: row = ['Urmează', when(nx[0]) if len(nx) == 1 else n_apel(len(nx), 'apel în pregătire', 'apeluri în pregătire')]
     else: row = ['Sesiune', 'niciuna anunțată acum']
     dl = ''.join('<div><dt>%s</dt><dd%s>%s</dd></div>' % (a, ' class="js-when"' if i == 0 and prog_close(lst) else '', esc(b)) for i, (a, b) in enumerate([row] + card))
-    return ('<aside class="aside"><div class="acard"%s>%s<dl>%s</dl><a class="btn or" href="#eligibilitate" data-go="eligibilitate" data-preset="%s">Verifică eligibilitatea</a></div>%s</aside>'
+    return ('<aside class="aside"><div class="acard sum"%s>%s<dl>%s</dl><a class="btn or" href="#eligibilitate" data-go="eligibilitate" data-preset="%s">Verifică eligibilitatea</a></div>%s</aside>'
             % (prog_close(lst), prog_badge(lst), dl, preset, TALK))
 
 # ---- pagina Autoconsum (scrisă integral în machetă; starea și cardul din dreapta vin din calendar)
@@ -467,11 +475,57 @@ def build_rest():
                '<section class="phead"><div class="wrap"><h1>Pagina nu există</h1><p class="lead">Adresa nu mai e valabilă sau a fost scrisă greșit.</p>'
                '<div class="ctas" style="margin-top:20px;display:flex;gap:12px;flex-wrap:wrap"><a class="btn or" href="@/">Prima pagină</a><a class="btn out" href="@/apeluri/">Calendar apeluri</a></div></div></section>')
 
+# ---- fișele PDF: se generează din fise/<nume>.html la fiecare construire, deci și în cea de noapte, cu Chrome.
+# Data („Situația la”) e UPD; tabelul cu data-calendar își ia apelurile și termenele din calendar, iar un text
+# cu data-stare="<slug>" rămâne doar cât timp apelul urmează. Fără Chrome se folosesc PDF-urile salvate în fise/.
+FISE = ['e-drive', 'autoritati', 'primarii-energie']
+FISE_PROG = ['Autoconsum și stocare', 'Eficiență energetică pentru clădiri publice', 'Iluminat public']
+def chrome():
+    for c in (os.environ.get('CHROME'), shutil.which('google-chrome'), shutil.which('google-chrome-stable'), shutil.which('chromium'),
+              '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'):
+        if c and os.path.exists(c): return c
+def fisa_html(name):
+    h = (ROOT / 'fise' / (name + '.html')).read_text(encoding='utf-8')
+    h = h.replace('{{LOGO}}', (ROOT / 'brand' / 'logo-big-solutions.svg').read_text(encoding='utf-8').strip()).replace('{{UPD}}', UPD)
+    def stare(m):
+        c = by_slug(m.group(1))
+        if c['s'] == 'deschis': return 'Apelul e deschis%s. Detalii: bigsolutions.ro/apeluri/%s/' % (', cu termen pe ' + c['close'] if c['close'] else '', c['slug'])
+        if c['s'] == 'inchis': return 'Apelul s-a închis. Calendarul actualizat: bigsolutions.ro/apeluri'
+        return m.group(2)
+    h = re.sub(r'<span data-stare="([^"]+)">(.*?)</span>', lambda m: '<span>%s</span>' % stare(m), h)
+    def table(m):
+        # rândurile scrise în fișă dau doar textele (programul și ce finanțează); apelurile deschise sau care urmează și termenele vin din calendar
+        own = {s: (a, b) for s, a, b in re.findall(r'<tr data-slug="([^"]+)"><td>(.*?)</td><td>(.*?)</td>', m.group(1))}
+        lst = [c for p in FISE_PROG for c in sort_calls([c for c in calls if c['pg'] == p and 'A' in c['w'] and c['s'] != 'inchis'])]
+        def term(c): return ('d', c['close']) if c['s'] == 'deschis' and c['close'] else ('d lung', esc(when(c)))
+        rows = ''.join('<tr><td>%s</td><td>%s</td><td class="%s">%s</td></tr>' % (own.get(c['slug'], (esc(c['prog'][-1]), esc(c['n']))) + term(c)) for c in lst)
+        return '<tbody>%s</tbody>' % (rows or '<tr><td colspan="3">Niciun apel deschis acum. Calendarul actualizat: bigsolutions.ro/apeluri</td></tr>')
+    return re.sub(r'<tbody data-calendar>(.*?)</tbody>', table, h, flags=re.S)
+def render_fise(out):
+    ch = chrome()
+    linux = ['--no-sandbox', '--disable-dev-shm-usage'] if sys.platform.startswith('linux') else []
+    for name in FISE:
+        pdf, ok = out / (name + '.pdf'), False
+        if ch:
+            tmp = ROOT / 'fise' / ('.%s.tmp.html' % name)
+            tmp.write_text(fisa_html(name), encoding='utf-8')
+            try:
+                subprocess.run([ch, '--headless=new', '--disable-gpu', '--no-pdf-header-footer', '--allow-file-access-from-files', '--virtual-time-budget=4000']
+                               + linux + ['--print-to-pdf=%s' % pdf, tmp.as_uri()], capture_output=True, timeout=180)
+            except subprocess.TimeoutExpired: pass
+            tmp.unlink()
+            b = pdf.read_bytes() if pdf.exists() else b''
+            ok = b[:4] == b'%PDF' and len(b) > 20000
+            if ok and b'/Count 2' not in b: print('Atenție: fișa %s nu mai are 2 pagini; verificați textul din fise/%s.html.' % (name, name))
+        if not ok:
+            print('Atenție: fișa %s nu s-a putut genera; rămâne PDF-ul salvat în fise/.' % name)
+            if out != ROOT / 'fise': shutil.copy(ROOT / 'fise' / (name + '.pdf'), pdf)
+
 def main():
     if DIST.exists(): shutil.rmtree(DIST)
     shutil.copytree(SRC / 'assets', DIST / 'assets')
     (DIST / 'assets' / 'fise').mkdir(exist_ok=True)
-    for pdf in (ROOT / 'fise').glob('*.pdf'): shutil.copy(pdf, DIST / 'assets' / 'fise' / pdf.name)
+    render_fise(DIST / 'assets' / 'fise')
     build_home(); build_autoconsum()
     for p in programs:
         if p['n'] != 'Autoconsum și stocare': build_prog(p['n'])
@@ -487,4 +541,5 @@ def main():
     left = [f for f in files if 'data-go=' in (DIST / f).read_text(encoding='utf-8')]
     print('%d pagini în dist/ (%s)%s' % (len(files), 'test' if TEST else 'site', '; rămase cu data-go: %s' % left if left else ''))
 
-main()
+if '--fise' in sys.argv: render_fise(ROOT / 'fise'); print('fișele PDF refăcute în fise/')
+else: main()

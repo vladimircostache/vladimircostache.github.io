@@ -15,7 +15,7 @@ Site static pentru bigsolutions.ro. Codul stă aici, în afara OneDrive. La fiec
   - `apeluri/<slug>.md`: textul propriu al unei fișe de apel („Pentru cine merită”, „Unde se greșește des”, „Ce documente pregătiți”). Apare automat în fișa apelului cu același slug;
   - `noutati/AAAA-LL-ZZ-<slug>.md`: articolele din „Noutăți”. Antetul are rândurile `titlu:`, `data:`, `descriere:` și `apeluri:` (sluguri separate prin virgulă), apoi un rând `---` și textul.
 - `src/assets/`: stiluri, scripturi, fonturi, imagini.
-- `fise/`: fișele PDF oferite pe site, cu sursa HTML și PDF-ul. Le refaceți cu Chrome, cu `sh fise/render.sh <nume>`: `e-drive`, `autoritati`, `primarii-energie`. Toate PDF-urile din `fise/` ajung în `/assets/fise/`.
+- `fise/`: fișele PDF oferite pe site (`e-drive`, `autoritati`, `primarii-energie`). Textul se scrie în `fise/<nume>.html`. Construirea site-ului, inclusiv cea de noapte, le generează singură cu Chrome, cu data actualizării și termenele din calendar: tabelul de programe din fișa pentru primării pierde singur apelurile închise. PDF-urile salvate în `fise/` sunt rezerva pentru când nu există Chrome; le refaceți cu `sh fise/render.sh`.
 - `tools/build.py`: generează site-ul în `dist/`.
 - `tools/imagini.py`: redimensionează imaginile și le salvează în JPEG și WebP, cu Chrome.
 - `tools/logo.swift`: generează fișierele logoului în `brand/` (SVG și PNG, cu textul transformat în contururi din fonturile site-ului): `swift tools/logo.swift brand`.

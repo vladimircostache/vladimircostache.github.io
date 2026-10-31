@@ -115,6 +115,7 @@ td{width:calc((100% - 28mm)/2)}
 .prog td,.prog th{padding:1.3mm 2.2mm;width:auto}
 .prog thead th{font-family:var(--body);font-weight:700;font-size:7.6pt;letter-spacing:.08em;text-transform:uppercase;color:var(--mut);border-bottom:.4mm solid var(--ink)}
 .prog .d{white-space:nowrap;font-weight:700;text-align:right}
+.prog .d.lung{white-space:normal;width:32mm}
 </style>
 </head>
 <body>
@@ -125,7 +126,7 @@ td{width:calc((100% - 28mm)/2)}
     <div class="eyebrow">Pentru primării, consilii județene și instituțiile din subordinea lor</div>
     <h1>Cum pregătește o primărie un proiect de energie</h1>
     <p class="lead">Fotovoltaice cu stocare, eficiența energetică a clădirilor, iluminat public: pașii, documentele și hotărârile de care aveți nevoie, oricare ar fi apelul.</p>
-    <div class="status"><b>Situația la 30.10.2026</b>Programele deschise acum sunt pe pagina 2. Calendarul actualizat: bigsolutions.ro/apeluri</div>
+    <div class="status"><b>Situația la {{UPD}}</b>Programele deschise acum sunt pe pagina 2. Calendarul actualizat: bigsolutions.ro/apeluri</div>
   </div>
 
   <div class="in">
@@ -188,17 +189,17 @@ td{width:calc((100% - 28mm)/2)}
     <h2>Achiziția consultanței</h2>
     <p class="txt">Consultanța pentru fonduri se achiziționează, de regulă, cu codul CPV 79411000-8 „Servicii generale de consultanță în management”. Dacă valoarea estimată e sub pragul pentru achiziția directă de servicii (Legea nr. 98/2016, art. 7 alin. (5)), o puteți cumpăra direct din catalogul electronic SEAP. Proiectarea se achiziționează separat. La unele programe, consultanța e cheltuială eligibilă: la Fondul pentru modernizare, autoconsum, până la 20.000&nbsp;€ fără TVA.</p>
 
-    <h2>Programe pentru primării <small>situația la 30.10.2026</small></h2>
+    <h2>Programe pentru primării <small>situația la {{UPD}}</small></h2>
     <table class="prog">
       <thead><tr><th>Program</th><th>Ce finanțează</th><th class="d">Termen</th></tr></thead>
-      <tbody>
-        <tr><td>Fondul pentru modernizare · Fotovoltaice cu stocare</td><td>panouri fotovoltaice cu baterii, pentru autoconsum, până la 100%</td><td class="d">20.11.2026</td></tr>
-        <tr><td>Fondul pentru modernizare · Stocare</td><td>baterii pentru instalațiile regenerabile existente, până la 100%</td><td class="d">20.11.2026</td></tr>
-        <tr><td>PR Nord-Est · clădiri rezidențiale</td><td>renovarea energetică a blocurilor din orașe, prin autoritățile locale</td><td class="d">16.11.2026</td></tr>
-        <tr><td>PR Sud-Est · acțiunea 2.1.B (ELENA)</td><td>renovarea energetică a clădirilor publice din proiectul ELENA</td><td class="d">30.12.2026</td></tr>
-        <tr><td>PDDTJ · blocuri multifamiliale</td><td>renovarea blocurilor, în Dolj, Galați, Gorj, Hunedoara, Mureș și Prahova</td><td class="d">03.02.2027</td></tr>
-        <tr><td>PR Sud Muntenia · Facilitatea ELENA</td><td>renovarea clădirilor publice cu documentația pregătită prin ELENA</td><td class="d">21.05.2027</td></tr>
-        <tr><td>PDDTJ · acțiunea 4.6</td><td>eficiența energetică a clădirilor publice</td><td class="d">estimat: dec. 2026 – iun. 2027</td></tr>
+      <tbody data-calendar>
+        <tr data-slug="fotovoltaice-cu-stocare-pentru-entitati-publice"><td>Fondul pentru modernizare · Fotovoltaice cu stocare</td><td>panouri fotovoltaice cu baterii, pentru autoconsum, până la 100%</td><td class="d"></td></tr>
+        <tr data-slug="stocarea-energiei-pentru-entitati-publice"><td>Fondul pentru modernizare · Stocare</td><td>baterii pentru instalațiile regenerabile existente, până la 100%</td><td class="d"></td></tr>
+        <tr data-slug="blocuri-de-locuinte-in-orase-nord-est"><td>PR Nord-Est · clădiri rezidențiale</td><td>renovarea energetică a blocurilor din orașe, prin autoritățile locale</td><td class="d"></td></tr>
+        <tr data-slug="eficienta-energetica-in-cladiri-publice-sud-est"><td>PR Sud-Est · acțiunea 2.1.B (ELENA)</td><td>renovarea energetică a clădirilor publice din proiectul ELENA</td><td class="d"></td></tr>
+        <tr data-slug="renovarea-energetica-a-blocurilor-de-locuinte"><td>PDDTJ · blocuri multifamiliale</td><td>renovarea blocurilor, în Dolj, Galați, Gorj, Hunedoara, Mureș și Prahova</td><td class="d"></td></tr>
+        <tr data-slug="eficienta-energetica-in-cladiri-publice-sud-muntenia-elena"><td>PR Sud Muntenia · Facilitatea ELENA</td><td>renovarea clădirilor publice cu documentația pregătită prin ELENA</td><td class="d"></td></tr>
+        <tr data-slug="pddtj-actiunea-4-6-cladiri-publice"><td>PDDTJ · acțiunea 4.6</td><td>eficiența energetică a clădirilor publice</td><td class="d"></td></tr>
       </tbody>
     </table>
     <p class="note">Termenele se pot schimba, iar unele apeluri se închid mai devreme, când se termină bugetul. Calendarul complet, actualizat săptămânal: bigsolutions.ro/apeluri</p>
