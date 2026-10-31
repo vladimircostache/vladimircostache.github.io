@@ -12,6 +12,30 @@
   var burger=$('#burger'),mnav=$('#mnav');
   if(burger&&mnav)burger.addEventListener('click',function(){mnav.hidden=!mnav.hidden;burger.setAttribute('aria-expanded',String(!mnav.hidden));});
 
+  /* meniurile derulante: se deschid la trecerea mouse-ului sau la apăsare și anunță starea (aria-expanded);
+     Escape sau un clic în afară le închide */
+  var dds=$$('.mainnav .has-dd');
+  dds.forEach(function(d){
+    var b=$('button',d);
+    function set(o){b.setAttribute('aria-expanded',String(o));d.classList.toggle('open',o);}
+    d.addEventListener('mouseenter',function(){set(true);});
+    d.addEventListener('mouseleave',function(){set(false);});
+    /* cu tastatura (detail 0) butonul comută; cu mouse-ul, meniul e deja deschis de trecerea cursorului */
+    b.addEventListener('click',function(e){set(e.detail===0?b.getAttribute('aria-expanded')!=='true':true);});
+    d.addEventListener('keydown',function(e){if(e.key==='Escape'){set(false);b.focus();}});
+    d.addEventListener('focusout',function(e){if(!d.contains(e.relatedTarget))set(false);});
+  });
+  document.addEventListener('click',function(e){dds.forEach(function(d){if(!d.contains(e.target)){$('button',d).setAttribute('aria-expanded','false');d.classList.remove('open');}});});
+
+  /* „Ce puteți pregăti de acum”: câte documente aveți deja */
+  $$('.prep').forEach(function(p){
+    var boxes=$$('.prep-list input[type=checkbox]',p),out=$('.prep-count',p);if(!boxes.length||!out)return;
+    var first=out.textContent;
+    function upd(){var k=boxes.filter(function(b){return b.checked;}).length,n=boxes.length;
+      out.textContent=!k?first:(k===n?'Aveți tot ce trebuie pentru început. Să vorbim despre proiect.':'Aveți '+k+' din '+n+'. Vă spunem ce mai lipsește.');}
+    boxes.forEach(function(b){b.addEventListener('change',upd);});
+  });
+
   /* termenele trecute: site-ul se reconstruiește în fiecare noapte, dar dacă reconstruirea nu rulează,
      un apel cu termenul depășit apare oricum „Închis” și dispare de pe prima pagină (data din București) */
   var TODAY=(function(){try{return new Intl.DateTimeFormat('en-CA',{timeZone:'Europe/Bucharest'}).format(new Date()).replace(/\D/g,'');}
@@ -19,7 +43,7 @@
   function past(k){return !!k&&k<TODAY;}
   $$('[data-close]').forEach(function(x){
     var k=x.dataset.close;if(!past(k))return;
-    if(x.matches('#featured .call, .pl-calls li')){x.parentNode.removeChild(x);return;}
+    if(x.matches('#featured .ccard')){x.parentNode.removeChild(x);return;}
     $$('.bdg.b-deschis',x).forEach(function(b){b.className='bdg b-inchis';b.textContent=BL.inchis;});
     $$('.js-when',x).forEach(function(w){w.textContent='închis la '+k.slice(6)+'.'+k.slice(4,6)+'.'+k.slice(0,4);});
     $$('.js-st',x).forEach(function(s){s.textContent=BL.inchis;});
@@ -30,7 +54,7 @@
   if(rail){
     var rprev=$('#railprev'),rnext=$('#railnext'),rcnt=$('#railcount'),GAP=16;
     var smooth=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth';
-    function stepW(){var c=$('.call',rail);return c?c.getBoundingClientRect().width+GAP:300;}
+    function stepW(){var c=$('.ccard',rail);return c?c.getBoundingClientRect().width+GAP:300;}
     function upd(){var max=rail.scrollWidth-rail.clientWidth-2,n=rail.children.length,w=stepW();
       $('.railnav').hidden=false;
       if(!n){rcnt.textContent='Nu sunt apeluri deschise acum. Vedeți calendarul pentru cele care urmează.';rprev.hidden=rnext.hidden=true;return;}
@@ -140,23 +164,59 @@
   var ef=$('#ef');
   if(ef){
     var judete=['Alba','Arad','Argeș','Bacău','Bihor','Bistrița-Năsăud','Botoșani','Brașov','Brăila','București','Buzău','Caraș-Severin','Călărași','Cluj','Constanța','Covasna','Dâmbovița','Dolj','Galați','Giurgiu','Gorj','Harghita','Hunedoara','Ialomița','Iași','Ilfov','Maramureș','Mehedinți','Mureș','Neamț','Olt','Prahova','Satu Mare','Sălaj','Sibiu','Suceava','Teleorman','Timiș','Tulcea','Vaslui','Vâlcea','Vrancea'];
+    /* ce se poate finanța: eticheta, paginile de program care i se potrivesc și cuvintele căutate în apel (fără diacritice);
+       „Altceva” arată toate apelurile pentru tipul de solicitant ales */
     var ce={
-      firma:['Vehicule electrice','Stații de încărcare','Panouri fotovoltaice sau baterii','Utilaje și producție','Tehnologie și inovare','Agricultură și procesare','Clădiri și eficiență energetică','Altceva'],
-      ong:['Servicii sociale','Educație, formare și ocupare','Cultură, turism și patrimoniu','Dotări și clădiri','Digitalizare','Altceva'],
-      uat:['Fotovoltaice cu stocare','Iluminat public','Apă-canal','Clădiri și eficiență energetică','Servicii sociale','Mobilitate și stații de încărcare','Altceva']
+      firma:[['Vehicule electrice',0,/drive|camion|autoturism|autobuz|microbuz/],['Stații de încărcare',0,/incarcare|mobility/],['Panouri fotovoltaice sau baterii',0,/fotovolt|baterii|stocare/],
+        ['Utilaje și producție',['Investiții pentru IMM-uri']],['Tehnologie și inovare',['Inovare și tehnologie']],['Agricultură și procesare',['Agricultură și procesare']],
+        ['Clădiri și eficiență energetică',0,/eficienta energetica|cladir/],['Altceva']],
+      ong:[['Servicii sociale',['Incluziune socială']],['Educație, formare și ocupare',0,/educa|formare|ocupare|scoal/],['Cultură, turism și patrimoniu',0,/cultur|turism|patrimon/],
+        ['Dotări și clădiri',0,/infrastructur|dotar|cladir|locuint/],['Digitalizare',0,/digital/],['Altceva']],
+      uat:[['Fotovoltaice cu stocare',['Autoconsum și stocare']],['Iluminat public',['Iluminat public']],['Apă-canal',0,/apa potabila|apa-canal|canalizare|apa uzata/],
+        ['Clădiri și eficiență energetică',['Eficiență energetică pentru clădiri publice']],['Servicii sociale',['Incluziune socială']],['Mobilitate și stații de încărcare',0,/mobilitate|incarcare|transport public/],['Altceva']]
     };
     ce.noua=ce.firma;ce.alta=ce.uat;
+    var WHOF={firma:'F',noua:'F',ong:'O',uat:'A',alta:'A'},STEPS=5,ELIG=window.ELIG||[],fisa=$('#ef-fisa');
     var jsel=$('#judet');judete.forEach(function(j){var o=document.createElement('option');o.textContent=j;jsel.appendChild(o);});
     function goStep(n){
       $$('#ef [data-step]').forEach(function(c){c.hidden=(+c.dataset.step!==n);});
-      $('#ef-num').textContent='Pasul '+n+' din 4';
+      $('#ef-num').textContent='Pasul '+n+' din '+STEPS;
+      if(n===4)showMatches();
       $$('.prog-bar i').forEach(function(i,k){i.classList.toggle('on',k<n);});
     }
     function tip(){var r=$('input[name=tip]:checked');return r?r.value:'';}
     function onTip(){
       var t=tip();$('#marime-f').hidden=(t!=='firma');$('#e1').hidden=true;
       var box=$('#ce-opts');box.textContent='';
-      (ce[t]||[]).forEach(function(o,k){var l=el('label','opt');var i=document.createElement('input');i.type='checkbox';i.name='ce';i.id='ce-'+k;i.value=o;l.appendChild(i);l.appendChild(el('span',null,o));box.appendChild(l);});
+      (ce[t]||[]).forEach(function(o,k){var l=el('label','opt');var i=document.createElement('input');i.type='checkbox';i.name='ce';i.id='ce-'+k;i.value=o[0];i.dataset.k=k;l.appendChild(i);l.appendChild(el('span',null,o[0]));box.appendChild(l);});
+    }
+    /* apelurile deschise sau care urmează, potrivite după tipul de solicitant, investiție și județ (zona apelului: regiune, județe sau toată țara) */
+    function matches(){
+      var t=tip(),w=WHOF[t],j=$('#judet').value,sel=$$('input[name=ce]:checked').map(function(x){return ce[t][+x.dataset.k];});
+      var all=sel.some(function(o){return !o[1]&&!o[2];});
+      return ELIG.filter(function(c){
+        if(c.w.indexOf(w)<0||(c.z&&j&&c.z.indexOf(j)<0))return false;
+        if(t==='noua'&&(c.pg==='Start-Up Nation'||c.pg==='Diaspora Investește Acasă'))return true;
+        return all||sel.some(function(o){return (o[1]&&o[1].indexOf(c.pg)>-1)||(o[2]&&o[2].test(c.q));});
+      });
+    }
+    /* același card ca în restul site-ului; fișa se deschide într-o filă nouă, ca formularul să rămână completat */
+    function card(c){
+      var a=el('article','ccard'),m=el('div','meta');m.appendChild(badge(c.s));m.appendChild(el('span',null,c.when));a.appendChild(m);
+      var h=el('h4'),l=el('a',null,c.n);l.href=fisa.getAttribute('href').replace('SLUG',c.slug);l.target='_blank';l.rel='noopener';h.appendChild(l);a.appendChild(h);
+      a.appendChild(el('p','who',c.prog));a.appendChild(el('p','sum',c.sum));return a;
+    }
+    var found=[];
+    function showMatches(){
+      found=matches();
+      var op=found.filter(function(c){return c.s==='deschis';}),nx=found.filter(function(c){return c.s!=='deschis';});
+      var bo=$('#ef-open'),bn=$('#ef-next');bo.textContent='';bn.textContent='';
+      var ts=$('input[name=tip]:checked+span'),j=$('#judet').value;
+      $('#ef-for').textContent='Ați ales: '+[ts?ts.firstChild.textContent.trim():''].concat($$('input[name=ce]:checked').map(function(x){return x.value;})).join(', ')+' · '+(j==='București'?'București':'județul '+j)+'.';
+      op.forEach(function(c){bo.appendChild(card(c));});
+      nx.forEach(function(c){bn.appendChild(card(c));});
+      $('#ef-none').hidden=op.length>0;$('#ef-nextw').hidden=!nx.length;
+      $('#ef-mh').textContent=op.length?(op.length===1?'Un apel deschis vi se potrivește':op.length+(op.length>=20?' de':'')+' apeluri deschise vi se potrivesc'):'Niciun apel deschis acum, pentru ce ați ales';
     }
     function err(id,msg){var e=$('#'+id);if(msg)e.textContent=msg;e.hidden=false;}
     function ok(id){$('#'+id).hidden=true;}
@@ -167,6 +227,7 @@
       if(n===2){if(!$('input[name=ce]:checked')){err('e2');return;}ok('e2');}
       if(n===3){var j=$('#judet'),v=$('#valoare');j.setAttribute('aria-invalid',String(!j.value));v.setAttribute('aria-invalid',String(!v.value));if(!j.value||!v.value){err('e3');return;}ok('e3');}
       goStep(n+1);
+      var cur=$('#ef [data-step="'+(n+1)+'"] h3');if(cur){cur.setAttribute('tabindex','-1');cur.focus();}
     });});
     $$('[data-back]').forEach(function(b){b.addEventListener('click',function(){goStep(+b.dataset.back-1);});});
     $$('#ce-opts, #judet, #valoare').forEach(function(x){x.addEventListener('change',function(){ok('e2');ok('e3');});});
@@ -183,7 +244,9 @@
       send(ef,'Cerere de eligibilitate: '+nume.value.trim(),{
         'Tip solicitant':labelOf($('input[name=tip]:checked')),'Mărimea firmei':$('#marime-f').hidden?'':$('#marime').value,
         'Ce vrea să finanțeze':$$('input[name=ce]:checked').map(function(x){return x.value;}).join(', '),
-        'Județ':$('#judet').value,'Valoare estimată':$('#valoare').value,'Nume':nume.value.trim(),'Telefon':tel.value.trim(),
+        'Județ':$('#judet').value,'Valoare estimată':$('#valoare').value,
+        'Apeluri potrivite (arătate în formular)':found.map(function(c){return c.n+' ('+(c.s==='deschis'?'deschis':'urmează')+')';}).join('; ')||'niciunul',
+        'Nume':nume.value.trim(),'Telefon':tel.value.trim(),
         email:em.value.trim(),'CUI':$('#cui').value.trim(),'Mesaj':$('#mesaj').value.trim(),'Acord date personale':'Da'
       },function(){$('#ef-steps').hidden=true;$('#ef-done').hidden=false;},function(){err('e4',SEND_ERR);});
     });

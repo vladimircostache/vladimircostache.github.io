@@ -54,8 +54,8 @@ WHO = {'F': 'Firme', 'O': 'ONG-uri', 'A': 'Autorități'}
 TRACKS = {'F': ('Firme', '/firme/'), 'O': ('ONG-uri', '/ong-uri/'), 'A': ('Autorități publice', '/autoritati-publice/')}
 TRACK_BY_NAME = {v[0]: (k, v[1]) for k, v in TRACKS.items()}
 PRE = {'F': 'firma', 'O': 'ong', 'A': 'uat'}
-# Sloganul firmei, adaptat pe paginile de traseu (prima pagină păstrează „Business, fără compromis.”).
-SLOGANS = {'Firme': 'Business, fără compromis.', 'ONG-uri': 'Proiecte sociale, fără compromis.', 'Autorități publice': 'Investiții publice, fără compromis.'}
+# Rândul de deasupra titlului, pe prima pagină și pe paginile de traseu. Sloganul „Business, fără compromis.” stă doar în subsol.
+EYEBROW = 'Consultanță pentru fonduri nerambursabile'
 LEGAL = {'Politica de confidențialitate': '/politica-de-confidentialitate/', 'Politica de cookies': '/politica-cookies/', 'Termeni și condiții': '/termeni-si-conditii/'}
 LEGAL_DESC = {
     'Politica de confidențialitate': 'Cum folosim datele trimise prin site: ce date, de ce, cui le transmitem, cât timp le păstrăm și ce drepturi aveți.',
@@ -68,10 +68,24 @@ MAGNET_PRIMARII = ('<section class="magnet sm" id="fisa-primarii"><div><span cla
     '<p>Pe 2 pagini: pașii în ordine, documentele de bază, ce cuprinde hotărârea consiliului local, cum se achiziționează consultanța și programele deschise acum.</p></div>'
     '<form class="mform" data-subject="Fișa pentru primării" novalidate><input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">'
     '<label for="p-email" style="font-weight:600">Adresa de e-mail</label><input type="email" id="p-email" placeholder="nume@primaria.ro" autocomplete="email">'
-    '<button class="btn or" type="submit">Trimite-mi fișa</button>'
+    '<button class="btn or" type="submit">Trimiteți-mi fișa</button>'
     '<small class="note">Folosim adresa doar ca să vă anunțăm când apare fișa actualizată. Detalii în <a href="@/politica-de-confidentialitate/" target="_blank" rel="noopener">Politica de confidențialitate</a>.</small>'
     '<span class="msg" aria-live="polite"></span>'
-    '<a class="dl" href="@/assets/fise/primarii-energie.pdf" download hidden>Descarcă fișa pentru primării (PDF, 2 pagini)</a></form></section>')
+    '<a class="dl" href="@/assets/fise/primarii-energie.pdf" download hidden>Descărcați fișa pentru primării (PDF, 2 pagini)</a></form></section>')
+def magnet_edrive():
+    """Fișa gratuită e-DRIVE; propoziția despre apel urmează starea lui din calendar."""
+    c = by_slug('e-drive-masura-1')
+    st = {'deschis': 'Apelul e deschis%s.' % (', cu termen pe ' + c['close'] if c['close'] else ''),
+          'inchis': 'Apelul s-a închis; fișa rămâne utilă pentru sesiunea următoare.'}.get(c['s'], 'Schema e aprobată, apelul nu e lansat încă.')
+    return ('<section class="magnet sm" id="fisa-edrive"><div><span class="lbl">Fișă gratuită pentru firme</span>'
+        '<h2 style="margin-top:6px">e-DRIVE: ce să pregătiți pentru apel</h2>'
+        '<p>%s Pe 2 pagini: cine poate aplica, cât primiți pe autoturism, cum se face selecția și ce documente pregătiți de acum.</p></div>'
+        '<form class="mform" data-subject="Fișa e-DRIVE" novalidate><input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">'
+        '<label for="m-email" style="font-weight:600">Adresa de e-mail</label><input type="email" id="m-email" placeholder="nume@firma.ro" autocomplete="email">'
+        '<button class="btn or" type="submit">Trimiteți-mi fișa</button>'
+        '<small class="note">Folosim adresa doar ca să vă anunțăm când apare fișa actualizată. Detalii în <a href="@/politica-de-confidentialitate/" target="_blank" rel="noopener">Politica de confidențialitate</a>.</small>'
+        '<span class="msg" aria-live="polite"></span>'
+        '<a class="dl" href="@/assets/fise/e-drive.pdf" download hidden>Descărcați fișa e-DRIVE (PDF, 2 pagini)</a></form></section>') % st
 
 def esc(s): return html.escape(s or '', quote=True)
 def md(t):
@@ -174,13 +188,14 @@ def finalize(h, page_path):
     return re.sub(r'(href|src)="@(/[^"]*)"', lambda m: '%s="%s"' % (m.group(1), url(m.group(2))), h)
 
 # ---- bucăți generate din date (în machetă le genera scriptul)
+# Cardul de apel, același peste tot: prima pagină, listele de pe paginile de program, articolele și formularul de eligibilitate
+# (site.js îl construiește la fel). Titlul e linkul spre fișa apelului și acoperă tot cardul.
+def call_card(c):
+    return ('<article class="ccard"%s><div class="meta">%s<span class="js-when">%s</span></div><h3><a href="@/apeluri/%s/">%s</a></h3>'
+            '<p class="who">%s</p><p class="sum">%s</p></article>') % (dc(c), badge(c['s']), esc(when(c)), c['slug'], esc(c['n']), esc(c['prog'][-1]), esc(c['sum']))
 def call_list(lst, empty):
     if not lst: return '<p class="empty">%s</p>' % esc(empty)
-    out = []
-    for c in lst:
-        out.append('<div class="cl"%s><div class="meta">%s<span class="js-when">%s</span></div><a class="cl-t" href="@/apeluri/%s/">%s</a><span class="cl-m">%s · %s</span></div>'
-                   % (dc(c), badge(c['s']), esc(when(c)), c['slug'], esc(c['n']), esc(c['prog'][-1]), esc(c['sum'])))
-    return ''.join(out)
+    return ''.join(call_card(c) for c in lst)
 def by_slug(s): return next(c for c in calls if c['slug'] == s)
 
 def layout(page_path, title, desc, body, scripts=''):
@@ -189,7 +204,7 @@ def layout(page_path, title, desc, body, scripts=''):
     for short, name in PORTRAITS.items():
         body = re.sub(r'(<img class="pphoto") src="%s"([^>]*>)' % re.escape(short),
                       r'<picture><source type="image/webp" srcset="@/assets/img/%s.webp">\1 src="@/assets/img/%s.jpg"\2</picture>' % (name, name), body)
-    header = route_links(read('partials/header.html'))
+    header = mark_current(route_links(read('partials/header.html')), page_path)
     footer = contact_links(route_links(legal_links(read('partials/footer.html'))))
     mbar = read('partials/mbar.html').replace('<a class="c1" href="#contact" data-go="contact">', '<a class="c1" href="tel:%s">' % PHONE_TEL)
     mbar = route_links(mbar.replace('<a class="c2" href="#contact" data-go="contact">', '<a class="c2" href="%s" target="_blank" rel="noopener">' % WA))
@@ -202,7 +217,7 @@ def layout(page_path, title, desc, body, scripts=''):
            '<meta property="og:image" content="%s/assets/img/og-big-solutions.png">\n<meta property="og:image:width" content="1200">\n<meta property="og:image:height" content="630">\n'
            '<meta name="twitter:card" content="summary_large_image">\n'
            '<link rel="icon" href="%s">\n<link rel="apple-touch-icon" href="@/assets/img/apple-touch-icon.png">\n<link rel="preload" href="@/assets/fonts/bricolage-grotesque-latin.woff2" as="font" type="font/woff2" crossorigin>\n<link rel="preload" href="@/assets/fonts/bricolage-grotesque-latin-ext.woff2" as="font" type="font/woff2" crossorigin>\n'
-           '<link rel="stylesheet" href="@/assets/css/site.css?v=' + ASSET_V + '">\n%s</head>\n<body>\n<div class="site" id="site">\n%s\n<main id="main">\n%s\n</main>\n%s\n%s\n</div>\n%s<script src="@/assets/js/site.js?v=' + ASSET_V + '" defer></script>\n</body>\n</html>\n') % (
+           '<link rel="stylesheet" href="@/assets/css/site.css?v=' + ASSET_V + '">\n%s</head>\n<body>\n<a class="skip" href="#main">Sari la conținut</a>\n<div class="site" id="site">\n%s\n<main id="main" tabindex="-1">\n%s\n</main>\n%s\n%s\n</div>\n%s<script src="@/assets/js/site.js?v=' + ASSET_V + '" defer></script>\n</body>\n</html>\n') % (
         esc(title), esc(desc), '<meta name="robots" content="noindex">\n' if TEST else '', canonical, esc(title), esc(desc), canonical, SITE, favicon,
         JSONLD if page_path == '/' else '',
         header, body, footer, mbar, scripts)
@@ -225,6 +240,15 @@ JSONLD = '<script type="application/ld+json">%s</script>\n' % json.dumps({
     'telephone': '+40742225222', 'email': 'vladimir.costache@bigsolutions.ro', 'areaServed': 'RO',
     'address': {'@type': 'PostalAddress', 'streetAddress': 'Ale. Petre Antonescu nr. 1', 'addressLocality': 'București', 'addressCountry': 'RO'},
     'openingHours': 'Mo-Fr 09:00-18:00'}, ensure_ascii=False)
+
+# Meniul arată unde sunteți: pagina curentă are aria-current="page", iar elementul de sus al secțiunii ei, clasa „on”
+# (o pagină de program ține de categoria ei, o fișă de apel de calendar, un articol de Noutăți).
+PROG_TRACK = {prog_path(p['n']): TRACKS[p['t'][0]][1] for p in programs}
+def mark_current(h, page_path):
+    sec = PROG_TRACK.get(page_path) or next((s for s in ('/apeluri/', '/noutati/') if page_path.startswith(s)), page_path)
+    h = h.replace('href="@%s"' % page_path, 'href="@%s" aria-current="page"' % page_path)
+    h = re.sub(r'(<div (?:class="has-dd" )?data-sec="%s"><(?:a|button) [^>]*?class="item)"' % re.escape(sec), r'\1 on"', h)
+    return re.sub(r'(<nav class="mnav".*?<a )(href="@%s")' % re.escape(sec), r'\1class="on" \2', h, flags=re.S)
 
 def fix_headings(h):
     """Titlurile din pagină nu sar niveluri (h2 → h4), pentru cititoarele de ecran.
@@ -259,44 +283,38 @@ def build_home():
     shown = [c for c in map(by_slug, featured) if c['s'] == 'deschis']
     shown += sorted((c for c in calls if c['s'] == 'deschis' and c['pg'] and c not in shown), key=lambda c: dkey(c['close']))
     shown = shown[:12]
-    feat = ''
-    for c in shown:
-        feat += ('<div class="call"%s><div class="meta">%s<span>%s</span></div><h4>%s</h4><span class="who">%s</span><span class="sum">%s</span>'
-                 '<a class="link" href="@%s">Pagina programului&nbsp;→</a></div>') % (dc(c), badge(c['s']), esc(when(c)), esc(c['n']), esc(c['prog'][-1]), esc(c['sum']), prog_path(c['pg']))
-    v = re.sub(r'(<div class="calls[^"]*" id="featured"[^>]*>)(</div>)', lambda m: m.group(1) + feat + m.group(2), v, count=1)
-    # banda arată o selecție; butonul spune câte apeluri deschise sunt în total, ca cifrele să nu se contrazică
+    v = re.sub(r'(<div class="calls[^"]*" id="featured"[^>]*>)(</div>)', lambda m: m.group(1) + ''.join(map(call_card, shown)) + m.group(2), v, count=1)
+    # banda arată o selecție; butonul spune câte apeluri deschise sunt în total și deschide calendarul filtrat pe ele
     n_all = sum(1 for c in calls if c['s'] == 'deschis')
     v = v.replace('>Vedeți calendarul complet\u00a0→</a>', '>Toate cele %s\u00a0→</a>' % n_apel(n_all, 'apel deschis', 'apeluri deschise'), 1)
-    # „Unde vă putem ajuta”: liste scurte de linkuri pe tip de solicitant, cu numărul de apeluri deschise
-    groups = ''
-    for f, title in [('F', 'Pentru firme'), ('O', 'Pentru ONG-uri'), ('A', 'Pentru autorități publice')]:
+    # „Alegeți ce vi se potrivește”: o singură secțiune pe categorii, cu programele și apelurile deschise ale fiecăruia
+    tracks = ''
+    for f, (tname, tpath) in TRACKS.items():
         items = ''
         for p in (p for p in programs if f in p['t']):
-            # se numără doar apelurile pentru acest tip de solicitant (la Incluziune socială, ONG-urile au 7 din 8)
-            mine = [c for c in calls if c['pg'] == p['n'] and f in c['w']]
+            mine = [c for c in calls if c['pg'] == p['n']]
             n_open = sum(1 for c in mine if c['s'] == 'deschis')
             note = n_apel(n_open, 'apel deschis', 'apeluri deschise') if n_open else ('urmează' if any(c['s'] == 'urmeaza' for c in mine) else 'niciun apel acum')
             items += '<li><a href="@%s"><span>%s</span><span class="pc%s">%s</span></a></li>' % (prog_path(p['n']), esc(p['n']), ' on' if n_open else '', note)
-        extra = ''
-        if f == 'O':
-            # ONG-urile au un singur program: dedesubt, apelurile deschise pentru ele, cu termenul
-            lst = sorted((c for c in calls if c['s'] == 'deschis' and 'O' in c['w']), key=lambda c: dkey(c['close']))
-            extra = ''.join('<li%s><a href="@/apeluri/%s/"><span>%s</span><span class="pc">%s</span></a></li>'
-                            % (dc(c), c['slug'], esc(c['n']), esc('până la ' + c['close'][:5] if c['close'] else when(c))) for c in lst[:5])
-            if extra:
-                more = '<a class="link pl-more" href="@/apeluri/?solicitant=ong&amp;stare=deschis">Toate cele %s pentru ONG-uri →</a>' % n_apel(len(lst), 'apel', 'apeluri') if len(lst) > 5 else ''
-                extra = '<p class="pl-sub">Apeluri deschise acum</p><ul class="pl-calls">%s</ul>%s' % (extra, more)
-        groups += '<div class="pl"><h3>%s</h3><ul>%s</ul>%s</div>' % (title, items, extra)
-    v = v.replace('<div class="plinks" id="plinks"></div>', '<div class="plinks" id="plinks">%s</div>' % groups)
+        tracks += ('<div class="track"><h3>%s</h3><p>%s</p><ul class="plist">%s</ul><a class="link" href="@%s">Pagina pentru %s&nbsp;→</a></div>'
+                   % (TRACK_TITLE[f], TRACK_DESC[f], items, tpath, tname.lower() if f != 'O' else 'ONG-uri'))
+    v = v.replace('<div class="tracks" id="tracks"></div>', '<div class="tracks" id="tracks">%s</div>' % tracks)
+    v = v.replace('<div class="magnets" id="magnets"></div>', '<div class="magnets" id="magnets">%s</div>' % (magnet_edrive() + MAGNET_PRIMARII).replace('<h2 ', '<h3 ').replace('</h2>', '</h3>'))
     # ultimele articole din Noutăți, ca să se vadă că site-ul e ținut la zi; fără articole, secțiunea dispare
     if news:
-        v = v.replace('<div class="newsgrid" id="home-news"></div>', '<div class="newsgrid" id="home-news">%s</div>' % ''.join(
-            '<article class="news"><span class="nd">%s</span><h3><a href="@/noutati/%s/">%s</a></h3><p>%s</p></article>'
-            % (esc(n['data']), n['slug'], esc(n['titlu']), esc(n['descriere'])) for n in news[:3]))
+        v = v.replace('<div class="newsgrid" id="home-news"></div>', '<div class="newsgrid" id="home-news">%s</div>' % ''.join(news_card(n, 'h3') for n in news[:3]))
     else:
-        v = re.sub(r'\s*<section class="sec" id="noutati-acasa">.*?</section>', '', v, flags=re.S)
+        v = re.sub(r'\s*<section class="sec[^"]*" id="noutati-acasa">.*?</section>', '', v, flags=re.S)
     s = seo['/']
     write_page('/', s['title'], s['description'], strip_mock(v))
+
+TRACK_TITLE = {'F': 'Pentru firme', 'O': 'Pentru ONG-uri', 'A': 'Pentru autorități publice'}
+TRACK_DESC = {'F': 'IMM-uri și, la unele programe, firme mari: utilaje, tehnologie nouă, vehicule electrice, agricultură. Și pentru firmele noi.',
+              'O': 'Asociații și fundații care oferă servicii sociale și comunitare, singure sau în parteneriat cu autoritățile locale.',
+              'A': 'Primării, consilii județene și instituțiile lor: energie, clădiri publice, iluminat, servicii sociale.'}
+# Cardul de noutate, același pe prima pagină și pe pagina Noutăți
+def news_card(n, h):
+    return '<article class="news"><span class="nd">%s</span><%s><a href="@/noutati/%s/">%s</a></%s><p>%s</p></article>' % (esc(n['data']), h, n['slug'], esc(n['titlu']), h, esc(n['descriere']))
 
 # ---- starea unui program și cardul din dreapta: starea și termenul vin din calendar, restul din programs.json („card”)
 def prog_badge(lst):
@@ -319,7 +337,7 @@ def prog_side(card, lst, preset):
     elif nx: row = ['Urmează', when(nx[0]) if len(nx) == 1 else n_apel(len(nx), 'apel în pregătire', 'apeluri în pregătire')]
     else: row = ['Sesiune', 'niciuna anunțată acum']
     dl = ''.join('<div><dt>%s</dt><dd%s>%s</dd></div>' % (a, ' class="js-when"' if i == 0 and prog_close(lst) else '', esc(b)) for i, (a, b) in enumerate([row] + card))
-    return ('<aside class="aside"><div class="acard sum"%s>%s<dl>%s</dl><a class="btn or" href="#eligibilitate" data-go="eligibilitate" data-preset="%s">Verifică eligibilitatea</a></div>%s</aside>'
+    return ('<aside class="aside"><div class="acard sum"%s>%s<dl>%s</dl><a class="btn or" href="#eligibilitate" data-go="eligibilitate" data-preset="%s">Verificați eligibilitatea</a></div>%s</aside>'
             % (prog_close(lst), prog_badge(lst), dl, preset, TALK))
 
 # ---- pagina Autoconsum (scrisă integral în machetă; starea și cardul din dreapta vin din calendar)
@@ -356,9 +374,10 @@ def build_prog(name, track=None):
         heading, preset, card = 'Apelurile deschise și cele care urmează', pg.get('pre', PRE[f]), pr['card']
     body = pg['h'].replace('class="btn ink prep-elig" href="#eligibilitate" data-go="eligibilitate"', 'class="btn ink prep-elig" href="#eligibilitate" data-go="eligibilitate" data-preset="%s"' % preset)
     if name in ('Autorități publice', 'Eficiență energetică pentru clădiri publice'): body += MAGNET_PRIMARII
+    if name in ('Firme', 'Mobilitate electrică'): body += magnet_edrive()
     rep = {'<span id="pg-cr"></span>': crumb,
            '<div class="st" id="pg-st"></div>': '<div class="st"%s>%s<span>Actualizat la %s</span></div>' % (prog_close(lst), prog_badge(lst), UPD),
-           '<h1 id="pg-t"></h1>': '%s<h1 id="pg-t">%s</h1>' % ('<span class="slog">%s</span>' % SLOGANS[name] if track else '', esc(pg['t'])),
+           '<h1 id="pg-t"></h1>': '%s<h1 id="pg-t">%s</h1>' % ('<span class="slog">%s</span>' % EYEBROW if track else '', esc(pg['t'])),
            '<p class="lead" id="pg-l"></p>': '<p class="lead" id="pg-l">%s</p>' % esc(pg['l']),
            '<div id="pg-body"></div>': body,
            'id="pg-ch">Apelurile deschise și cele care urmează<': 'id="pg-ch">%s<' % heading,
@@ -374,26 +393,27 @@ def build_prog(name, track=None):
 # ---- fișa fiecărui apel
 def build_call(c):
     v = read('views/apel.html')
-    st = badge(c['s']) + '<span class="js-when">%s</span><span>Actualizat la %s</span>' % (esc(when(c)), UPD)
+    # Starea, termenul și bugetul apar o singură dată, în cardul din dreapta (pe telefon, sub titlu).
     # Tipul apelului are doar 3 variante (calls.json). Unde sursa nu-l spune, arătăm ce știm despre ghid, nu „conform ghidului”.
-    if c.get('tip'): tip = [[c['tip'], 'tipul apelului']]
-    elif c.get('ghid'): tip = [[c['ghid'], 'data ghidului solicitantului']]
-    elif c['s'] == 'urmeaza' and not c.get('extra') and 'ghid' not in when(c): tip = [['nepublicat încă', 'ghidul solicitantului']]
+    if c.get('tip'): tip = [['Tipul apelului', c['tip']]]
+    elif c.get('ghid'): tip = [['Ghidul solicitantului', c['ghid']]]
+    elif c['s'] == 'urmeaza' and not c.get('extra') and 'ghid' not in when(c): tip = [['Ghidul solicitantului', 'nepublicat încă']]
     else: tip = []
-    facts = [[(c['open'] + ' – ' + c['close']) if c['open'] and c['close'] else when(c), 'perioada de depunere'], [c['sum'], 'buget'], [BL[c['s']], 'starea apelului']] + tip + (c.get('extra') or [])
-    fh = ''.join('<div><b%s>%s</b><span>%s</span></div>' % (' class="js-st"' if b == 'starea apelului' else '', esc(a), esc(b)) for a, b in facts)
+    if c['open'] and c['close']: per = ['Perioada de depunere', c['open'] + ' – ' + c['close']]
+    elif c['s'] == 'deschis' and c['close']: per = ['Termen', c['close']]
+    else: per = ['Când', when(c)]
+    rows = [per, ['Buget', c['sum']], ['Program', c['prog'][-1]]] + tip + [[b[:1].upper() + b[1:], a] for a, b in (c.get('extra') or [])]
     ben = ''.join('<span class="tag">%s</span>' % esc(x) for x in c['ben']) or '<span>Categoriile exacte sunt în ghidul oficial.</span>'
     if c.get('pg'):
         pgl = '<a class="link" href="@%s">Pagina programului: %s&nbsp;→</a>' % (prog_path(c['pg']), esc(c['pg']))
     else:
         pgl = 'Pentru acest program nu avem o pagină dedicată. Vă putem ajuta oricum: verificați eligibilitatea sau sunați-ne.'
-    dl = ''.join('<div><dt>%s</dt><dd>%s</dd></div>' % (a, esc(b)) for a, b in [['Termen', c['close'] if c['s'] == 'deschis' and c['close'] else when(c)], ['Buget', c['sum']], ['Program', c['prog'][-1]]])
+    dl = ''.join('<div><dt>%s</dt><dd>%s</dd></div>' % (esc(a), esc(b)) for a, b in rows)
     src = 'Sursa: %s · actualizat la %s' % (c.get('srcname') or ('oportunitati-ue.gov.ro' if c.get('url') else c.get('src', '')), UPD)
     rep = {'<span id="ap-cr"></span>': '<span id="ap-cr">%s</span>' % esc(c['n']),
-           '<div class="st" id="ap-st"></div>': '<div class="st" id="ap-st">%s</div>' % st,
+           '<div class="st" id="ap-st"></div>': '<div class="st" id="ap-st"><span>Actualizat la %s</span></div>' % UPD,
            '<h1 id="ap-t"></h1>': '<h1 id="ap-t">%s</h1>' % esc(c['n']),
            '<p class="lead" id="ap-l"></p>': '<p class="lead" id="ap-l">%s</p>' % esc(c['rez']),
-           '<div class="facts4" id="ap-f"></div>': '<div class="facts4" id="ap-f">%s</div>' % fh,
            '<div class="chipsx" id="ap-b"></div>': '<div class="chipsx" id="ap-b">%s</div>' % ben,
            '<p id="ap-p"></p>': '<p id="ap-p">%s</p>' % esc(' · '.join(c['prog'])),
            '<p id="ap-pg"></p>': '<p id="ap-pg">%s</p>' % pgl,
@@ -415,7 +435,8 @@ def build_call(c):
     # text propriu (pentru cine merită, unde se greșește, ce documente), scris în src/content/apeluri/<slug>.md
     own = SRC / 'content' / 'apeluri' / (c['slug'] + '.md')
     if own.exists():
-        v = v.replace('<section><h2>Cine poate aplica</h2>', '<div class="own">%s</div><section><h2>Cine poate aplica</h2>' % md(own.read_text(encoding='utf-8')), 1)
+        v = v.replace('<section><h2>Programul</h2>', '<div class="own">%s</div><section><h2>Programul</h2>' % md(own.read_text(encoding='utf-8')), 1)
+    if c['slug'] == 'e-drive-masura-1': v = v.replace('<section><h2>Programul</h2>', magnet_edrive() + '<section><h2>Programul</h2>', 1)
     rel = [n for n in news if c['slug'] in n['calls']]
     if rel:
         v = v.replace('<div class="acard dark">', '<div class="acard"><b>Noutăți despre acest apel</b>%s</div><div class="acard dark">'
@@ -426,20 +447,19 @@ def build_call(c):
 # ---- calendar, eligibilitate, despre, contact, pagini legale (în lucru), 404
 # ---- Noutăți: lista și pagina fiecărui articol
 def build_news():
-    items = ''.join('<article class="news"><span class="nd">%s</span><h2><a href="@/noutati/%s/">%s</a></h2><p>%s</p></article>'
-                    % (esc(n['data']), n['slug'], esc(n['titlu']), esc(n['descriere'])) for n in news)
+    items = ''.join(news_card(n, 'h2') for n in news)
     body = ('<section class="phead"><div class="wrap"><nav class="crumbs" aria-label="Unde vă aflați"><a href="@/">Prima pagină</a><span>/</span><span>Noutăți</span></nav>'
             '<h1>Noutăți</h1><p class="lead">Lansări, prelungiri și schimbări importante la apelurile din programele pe care lucrăm, explicate pe scurt. '
             'Calendarul complet e în <a class="link" href="@/apeluri/">Calendar apeluri</a>.</p></div></section>'
             '<div class="wrap pgrid"><div class="pmain"><div class="newslist">%s</div></div><aside class="aside">'
             '<div class="acard">%s<dl><div><dt>Calendarul</dt><dd>actualizat la %s</dd></div></dl>'
-            '<a class="btn or" href="@/verifica-eligibilitatea/">Verifică eligibilitatea</a><a class="link" href="@/apeluri/">Calendar apeluri&nbsp;→</a></div>%s</aside></div>') % (
+            '<a class="btn or" href="@/verifica-eligibilitatea/">Verificați eligibilitatea</a><a class="link" href="@/apeluri/">Calendar apeluri&nbsp;→</a></div>%s</aside></div>') % (
         items or '<p class="empty">Primele articole apar în curând.</p>', prog_badge(calls), UPD, TALK)
     write_page('/noutati/', 'Noutăți despre fonduri nerambursabile | BIG Solutions',
                'Lansări, prelungiri și schimbări la apelurile de finanțare pentru firme, ONG-uri și autorități publice, explicate pe scurt de BIG Solutions.', body)
     for n in news:
         rel = [c for c in calls if c['slug'] in n['calls']]
-        aside = ('<div class="acard"><b>Apelurile din articol</b><div class="cls">%s</div><a class="btn or" href="@/verifica-eligibilitatea/">Verifică eligibilitatea</a></div>' % call_list(rel, '')) if rel else ''
+        aside = ('<div class="acard"><b>Apelurile din articol</b><div class="cls">%s</div><a class="btn or" href="@/verifica-eligibilitatea/">Verificați eligibilitatea</a></div>' % call_list(rel, '')) if rel else ''
         body = ('<section class="phead"><div class="wrap"><nav class="crumbs" aria-label="Unde vă aflați"><a href="@/">Prima pagină</a><span>/</span><a href="@/noutati/">Noutăți</a></nav>'
                 '<div class="st"><span>Publicat pe %s</span></div><h1>%s</h1><p class="lead">%s</p></div></section>'
                 '<div class="wrap pgrid"><div class="pmain">%s</div><aside class="aside">%s%s</aside></div>') % (
@@ -452,16 +472,38 @@ def build_news():
             'mainEntityOfPage': SITE + '/noutati/%s/' % n['slug']}, ensure_ascii=False)
         write_page('/noutati/%s/' % n['slug'], '%s | BIG Solutions' % n['titlu'], n['descriere'], body, ld)
 
+# Zona unui apel, pentru formularul de eligibilitate: județele regiunii (programele regionale), județele PDDTJ,
+# zona ITI sau None (toată țara). Potrivirea e orientativă; o confirmăm la discuție.
+REGIONS = {'Nord-Est': ['Bacău', 'Botoșani', 'Iași', 'Neamț', 'Suceava', 'Vaslui'], 'Nord-Vest': ['Bihor', 'Bistrița-Năsăud', 'Cluj', 'Maramureș', 'Satu Mare', 'Sălaj'],
+           'Centru': ['Alba', 'Brașov', 'Covasna', 'Harghita', 'Mureș', 'Sibiu'], 'Vest': ['Arad', 'Caraș-Severin', 'Hunedoara', 'Timiș'],
+           'Sud-Vest Oltenia': ['Dolj', 'Gorj', 'Mehedinți', 'Olt', 'Vâlcea'], 'Sud Muntenia': ['Argeș', 'Călărași', 'Dâmbovița', 'Giurgiu', 'Ialomița', 'Prahova', 'Teleorman'],
+           'Sud-Est': ['Brăila', 'Buzău', 'Constanța', 'Galați', 'Tulcea', 'Vrancea'], 'București-Ilfov': ['București', 'Ilfov']}
+JTF = ['Dolj', 'Galați', 'Gorj', 'Hunedoara', 'Mureș', 'Prahova']
+ITI = {'delta-dunarii': ['Tulcea', 'Constanța'], 'valea-jiului': ['Hunedoara'], 'tara-fagarasului': ['Brașov', 'Sibiu'],
+       'motii-tara-de-piatra': ['Alba', 'Arad', 'Bihor', 'Cluj', 'Hunedoara'], 'ptj-dolj': ['Dolj']}
+def zone(c):
+    z = next((z for k, z in ITI.items() if k in c['slug']), None)
+    if z: return z
+    for p in c['prog']:
+        m = re.match(r'Programul Regional (.+)$', p)
+        if m: return REGIONS[m.group(1).replace(' – ', '-')]
+        if 'Tranziție Justă' in p: return JTF
+    return None
+def plain(t): return ''.join(ch for ch in unicodedata.normalize('NFD', t.lower()) if unicodedata.category(ch) != 'Mn')
+
 def build_rest():
     keep = ['n', 'prog', 'w', 's', 'open', 'close', 'when', 'sum', 'slug']
-    def plain(t): return ''.join(ch for ch in unicodedata.normalize('NFD', t.lower()) if unicodedata.category(ch) != 'Mn')
     rows = [dict({k: c.get(k) for k in keep}, q=plain(' '.join([c['n'], ' '.join(c['prog']), c.get('full', ''), c.get('cod', ''), c.get('rez', ''), ' '.join(c.get('ben') or [])]))) for c in calls]
     data_js = '<script>window.CALLS=%s;</script>\n' % json.dumps(rows, ensure_ascii=False, separators=(',', ':'))
     write_page('/apeluri/', 'Calendar apeluri de finanțare | BIG Solutions',
                'Apelurile deschise și cele care urmează din programele pe care lucrăm: cine poate aplica, termenul și bugetul. Actualizat săptămânal.',
                read('views/apeluri.html'), data_js)
-    write_page('/verifica-eligibilitatea/', 'Verifică eligibilitatea | BIG Solutions',
-               'În 4 pași aflați dacă proiectul dumneavoastră poate primi finanțare. Discuția de principiu e gratuită.', read('views/eligibilitate.html'))
+    elig = [dict(n=c['n'], slug=c['slug'], s=c['s'], w=c['w'], pg=c['pg'] or '', prog=c['prog'][-1], sum=c['sum'], when=when(c), z=zone(c),
+                 q=plain(' '.join([c['n'], c.get('full', ''), c.get('rez', ''), c['pg'] or ''])))
+            for c in sort_calls([c for c in calls if c['s'] in ('deschis', 'urmeaza')])]
+    write_page('/verifica-eligibilitatea/', 'Verificați eligibilitatea | BIG Solutions',
+               'În 5 pași vedeți apelurile deschise care se potrivesc proiectului dumneavoastră. Discuția de principiu e gratuită.', read('views/eligibilitate.html'),
+               '<script>window.ELIG=%s;</script>\n' % json.dumps(elig, ensure_ascii=False, separators=(',', ':')))
     for path, view in [('/despre-noi/', 'despre'), ('/contact/', 'contact'), ('/proiecte/', 'proiecte')]:
         v = read('views/%s.html' % view)
         v = v.replace('<div class="st"><span class="bdg b-consultare">Text de aprobat</span><span>Scris în Etapa 5</span></div>\n', '')

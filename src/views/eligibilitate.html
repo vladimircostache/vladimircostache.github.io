@@ -1,16 +1,17 @@
       <section class="phead">
         <div class="wrap">
-          <nav class="crumbs" aria-label="Unde vă aflați"><a href="#acasa" data-go="acasa">Prima pagină</a><span>/</span><span>Verifică eligibilitatea</span></nav>
-          <h1>Verifică eligibilitatea</h1>
-          <p class="lead">Patru pași scurți. Vă contactăm în 24 de ore lucrătoare pentru o discuție de principiu, gratuită: stabilim împreună dacă puteți și dacă merită să depuneți un proiect.</p>
+          <nav class="crumbs" aria-label="Unde vă aflați"><a href="#acasa" data-go="acasa">Prima pagină</a><span>/</span><span>Verificați eligibilitatea</span></nav>
+          <h1>Verificați eligibilitatea</h1>
+          <p class="lead">Cinci pași scurți. La pasul 4 vedeți apelurile deschise care se potrivesc cu ce ne-ați spus. Apoi, dacă vreți, vă contactăm în 24 de ore lucrătoare pentru o discuție de principiu, gratuită.</p>
         </div>
       </section>
       <div class="wrap">
         <div class="fwrap">
           <form id="ef" novalidate><input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
             <div id="ef-steps">
-              <span class="stepnum" id="ef-num">Pasul 1 din 4</span>
-              <div class="prog-bar" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i></div>
+              <span class="stepnum" id="ef-num">Pasul 1 din 5</span>
+              <div class="prog-bar" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i><i></i></div>
+              <a id="ef-fisa" href="@/apeluri/SLUG/" hidden></a>
 
               <div class="fcard" data-step="1">
                 <h3>Cine sunteți?</h3>
@@ -26,7 +27,7 @@
                   <select id="marime"><option value="">Alegeți</option><option>Microîntreprindere (sub 10 angajați)</option><option>Întreprindere mică (10–49)</option><option>Întreprindere mijlocie (50–249)</option><option>Întreprindere mare (250+)</option></select>
                 </div>
                 <p class="err" id="e1" hidden>Alegeți una dintre variante ca să continuăm.</p>
-                <div class="fnav"><span></span><button type="button" class="btn or" data-next="1">Continuă</button></div>
+                <div class="fnav"><span></span><button type="button" class="btn or" data-next="1">Continuați</button></div>
               </div>
 
               <div class="fcard" data-step="2" hidden>
@@ -34,7 +35,7 @@
                 <p style="color:var(--mut)">Puteți alege mai multe.</p>
                 <div class="opts" id="ce-opts"></div>
                 <p class="err" id="e2" hidden>Alegeți cel puțin o variantă.</p>
-                <div class="fnav"><button type="button" class="btn out" data-back="2">Înapoi</button><button type="button" class="btn or" data-next="2">Continuă</button></div>
+                <div class="fnav"><button type="button" class="btn out" data-back="2">Înapoi</button><button type="button" class="btn or" data-next="2">Continuați</button></div>
               </div>
 
               <div class="fcard" data-step="3" hidden>
@@ -44,10 +45,20 @@
                   <div class="field"><label for="valoare">Valoarea estimată a investiției</label><select id="valoare"><option value="">Alegeți</option><option>sub 50.000 €</option><option>50.000 – 200.000 €</option><option>200.000 € – 1 mil. €</option><option>1 – 5 mil. €</option><option>peste 5 mil. €</option><option>Nu știu încă</option></select></div>
                 </div>
                 <p class="err" id="e3" hidden>Alegeți județul și valoarea estimată.</p>
-                <div class="fnav"><button type="button" class="btn out" data-back="3">Înapoi</button><button type="button" class="btn or" data-next="3">Continuă</button></div>
+                <div class="fnav"><button type="button" class="btn out" data-back="3">Înapoi</button><button type="button" class="btn or" data-next="3">Continuați</button></div>
               </div>
 
               <div class="fcard" data-step="4" hidden>
+                <h3 id="ef-mh">Apelurile care vi se potrivesc</h3>
+                <p class="fnote" id="ef-for"></p>
+                <div class="cls" id="ef-open"></div>
+                <p id="ef-none" hidden>Nu avem acum în calendar un apel deschis pentru ce ați ales. Asta nu înseamnă că nu există finanțare: unele programe se deschid des, iar altele nu sunt în calendarul nostru. Vă spunem la discuție ce opțiuni aveți.</p>
+                <div id="ef-nextw" hidden><h4>Urmează să se deschidă</h4><div class="cls" id="ef-next"></div></div>
+                <p class="fnote">Lista e orientativă: am potrivit apelurile după tipul de solicitant, investiție și județ. Eligibilitatea exactă o confirmăm la discuție. Fișele apelurilor se deschid într-o filă nouă, ca să nu pierdeți ce ați completat.</p>
+                <div class="fnav"><button type="button" class="btn out" data-back="4">Înapoi</button><button type="button" class="btn or" data-next="4">Cereți o discuție gratuită</button></div>
+              </div>
+
+              <div class="fcard" data-step="5" hidden>
                 <h3>Cum vă contactăm?</h3>
                 <div class="f2">
                   <div class="field"><label for="nume">Nume și prenume</label><input id="nume" autocomplete="name"></div>
@@ -58,7 +69,7 @@
                 <div class="field"><label for="mesaj">Mesaj <small>(opțional)</small></label><textarea id="mesaj" placeholder="Pe scurt, despre investiție"></textarea></div>
                 <label class="gdpr"><input type="checkbox" id="gdpr"> <span>Sunt de acord ca BIG Solutions Management SRL să îmi folosească datele pentru a mă contacta despre această cerere, conform <a href="@/politica-de-confidentialitate/" target="_blank" rel="noopener">Politicii de confidențialitate</a>.</span></label>
                 <p class="err" id="e4" hidden></p>
-                <div class="fnav"><button type="button" class="btn out" data-back="4">Înapoi</button><button type="submit" class="btn or">Trimite cererea</button></div>
+                <div class="fnav"><button type="button" class="btn out" data-back="5">Înapoi</button><button type="submit" class="btn or">Trimiteți cererea</button></div>
               </div>
             </div>
             <div class="thanks" id="ef-done" hidden>
@@ -66,7 +77,7 @@
               <p class="big">Am primit cererea dumneavoastră.</p>
               <p class="lead">Vă contactăm în 24 de ore lucrătoare pentru o discuție de principiu, gratuită. Dacă e urgent, sunați la 0742 225 222.</p>
               <p class="mocknote">Aceasta e o machetă: nu s-a trimis nimic. Pe site-ul real, cererea ajunge la vladimir.costache@bigsolutions.ro.</p>
-              <div><button type="button" class="btn out" id="ef-again">Completează din nou</button></div>
+              <div><button type="button" class="btn out" id="ef-again">Completați din nou</button></div>
             </div>
           </form>
         </div>

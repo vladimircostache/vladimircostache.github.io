@@ -6,7 +6,7 @@ Pentru orice întrebare despre datele personale ne scrieți la [vladimir.costach
 
 ## Ce date folosim și de unde le avem
 
-- **Formularul „Verifică eligibilitatea”:** tipul de solicitant, ce vreți să finanțați, județul, valoarea estimată a investiției, numele, telefonul și e-mailul. Opțional: CUI-ul și un mesaj.
+- **Formularul „Verificați eligibilitatea”:** tipul de solicitant, ce vreți să finanțați, județul, valoarea estimată a investiției, numele, telefonul și e-mailul. Opțional: CUI-ul și un mesaj.
 - **Formularul de contact:** numele, telefonul sau e-mailul și mesajul.
 - **Formularele pentru fișele gratuite (e-DRIVE și fișa pentru primării):** adresa de e-mail.
 - **Pagina de proveniență:** odată cu fiecare formular primim adresa paginii de pe care l-ați trimis și pagina sau site-ul de pe care ați ajuns la ea (de exemplu, google.com).

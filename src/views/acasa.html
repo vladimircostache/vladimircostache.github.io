@@ -2,9 +2,10 @@
         <div class="wrap">
           <div>
             <span class="slog">Consultanță pentru fonduri nerambursabile</span>
-            <h1>5 proiecte în implementare, 65 mil. lei. <span class="h1b">Vă spunem din prima discuție dacă proiectul dumneavoastră merită depus.</span></h1>
+            <h1>Vă spunem din prima discuție dacă proiectul dumneavoastră merită depus.</h1>
             <p class="lead">Fotovoltaice și stocare, mobilitate electrică, utilaje și tehnologie nouă, clădiri eficiente. Pentru firme, ONG-uri și autorități publice, de la eligibilitate până la ultimul raport de monitorizare.</p>
-            <div class="ctas"><a class="btn ink" href="#eligibilitate" data-go="eligibilitate">Verifică eligibilitatea</a><a class="btn out" href="#apeluri" data-go="apeluri">Vezi calendarul apelurilor</a></div>
+            <div class="ctas"><a class="btn ink" href="#eligibilitate" data-go="eligibilitate">Verificați eligibilitatea</a><a class="btn out" href="#apeluri" data-go="apeluri">Vedeți calendarul apelurilor</a></div>
+            <p class="hnums"><a href="#proiecte" data-go="proiecte">5 proiecte în implementare · 65,2 mil. lei · 7 depuse în 2026</a></p>
           </div>
           <div class="photo img"><picture><source type="image/webp" srcset="@/assets/img/scoala-panouri-640.webp 640w, @/assets/img/scoala-panouri-1000.webp 1000w" sizes="(max-width: 860px) 100vw, 480px"><img src="@/assets/img/scoala-panouri-1000.jpg" srcset="@/assets/img/scoala-panouri-640.jpg 640w, @/assets/img/scoala-panouri-1000.jpg 1000w" sizes="(max-width: 860px) 100vw, 480px" width="1000" height="750" fetchpriority="high" alt="Clădire de școală cu panouri fotovoltaice pe acoperiș, văzută de sus"></picture></div>
         </div>
@@ -13,30 +14,19 @@
       <section class="sec">
         <div class="wrap">
           <div class="sechead"><div><span class="lbl">Pentru cine lucrăm</span><h2 style="margin-top:6px">Alegeți ce vi se potrivește</h2></div></div>
-          <div class="tracks">
-            <div class="track"><h3>Sunteți firmă?</h3><ul><li>Mobilitate electrică: autoturisme și stații de încărcare</li><li>Utilaje, tehnologie nouă, digitalizare</li><li>IMM-uri și, la unele programe, întreprinderi mari</li></ul><a class="link" href="#prog" data-go="prog" data-p="Firme" data-k="track">Programe pentru firme →</a></div>
-            <div class="track"><h3>Reprezentați un ONG?</h3><ul><li>Servicii sociale și incluziune</li><li>Educație, formare și ocupare</li><li>Cultură, turism și inovare socială</li></ul><a class="link" href="#prog" data-go="prog" data-p="ONG-uri" data-k="track">Programe pentru ONG-uri →</a></div>
-            <div class="track"><h3>Reprezentați o autoritate publică?</h3><ul><li>Fotovoltaice cu stocare pentru clădiri publice</li><li>Eficiență energetică și iluminat public</li><li>Cum achiziționați serviciile de consultanță</li></ul><a class="link" href="#prog" data-go="prog" data-p="Autorități publice" data-k="track">Programe pentru autorități →</a></div>
-          </div>
+          <div class="tracks" id="tracks"></div>
         </div>
       </section>
 
       <section class="sec peach">
         <div class="wrap">
-          <div class="sechead"><div><span class="lbl">În atenție</span><h2>Ce puteți depune acum</h2><p>O selecție din programele pe care lucrăm. Fiecare card duce la pagina programului.</p><a class="btn out sm" href="#apeluri" data-go="apeluri" style="margin-top:20px">Vedeți calendarul complet →</a></div></div>
+          <div class="sechead"><div><span class="lbl">În atenție</span><h2>Ce puteți depune acum</h2><p>O selecție din apelurile deschise acum. Fiecare card duce la fișa apelului.</p><a class="btn out sm" href="@/apeluri/?stare=deschis" style="margin-top:20px">Vedeți calendarul complet →</a></div></div>
           <div class="calls rail" id="featured" tabindex="0" role="region" aria-label="Apelurile deschise acum. Derulați orizontal sau folosiți săgețile."></div>
           <div class="railnav"><span class="railcount" id="railcount" aria-live="polite"></span><button type="button" class="btn out sm" id="railprev" aria-label="Apelurile anterioare">←</button><button type="button" class="btn out sm" id="railnext" aria-label="Apelurile următoare">→</button></div>
         </div>
       </section>
 
       <section class="sec">
-        <div class="wrap">
-          <div class="sechead"><div><span class="lbl">Programele noastre</span><h2 style="margin-top:6px">Unde vă putem ajuta</h2></div></div>
-          <div class="plinks" id="plinks"></div>
-        </div>
-      </section>
-
-      <section class="sec peach">
         <div class="wrap">
           <div class="sechead"><div><span class="lbl">Cum lucrăm</span><h2 style="margin-top:6px">De la eligibilitate până la ultimul raport de monitorizare</h2></div></div>
           <ol class="steps6">
@@ -50,7 +40,7 @@
         </div>
       </section>
 
-      <section class="sec">
+      <section class="sec peach">
         <div class="wrap why">
           <div>
             <span class="lbl">De ce BIG</span>
@@ -65,7 +55,7 @@
           <div class="nums">
             <div class="num"><b>5</b><span>proiecte în implementare, cu o valoare eligibilă de 65,2 mil. lei</span><em>UNSTPB și 4 clădiri publice din Oltenia</em></div>
             <div class="num"><b>7</b><span>proiecte depuse în 2026, cu o valoare eligibilă de 37,5 mil. lei</span><em>fotovoltaice și stocare, Fondul pentru modernizare</em></div>
-            <div class="num"><b>7,04 MW</b><span>cel mai mare proiect: panouri fotovoltaice pe 56 de clădiri ale UNSTPB</span><em>în implementare</em></div>
+            <div class="num"><b>7,04&nbsp;MW</b><span>cel mai mare proiect: panouri fotovoltaice pe 56 de clădiri ale UNSTPB</span><em>în implementare</em></div>
             <div class="num"><b>6</b><span>județe cu beneficiari, plus București</span><em>2023–2026</em></div>
             <p class="cap">Experiența echipei BIG. Nu garantăm obținerea finanțării: vă spunem din prima discuție ce șanse are proiectul.</p>
             <a class="link" href="#proiecte" data-go="proiecte">Vedeți proiectele, cu stadiul fiecăruia&nbsp;→</a>
@@ -73,33 +63,24 @@
         </div>
       </section>
 
-      <section class="sec peach" id="echipa">
+      <section class="sec" id="echipa">
         <div class="wrap">
           <div class="sechead"><div><span class="lbl">Echipa</span><h2 style="margin-top:6px">Cine vă scrie proiectul</h2></div></div>
           <div class="team">
-            <div class="person"><img class="pphoto" src="vladimir.jpg" alt="Vladimir Costache" width="120" height="120"><div><h3>Vladimir Costache</h3><p>Fondator și administrator BIG Solutions Management. Consultant pe fonduri nerambursabile din 2016, coordonează toate proiectele firmei. Cel mai important proiect al său: managementul proiectului prin care POLITEHNICA București (UNSTPB) montează 7 MW de panouri fotovoltaice pe 56 de clădiri, inclusiv pe cămine.</p></div></div>
-            <div class="person"><img class="pphoto" src="carmen.jpg" alt="Carmen Ciobanu" width="120" height="120"><div><span class="lbl">Cu sprijinul BCCCA</span><h3>Carmen Ciobanu</h3><p>Consultant senior, fondator și administrator al Biroului de Consultanță Carmen Ciobanu și Asociații (BCCCA), din Drobeta-Turnu Severin, activ din 2015. BCCCA e firma noastră soră: lucrăm împreună la aproape toate proiectele. <a class="link" href="https://bccca.ro" target="_blank" rel="noopener">bccca.ro</a></p></div></div>
+            <div class="person"><img class="pphoto" src="vladimir.jpg" alt="Vladimir Costache" width="120" height="120"><div><h3>Vladimir Costache</h3><p class="role">Fondator și administrator, BIG Solutions Management</p><p>Consultant pe fonduri nerambursabile din 2016, coordonează toate proiectele firmei. Cel mai important proiect al său: managementul proiectului prin care POLITEHNICA București (UNSTPB) montează 7 MW de panouri fotovoltaice pe 56 de clădiri, inclusiv pe cămine.</p></div></div>
+            <div class="person"><img class="pphoto" src="carmen.jpg" alt="Carmen Ciobanu" width="120" height="120"><div><h3>Carmen Ciobanu</h3><p class="role">Consultant senior, fondator BCCCA, firma noastră soră</p><p>Fondator și administrator al Biroului de Consultanță Carmen Ciobanu și Asociații (BCCCA), din Drobeta-Turnu Severin, activ din 2015. BCCCA e firma noastră soră: lucrăm împreună la aproape toate proiectele. <a class="link" href="https://bccca.ro" target="_blank" rel="noopener">bccca.ro</a></p></div></div>
           </div>
+        </div>
+      </section>
+
+      <section class="sec peach" id="fise">
+        <div class="wrap">
+          <div class="sechead"><div><span class="lbl">Fișe gratuite</span><h2 style="margin-top:6px">Ce să pregătiți de acum</h2></div></div>
+          <div class="magnets" id="magnets"></div>
         </div>
       </section>
 
       <section class="sec">
-        <div class="wrap">
-          <div class="magnet">
-            <div><span class="lbl">Fișă gratuită</span><h2 style="margin-top:6px">e-DRIVE: ce să pregătiți până se lansează apelul</h2><p>Schema e aprobată, apelul nu e lansat încă. Pe 2 pagini: cine poate aplica, cât primiți pe autoturism, cum se face selecția și ce documente pregătiți de acum. Material informativ, sub rezerva Ghidului solicitantului.</p></div>
-            <form class="mform" id="mform" data-subject="Fișa e-DRIVE" novalidate><input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
-              <label for="m-email" style="font-weight:600">Adresa de e-mail</label>
-              <input type="email" id="m-email" placeholder="nume@firma.ro" autocomplete="email">
-              <button class="btn or" type="submit">Trimite-mi fișa</button>
-              <small class="note">Folosim adresa doar ca să vă anunțăm când apare fișa actualizată. Detalii în <a href="@/politica-de-confidentialitate/" target="_blank" rel="noopener">Politica de confidențialitate</a>.</small>
-              <span class="msg" id="m-msg" aria-live="polite"></span>
-              <a class="dl" id="m-dl" href="@/assets/fise/e-drive.pdf" download hidden>Descarcă fișa e-DRIVE (PDF, 2 pagini)</a>
-            </form>
-          </div>
-        </div>
-      </section>
-
-      <section class="sec peach">
         <div class="wrap">
           <div class="sechead"><div><span class="lbl">Întrebări frecvente</span><h2 style="margin-top:6px">Ce ne întreabă clienții</h2></div></div>
           <div class="faq">
@@ -112,7 +93,7 @@
         </div>
       </section>
 
-      <section class="sec" id="noutati-acasa">
+      <section class="sec peach" id="noutati-acasa">
         <div class="wrap">
           <div class="sechead"><div><span class="lbl">Noutăți</span><h2 style="margin-top:6px">Ce s-a schimbat la apeluri</h2></div><a class="btn out sm" href="#noutati" data-go="noutati">Toate noutățile&nbsp;→</a></div>
           <div class="newsgrid" id="home-news"></div>
@@ -122,6 +103,6 @@
       <section class="final" id="contact">
         <div class="wrap">
           <div><h2>Vorbim despre proiectul dumneavoastră?</h2><p style="margin-top:8px">Luni–vineri, 9:00–18:00. Răspundem în 24 de ore lucrătoare.</p></div>
-          <div class="acts"><a class="btn ink" href="#eligibilitate" data-go="eligibilitate">Verifică eligibilitatea</a><span class="btn out">Sunați: 0742 225 222</span><span class="btn out">WhatsApp</span></div>
+          <div class="acts"><a class="btn ink" href="#eligibilitate" data-go="eligibilitate">Verificați eligibilitatea</a><span class="btn out">Sunați: 0742 225 222</span><span class="btn out">WhatsApp</span></div>
         </div>
       </section>
