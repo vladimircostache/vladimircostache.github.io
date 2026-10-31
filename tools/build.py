@@ -316,6 +316,15 @@ TRACK_DESC = {'F': 'IMM-uri și, la unele programe, firme mari: utilaje, tehnolo
 def news_card(n, h):
     return '<article class="news"><span class="nd">%s</span><%s><a href="@/noutati/%s/">%s</a></%s><p>%s</p></article>' % (esc(n['data']), h, n['slug'], esc(n['titlu']), h, esc(n['descriere']))
 
+# Etichetele de stare din căsuțele paginilor de program (<span class="bdg …" data-slug="<apel>">) urmează calendarul:
+# cât timp starea e cea scrisă, rămâne textul ei (de ex. „Înscrieri deschise”); altfel devine eticheta stării din calendar.
+def live_badges(h):
+    def one(m):
+        c = by_slug(m.group(2))
+        txt = m.group(3) if m.group(1) == 'b-' + c['s'] else BL[c['s']]
+        return '<span class="bdg b-%s" data-slug="%s"%s>%s</span>' % (c['s'], c['slug'], dc(c), txt)
+    return re.sub(r'<span class="bdg (b-[a-z]+)" data-slug="([^"]+)">([^<]*)</span>', one, h)
+
 # ---- starea unui program și cardul din dreapta: starea și termenul vin din calendar, restul din programs.json („card”)
 def prog_badge(lst):
     n = sum(1 for c in lst if c['s'] == 'deschis')
@@ -372,7 +381,7 @@ def build_prog(name, track=None):
         tname, tpath = TRACKS[f]
         crumb = '<a href="@%s">%s</a><span>/</span><span>%s</span>' % (tpath, esc(tname), esc(name))
         heading, preset, card = 'Apelurile deschise și cele care urmează', pg.get('pre', PRE[f]), pr['card']
-    body = pg['h'].replace('class="btn ink prep-elig" href="#eligibilitate" data-go="eligibilitate"', 'class="btn ink prep-elig" href="#eligibilitate" data-go="eligibilitate" data-preset="%s"' % preset)
+    body = live_badges(pg['h']).replace('class="btn ink prep-elig" href="#eligibilitate" data-go="eligibilitate"', 'class="btn ink prep-elig" href="#eligibilitate" data-go="eligibilitate" data-preset="%s"' % preset)
     if name in ('Autorități publice', 'Eficiență energetică pentru clădiri publice'): body += MAGNET_PRIMARII
     if name in ('Firme', 'Mobilitate electrică'): body += magnet_edrive()
     rep = {'<span id="pg-cr"></span>': crumb,

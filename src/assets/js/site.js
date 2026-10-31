@@ -44,7 +44,7 @@
   $$('[data-close]').forEach(function(x){
     var k=x.dataset.close;if(!past(k))return;
     if(x.matches('#featured .ccard')){x.parentNode.removeChild(x);return;}
-    $$('.bdg.b-deschis',x).forEach(function(b){b.className='bdg b-inchis';b.textContent=BL.inchis;});
+    $$('.bdg.b-deschis',x).concat(x.matches('.bdg.b-deschis')?[x]:[]).forEach(function(b){b.className='bdg b-inchis';b.textContent=BL.inchis;});
     $$('.js-when',x).forEach(function(w){w.textContent='închis la '+k.slice(6)+'.'+k.slice(4,6)+'.'+k.slice(0,4);});
     $$('.js-st',x).forEach(function(s){s.textContent=BL.inchis;});
   });

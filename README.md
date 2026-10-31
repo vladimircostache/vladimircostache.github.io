@@ -6,7 +6,7 @@ Site static pentru bigsolutions.ro. Codul stă aici, în afara OneDrive. La fiec
 
 - `src/data/`: datele.
   - `calls.json`: apelurile din calendar;
-  - `pages.json`: paginile de program și de traseu. La Firme, ONG-uri și Autorități publice, `card` are rândurile fixe din cardul din dreapta;
+  - `pages.json`: paginile de program și de traseu. La Firme, ONG-uri și Autorități publice, `card` are rândurile fixe din cardul din dreapta. O etichetă de stare dintr-o căsuță, scrisă `<span class="bdg …" data-slug="<apel>">`, își ia starea din calendar;
   - `programs.json`, `featured.json`: lista programelor și apelurile alese pentru prima pagină. La fiecare program, `card` are rândurile fixe din cardul din dreapta al paginii (finanțator, cine aplică, finanțare). Starea și termenul din card vin din calendar;
   - `seo.json`: titlurile și descrierile pentru Google.
 - `src/views/`, `src/partials/`: paginile și bucățile comune (antet, subsol, bara de pe telefon).
