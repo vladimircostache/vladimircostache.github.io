@@ -145,6 +145,9 @@ def contact_links(h):
     h = h.replace('<li>%s</li>' % PHONE, '<li><a href="tel:%s">%s</a></li>' % (PHONE_TEL, PHONE))
     h = h.replace('<li>vladimir.costache@bigsolutions.ro</li>', '<li><a href="mailto:vladimir.costache@bigsolutions.ro">vladimir.costache@bigsolutions.ro</a></li>')
     h = h.replace('<p><b>%s</b>' % PHONE, '<p><a href="tel:%s"><b>%s</b></a>' % (PHONE_TEL, PHONE))
+    h = h.replace('<dd>%s</dd>' % PHONE, '<dd><a href="tel:%s">%s</a></dd>' % (PHONE_TEL, PHONE))
+    # cardul „Preferați să vorbim?” scris simplu în machete primește linkurile de telefon și WhatsApp
+    h = h.replace('<div class="acard dark"><b>Preferați să vorbim?</b><p>%s · luni–vineri, 9:00–18:00.</p></div>' % PHONE, TALK)
     return h
 
 _VQ = {}
@@ -295,7 +298,10 @@ def prog_close(lst):
     """Termenul comun al apelurilor deschise, pentru site.js; gol dacă au termene diferite sau nu au termen."""
     op = [c for c in lst if c['s'] == 'deschis']
     return dc(op[0]) if op and all(c['close'] for c in op) and len({c['close'] for c in op}) == 1 else ''
-def prog_side(p, lst, preset):
+# cardul închis la culoare din dreapta, același pe toate paginile cu cadrul Autoconsum
+TALK = ('<div class="acard dark"><b>Preferați să vorbim?</b><p><a href="tel:%s">%s</a> · luni–vineri, 9:00–18:00. Sau scrieți-ne pe '
+        '<a href="%s" target="_blank" rel="noopener">WhatsApp</a>.</p></div>' % (PHONE_TEL, PHONE, WA))
+def prog_side(card, lst, preset):
     op = [c for c in lst if c['s'] == 'deschis']
     nx = [c for c in lst if c['s'] != 'deschis']
     dated = sorted((c for c in op if c['close']), key=lambda c: dkey(c['close']))
@@ -304,10 +310,9 @@ def prog_side(p, lst, preset):
     elif op: row = ['Perioada', when(op[0])]
     elif nx: row = ['Urmează', when(nx[0]) if len(nx) == 1 else n_apel(len(nx), 'apel în pregătire', 'apeluri în pregătire')]
     else: row = ['Sesiune', 'niciuna anunțată acum']
-    dl = ''.join('<div><dt>%s</dt><dd%s>%s</dd></div>' % (a, ' class="js-when"' if i == 0 and prog_close(lst) else '', esc(b)) for i, (a, b) in enumerate([row] + p['card']))
-    return ('<aside class="aside"><div class="acard"%s>%s<dl>%s</dl><a class="btn or" href="#eligibilitate" data-go="eligibilitate" data-preset="%s">Verifică eligibilitatea</a></div>'
-            '<div class="acard dark"><b>Preferați să vorbim?</b><p><a href="tel:%s">%s</a> · luni–vineri, 9:00–18:00. Sau scrieți-ne pe <a href="%s" target="_blank" rel="noopener">WhatsApp</a>.</p></div></aside>'
-            % (prog_close(lst), prog_badge(lst), dl, preset, PHONE_TEL, PHONE, WA))
+    dl = ''.join('<div><dt>%s</dt><dd%s>%s</dd></div>' % (a, ' class="js-when"' if i == 0 and prog_close(lst) else '', esc(b)) for i, (a, b) in enumerate([row] + card))
+    return ('<aside class="aside"><div class="acard"%s>%s<dl>%s</dl><a class="btn or" href="#eligibilitate" data-go="eligibilitate" data-preset="%s">Verifică eligibilitatea</a></div>%s</aside>'
+            % (prog_close(lst), prog_badge(lst), dl, preset, TALK))
 
 # ---- pagina Autoconsum (scrisă integral în machetă; starea și cardul din dreapta vin din calendar)
 def build_autoconsum():
@@ -315,7 +320,7 @@ def build_autoconsum():
     name = 'Autoconsum și stocare'
     lst = sort_calls([c for c in calls if c['pg'] == name and c['s'] != 'inchis'])
     v = v.replace('<div class="st" id="pr-st"></div>', '<div class="st" id="pr-st"%s>%s<span>Actualizat la %s</span></div>' % (prog_close(lst), prog_badge(lst), UPD))
-    v = v.replace('<aside class="aside" id="pr-side"></aside>', prog_side(next(p for p in programs if p['n'] == name), lst, 'uat'))
+    v = v.replace('<aside class="aside" id="pr-side"></aside>', prog_side(next(p for p in programs if p['n'] == name)['card'], lst, 'uat'))
     v = v.replace('<div class="cls" id="pr-calls"></div>', '<div class="cls" id="pr-calls">%s</div>' % call_list(lst, 'Nu sunt apeluri deschise acum.'))
     a = '<section>\n            <h2>Apelurile deschise acum</h2>'
     assert a in v
@@ -323,7 +328,8 @@ def build_autoconsum():
     s = seo['/programe/autoconsum-si-stocare/']
     write_page('/programe/autoconsum-si-stocare/', s['title'], s['description'], strip_mock(v))
 
-# ---- paginile de program și de traseu
+# ---- paginile de program și de traseu, pe cadrul paginii Autoconsum: textul în stânga, cardul cu termenul în dreapta.
+# Rândurile fixe ale cardului: programs.json („card”) la programe, pages.json („card”) la Firme, ONG-uri și Autorități publice.
 def build_prog(name, track=None):
     v = read('views/prog.html')
     key = ('traseu:' + name) if track else name
@@ -332,35 +338,28 @@ def build_prog(name, track=None):
         f, path = TRACK_BY_NAME[name]
         lst = sort_calls([c for c in calls if c['s'] == 'deschis' and f in c['w'] and c['pg']])
         crumb = '<span>%s</span>' % esc(name)
-        heading, preset = 'Apelurile deschise acum', PRE[f]
+        heading, preset, card = 'Apelurile deschise acum', PRE[f], pg['card']
     else:
         pr = next(p for p in programs if p['n'] == name)
         f = pr['t'][0]; path = prog_path(name)
         lst = sort_calls([c for c in calls if c['pg'] == name and c['s'] != 'inchis'])
         tname, tpath = TRACKS[f]
         crumb = '<a href="@%s">%s</a><span>/</span><span>%s</span>' % (tpath, esc(tname), esc(name))
-        heading, preset = 'Apelurile deschise și cele care urmează', pg.get('pre', PRE[f])
-    v = v.replace('<span id="pg-cr"></span>', crumb)
-    v = v.replace('<div class="st"><span class="bdg b-consultare" id="pg-b1">Pagină în lucru</span><span id="pg-b2">Textele se scriu în Etapa 5</span>',
-                  '<div class="st"%s>%s<span>Actualizat la %s</span>' % ('' if track else prog_close(lst), prog_badge(lst), UPD))
-    v = v.replace('<h1 id="pg-t"></h1>', '%s<h1 id="pg-t">%s</h1>' % ('<span class="slog">%s</span>' % SLOGANS[name] if track else '', esc(pg['t'])))
-    v = v.replace('<p class="lead" id="pg-l"></p>', '<p class="lead" id="pg-l">%s</p>' % esc(pg['l']))
-    v = re.sub(r'\s*<p class="mocknote" id="pg-note"></p>', '', v)
-    v = re.sub(r'\s*<section style="display:grid;gap:12px" id="pg-osec">.*?</section>', '', v, flags=re.S)
+        heading, preset, card = 'Apelurile deschise și cele care urmează', pg.get('pre', PRE[f]), pr['card']
     body = pg['h'].replace('class="btn ink prep-elig" href="#eligibilitate" data-go="eligibilitate"', 'class="btn ink prep-elig" href="#eligibilitate" data-go="eligibilitate" data-preset="%s"' % preset)
     if name in ('Autorități publice', 'Eficiență energetică pentru clădiri publice'): body += MAGNET_PRIMARII
-    v = v.replace('<div class="pmain" id="pg-full" hidden></div>', '<div class="pmain" id="pg-full">%s</div>' % body)
-    v = v.replace('id="pg-ch">Apelurile deschise și cele care urmează<', 'id="pg-ch">%s<' % heading)
-    v = v.replace('<div class="cls" id="pg-calls"></div>', '<div class="cls" id="pg-calls">%s</div>' % call_list(lst, 'Nu sunt apeluri deschise acum. Când apare unul, îl vedeți aici și în calendar.'))
-    v = v.replace('data-go="eligibilitate" id="pg-elig"', 'data-go="eligibilitate" data-preset="%s" id="pg-elig"' % preset)
-    if not track:
-        # paginile de program au cadrul paginii Autoconsum: textul în stânga, cardul cu termenul în dreapta;
-        # paginile de traseu rămân pe o coloană
-        sec = lambda pat: re.search(pat, v, re.S).group(0)
-        lsec = re.sub(r' style="(display:grid;gap:12px|font-size:1\.4rem)"', '', sec(r'<section style="display:grid;gap:12px"><h2[^>]*id="pg-ch">.*?</section>'))
-        cta = re.sub(r'<h2 style="font-size:1\.4rem">', '<h2>', sec(r'<section class="contact-cta">.*?</section>'))
-        v = v[:v.index('      <div class="wrap" style=')] + ('      <div class="wrap pgrid">\n        <div class="pmain">%s%s%s</div>\n        %s\n      </div>\n'
-                                                            % (body, lsec, cta, prog_side(pr, lst, preset)))
+    rep = {'<span id="pg-cr"></span>': crumb,
+           '<div class="st" id="pg-st"></div>': '<div class="st"%s>%s<span>Actualizat la %s</span></div>' % (prog_close(lst), prog_badge(lst), UPD),
+           '<h1 id="pg-t"></h1>': '%s<h1 id="pg-t">%s</h1>' % ('<span class="slog">%s</span>' % SLOGANS[name] if track else '', esc(pg['t'])),
+           '<p class="lead" id="pg-l"></p>': '<p class="lead" id="pg-l">%s</p>' % esc(pg['l']),
+           '<div id="pg-body"></div>': body,
+           'id="pg-ch">Apelurile deschise și cele care urmează<': 'id="pg-ch">%s<' % heading,
+           '<div class="cls" id="pg-calls"></div>': '<div class="cls" id="pg-calls">%s</div>' % call_list(lst, 'Nu sunt apeluri deschise acum. Când apare unul, îl vedeți aici și în calendar.'),
+           'data-go="eligibilitate" id="pg-elig"': 'data-go="eligibilitate" data-preset="%s" id="pg-elig"' % preset,
+           '<aside class="aside" id="pg-side"></aside>': prog_side(card, lst, preset)}
+    for a, b in rep.items():
+        assert a in v, a
+        v = v.replace(a, b)
     s = seo[path]
     write_page(path, s['title'], s['description'], v)
 
@@ -424,7 +423,10 @@ def build_news():
     body = ('<section class="phead"><div class="wrap"><nav class="crumbs" aria-label="Unde vă aflați"><a href="@/">Prima pagină</a><span>/</span><span>Noutăți</span></nav>'
             '<h1>Noutăți</h1><p class="lead">Lansări, prelungiri și schimbări importante la apelurile din programele pe care lucrăm, explicate pe scurt. '
             'Calendarul complet e în <a class="link" href="@/apeluri/">Calendar apeluri</a>.</p></div></section>'
-            '<div class="wrap" style="padding-block:36px 56px"><div class="newslist">%s</div></div>') % (items or '<p class="empty">Primele articole apar în curând.</p>')
+            '<div class="wrap pgrid"><div class="pmain"><div class="newslist">%s</div></div><aside class="aside">'
+            '<div class="acard">%s<dl><div><dt>Calendarul</dt><dd>actualizat la %s</dd></div></dl>'
+            '<a class="btn or" href="@/verifica-eligibilitatea/">Verifică eligibilitatea</a><a class="link" href="@/apeluri/">Calendar apeluri&nbsp;→</a></div>%s</aside></div>') % (
+        items or '<p class="empty">Primele articole apar în curând.</p>', prog_badge(calls), UPD, TALK)
     write_page('/noutati/', 'Noutăți despre fonduri nerambursabile | BIG Solutions',
                'Lansări, prelungiri și schimbări la apelurile de finanțare pentru firme, ONG-uri și autorități publice, explicate pe scurt de BIG Solutions.', body)
     for n in news:
@@ -432,9 +434,8 @@ def build_news():
         aside = ('<div class="acard"><b>Apelurile din articol</b><div class="cls">%s</div><a class="btn or" href="@/verifica-eligibilitatea/">Verifică eligibilitatea</a></div>' % call_list(rel, '')) if rel else ''
         body = ('<section class="phead"><div class="wrap"><nav class="crumbs" aria-label="Unde vă aflați"><a href="@/">Prima pagină</a><span>/</span><a href="@/noutati/">Noutăți</a></nav>'
                 '<div class="st"><span>Publicat pe %s</span></div><h1>%s</h1><p class="lead">%s</p></div></section>'
-                '<div class="wrap pgrid"><div class="pmain">%s</div><aside class="aside">%s'
-                '<div class="acard dark"><b>Preferați să vorbim?</b><p>0742 225 222 · luni–vineri, 9:00–18:00.</p></div></aside></div>') % (
-            esc(n['data']), esc(n['titlu']), esc(n['descriere']), md(n['body']), aside)
+                '<div class="wrap pgrid"><div class="pmain">%s</div><aside class="aside">%s%s</aside></div>') % (
+            esc(n['data']), esc(n['titlu']), esc(n['descriere']), md(n['body']), aside, TALK)
         ld = '<script type="application/ld+json">%s</script>\n' % json.dumps({
             '@context': 'https://schema.org', '@type': 'NewsArticle', 'headline': n['titlu'], 'description': n['descriere'],
             'datePublished': '-'.join(reversed(n['data'].split('.'))), 'inLanguage': 'ro',

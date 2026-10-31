@@ -330,6 +330,11 @@ p{margin:0}
 .acard.dark p{color:#D8CFC7;font-size:.92rem}
 .acard>.bdg{justify-self:start}
 .acard.dark a{color:var(--white);font-weight:600;text-decoration:underline;text-underline-offset:2px}
+.acard dd{overflow-wrap:anywhere}
+.acard dd a{color:var(--or-d);text-decoration:none}
+.acard dd a:hover{text-decoration:underline}
+/* în coloana îngustă a cadrului cu card: programele pe două coloane, echipa pe una */
+@container site (min-width:961px){.pgrid .progs:not(.one){grid-template-columns:repeat(2,minmax(0,1fr))}.pgrid .team{grid-template-columns:minmax(0,1fr)}}
 @container site (max-width:1100px){.pgrid .facts4{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @container site (max-width:960px){.pgrid{grid-template-columns:1fr}.aside{position:static}}
 @container site (max-width:760px){.facts4{grid-template-columns:repeat(2,minmax(0,1fr))}.facts4 b{overflow-wrap:anywhere}.cols2{grid-template-columns:1fr}}
