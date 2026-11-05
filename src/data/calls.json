@@ -1281,5 +1281,478 @@
   "cod": "Pilonul I",
   "url2": "https://economie.gov.ro/start-up-nation-peste-11-400-de-locuri-disponibile-la-cursurile-gratuite-de-antreprenoriat-inscrierile-continua-pana-pe-27-noiembri/",
   "label2": "Ministerul Economiei: prelungirea înscrierilor (04.11.2026)"
+ },
+ {
+  "n": "Educație timpurie: diversificarea serviciilor (relansare)",
+  "full": "Diversificarea și flexibilizarea serviciilor de educație timpurie – relansare 2026",
+  "prog": [
+   "Programul Educație și Ocupare"
+  ],
+  "ben": [
+   "Autoritate publică locală",
+   "Consiliul Județean",
+   "Inspectorat Școlar Județean",
+   "ONG"
+  ],
+  "tip": "Competitiv, cu termen-limită",
+  "w": [
+   "O",
+   "A"
+  ],
+  "s": "deschis",
+  "open": "30.09.2026",
+  "close": "27.11.2026",
+  "sum": "81,6 mil. €",
+  "url": "https://oportunitati-ue.gov.ro/apel/diversificarea-si-flexibilizarea-serviciilor-de-educatie-timpurie-relansare-2026/",
+  "pg": null,
+  "slug": "diversificarea-educatiei-timpurii",
+  "mon": true
+ },
+ {
+  "n": "Școli pentru viitor",
+  "full": "Școli pentru viitor",
+  "prog": [
+   "Programul Educație și Ocupare"
+  ],
+  "ben": [
+   "Academia Română",
+   "Inspectorat Școlar Județean",
+   "Instituții de învățământ preuniversitar",
+   "ONG",
+   "Operatori culturali"
+  ],
+  "tip": "Competitiv, cu termen-limită",
+  "w": [
+   "O",
+   "A"
+  ],
+  "s": "deschis",
+  "open": "30.10.2026",
+  "close": "27.11.2026",
+  "sum": "52,9 mil. €",
+  "url": "https://oportunitati-ue.gov.ro/apel/scoli-pentru-viitor/",
+  "pg": null,
+  "slug": "scoli-pentru-viitor",
+  "mon": true
+ },
+ {
+  "n": "Universități deschise",
+  "full": "Universități deschise",
+  "prog": [
+   "Programul Educație și Ocupare"
+  ],
+  "ben": [
+   "Academia Română",
+   "Asociații și organizații",
+   "Autoritate publică centrală",
+   "Autoritate publică locală",
+   "ONG",
+   "Organizații nonprofit"
+  ],
+  "tip": "Competitiv, cu termen-limită",
+  "w": [
+   "O",
+   "A"
+  ],
+  "s": "deschis",
+  "open": "30.09.2026",
+  "close": "27.11.2026",
+  "sum": "40 mil. €",
+  "url": "https://oportunitati-ue.gov.ro/apel/universitati-deschise/",
+  "pg": null,
+  "slug": "universitati-deschise",
+  "mon": true
+ },
+ {
+  "n": "Turism în mediul rural, Sud-Vest Oltenia (apel 2)",
+  "full": "Sprijin pentru dezvoltarea turismului în mediul rural – Apel nr. 2",
+  "prog": [
+   "Programe Regionale",
+   "Programul Regional Sud-Vest Oltenia"
+  ],
+  "ben": [
+   "Autoritate publică locală",
+   "Consiliul Județean",
+   "Parteneriate",
+   "UAT rural",
+   "UAT stațiune turistică"
+  ],
+  "tip": "Competitiv, cu termen-limită",
+  "w": [
+   "A"
+  ],
+  "s": "deschis",
+  "open": "31.08.2026",
+  "close": "27.11.2026",
+  "sum": "5,9 mil. €",
+  "url": "https://oportunitati-ue.gov.ro/apel/sprijin-pentru-dezvoltarea-turismului-in-mediul-rural-apel-nr-2/",
+  "pg": null,
+  "slug": "turism-rural-sud-vest-oltenia-apel-2",
+  "mon": true
+ },
+ {
+  "n": "Strategii de dezvoltare teritorială, New European Bauhaus, Nord-Est",
+  "full": "Strategii de Dezvoltare Teritorială – Inițiativa New European Bauhaus (NEB)",
+  "prog": [
+   "Programe Regionale",
+   "Programul Regional Nord-Est"
+  ],
+  "ben": [
+   "Autoritate publică locală",
+   "UAT",
+   "UAT județ",
+   "UAT municipii",
+   "UAT urban"
+  ],
+  "tip": null,
+  "w": [
+   "A"
+  ],
+  "s": "deschis",
+  "open": "05.10.2026",
+  "close": "27.11.2026",
+  "sum": "în ghid",
+  "url": "https://oportunitati-ue.gov.ro/apel/pr-ne-2026-sdt-neb-1-lansarea-ghidului-solicitantului-pentru-apelul-strategii-de-dezvoltare-teritoriala-initiativa-new-european-bauhaus-neb/",
+  "pg": null,
+  "slug": "strategii-teritoriale-neb-nord-est",
+  "mon": true
+ },
+ {
+  "n": "Formare continuă pentru profesioniștii din serviciile sociale",
+  "full": "Creșterea accesului profesioniștilor din domeniul serviciilor sociale pentru copii și familii la programe de formare continuă",
+  "prog": [
+   "Programul Incluziune și Demnitate Socială"
+  ],
+  "ben": [
+   "Autoritate publică centrală",
+   "Furnizori de servicii sociale",
+   "Instituții publice",
+   "Parteneriate"
+  ],
+  "tip": "Necompetitiv, în ordinea depunerii",
+  "w": [
+   "O",
+   "A"
+  ],
+  "s": "deschis",
+  "open": "27.08.2026",
+  "close": "30.11.2026",
+  "sum": "5 mil. €",
+  "url": "https://oportunitati-ue.gov.ro/apel/ghidul-solicitantului-cresterea-accesului-profesionistilor-din-domeniul-serviciilor-sociale-pentru-copii-si-familii-la-programe-de-formare-continua/",
+  "pg": null,
+  "slug": "formare-profesionisti-servicii-sociale",
+  "mon": true
+ },
+ {
+  "n": "Centre de arși și mari arși",
+  "full": "Investiții în infrastructura publică a centrelor de arși/mari arși din cadrul unităților sanitare publice",
+  "prog": [
+   "Programul Sănătate"
+  ],
+  "ben": [
+   "Autoritate publică centrală",
+   "Autoritate publică locală",
+   "Instituții de sănătate publică",
+   "Ministerul Sănătății",
+   "Parteneriate",
+   "UAT",
+   "Unități sanitare publice"
+  ],
+  "tip": "Competitiv, cu termen-limită",
+  "w": [
+   "A"
+  ],
+  "s": "deschis",
+  "open": "02.09.2026",
+  "close": "30.11.2026",
+  "sum": "185 mil. €",
+  "url": "https://oportunitati-ue.gov.ro/apel/ghidul-solicitantului-investitii-in-infrastructura-publica-a-centrelor-de-arsi-mari-arsi-din-cadrul-unitatilor-sanitare-publice-care-trateaza-pacienti-critici-dotare/",
+  "pg": null,
+  "slug": "centre-arsi-mari-arsi",
+  "mon": true
+ },
+ {
+  "n": "Centre de sănătate mintală în spitale (relansare)",
+  "full": "Investiții în infrastructura unităților sanitare publice cu paturi în cadrul cărora funcționează/vor funcționa centre de sănătate mintală",
+  "prog": [
+   "Programul Sănătate"
+  ],
+  "ben": [
+   "Instituții de sănătate publică",
+   "Unități sanitare publice"
+  ],
+  "tip": "Competitiv, cu termen-limită",
+  "w": [
+   "A"
+  ],
+  "s": "deschis",
+  "open": "28.09.2026",
+  "close": "30.11.2026",
+  "sum": "2,3 mil. €",
+  "url": "https://oportunitati-ue.gov.ro/apel/investitii-in-infrastructura-unitatilor-sanitare-publice-cu-paturi-in-cadrul-carora-functioneaza-vor-functiona-centre-de-sanatate-mintala-pentru-prevenirea-si-tratarea-adictiilor-apel-relan/",
+  "pg": null,
+  "slug": "centre-sanatate-mintala-relansare",
+  "mon": true
+ },
+ {
+  "n": "Infrastructură verde și albastră, municipii, Centru",
+  "full": "Acțiunea 3.3 – Investiții în infrastructură verde și albastră în mediul urban regional – municipii",
+  "prog": [
+   "Programe Regionale",
+   "Programul Regional Centru"
+  ],
+  "ben": [
+   "Autoritate publică locală",
+   "Parteneriate",
+   "UAT",
+   "UAT municipii"
+  ],
+  "tip": "Competitiv, cu termen-limită",
+  "w": [
+   "A"
+  ],
+  "s": "deschis",
+  "open": "30.07.2026",
+  "close": "02.12.2026",
+  "sum": "25 mil. €",
+  "url": "https://oportunitati-ue.gov.ro/apel/actiunea-3-3-investitii-in-infrastructura-verde-si-albastra-in-mediul-urban-regional-municipii/",
+  "pg": null,
+  "slug": "infrastructura-verde-albastra-centru",
+  "mon": true
+ },
+ {
+  "n": "Educatori pentru copiii din medii defavorizate",
+  "full": "Educatori pentru copiii din medii defavorizate",
+  "prog": [
+   "Programul Educație și Ocupare"
+  ],
+  "ben": [
+   "Asociații și organizații",
+   "Autoritate publică locală",
+   "Casele Corpului Didactic",
+   "Inspectorat Școlar Județean"
+  ],
+  "tip": "Competitiv, cu termen-limită",
+  "w": [
+   "O",
+   "A"
+  ],
+  "s": "deschis",
+  "open": "01.09.2026",
+  "close": "11.12.2026",
+  "sum": "22,3 mil. €",
+  "url": "https://oportunitati-ue.gov.ro/apel/ghidul-solicitantului-educatori-pentru-copiii-din-medii-defavorizate/",
+  "pg": null,
+  "slug": "educatori-copii-medii-defavorizate",
+  "mon": true
+ },
+ {
+  "n": "Dezvoltare urbană integrată, Centru",
+  "full": "Acțiunea 8.1 – Dezvoltare urbană integrată prin regenerarea spațiilor publice și punerea în valoare a patrimoniului",
+  "prog": [
+   "Programe Regionale",
+   "Programul Regional Centru"
+  ],
+  "ben": [
+   "Autoritate publică locală",
+   "Parteneriate",
+   "UAT"
+  ],
+  "tip": "Competitiv, cu termen-limită",
+  "w": [
+   "A"
+  ],
+  "s": "deschis",
+  "open": "20.08.2026",
+  "close": "21.12.2026",
+  "sum": "22,7 mil. €",
+  "url": "https://oportunitati-ue.gov.ro/apel/lansarea-apelului-competitiv-aferent-actiunii-8-1-dezvoltare-urbana-integrata-prin-regenerarea-spatiilor-publice-punerea-in-valoare-a-patrimoniului-infrastructurii-culturale-si-a-potential/",
+  "pg": null,
+  "slug": "dezvoltare-urbana-integrata-centru",
+  "mon": true
+ },
+ {
+  "n": "Continuarea investițiilor în sănătate, Sud-Est",
+  "full": "Continuarea investițiilor în infrastructura de sănătate din Regiunea Sud-Est sprijinită inițial prin PNRR",
+  "prog": [
+   "Programul Sănătate"
+  ],
+  "ben": [
+   "Autoritate publică locală",
+   "Instituții de sănătate publică",
+   "Parteneriate",
+   "UAT",
+   "Unități sanitare publice"
+  ],
+  "tip": "Competitiv, cu termen-limită",
+  "w": [
+   "A"
+  ],
+  "s": "deschis",
+  "open": "07.08.2026",
+  "close": "21.12.2026",
+  "sum": "125 mil. €",
+  "url": "https://oportunitati-ue.gov.ro/apel/ghidul-solicitantului-continuarea-investitiilor-in-infrastructura-de-sanatate-din-regiunea-sud-est-sprijinita-initial-prin-planul-national-de-redresare-si-rezilienta/",
+  "pg": null,
+  "slug": "continuare-investitii-sanatate-sud-est",
+  "mon": true
+ },
+ {
+  "n": "Infrastructură educațională, primar și secundar, Sud-Est",
+  "full": "5.2 – Dezvoltarea infrastructurii educaționale la nivelul învățământului primar și secundar",
+  "prog": [
+   "Programe Regionale",
+   "Programul Regional Sud – Est"
+  ],
+  "ben": [
+   "Autoritate publică locală",
+   "Instituții de învățământ preuniversitar",
+   "Parteneriate"
+  ],
+  "tip": "Competitiv, cu termen-limită",
+  "w": [
+   "A"
+  ],
+  "s": "deschis",
+  "open": "30.06.2026",
+  "close": "30.12.2026",
+  "sum": "40 mil. €",
+  "url": "https://oportunitati-ue.gov.ro/apel/5-2-dezvoltarea-infrastructurii-educationale-la-nivelul-invatamantului-primar-si-secundar/",
+  "pg": null,
+  "slug": "infrastructura-educationala-sud-est",
+  "mon": true
+ },
+ {
+  "n": "STEP-VET: formare la locul de muncă",
+  "full": "STEP-VET: Formare profesională la locul de muncă pentru elevii din învățământul profesional și tehnic, dual și postliceal",
+  "prog": [
+   "Programul Educație și Ocupare"
+  ],
+  "ben": [
+   "Furnizori de servicii de ocupare",
+   "Instituții de învățământ dual",
+   "Instituții de învățământ profesional și tehnic",
+   "Parteneri de practică publici sau privați din sectoarele STEP",
+   "Parteneriate"
+  ],
+  "tip": "Competitiv, cu termen-limită",
+  "w": [
+   "F",
+   "A"
+  ],
+  "s": "deschis",
+  "open": "29.10.2026",
+  "close": "31.12.2026",
+  "sum": "45,8 mil. €",
+  "url": "https://oportunitati-ue.gov.ro/apel/ghidul-solicitantului-step-vet-formare-profesionala-la-locul-de-munca-pentru-elevii-din-invatamantul-profesional-si-tehnic-inclusiv-invatamantul-dual-si-invatamantul-postliceal-in-tehnolog/",
+  "pg": null,
+  "slug": "step-vet-formare-profesionala",
+  "mon": true
+ },
+ {
+  "n": "Strategii teritoriale integrate rurale, Sud-Vest Oltenia",
+  "full": "Strategii Teritoriale Integrate pentru localitățile rurale",
+  "prog": [
+   "Programe Regionale",
+   "Programul Regional Sud-Vest Oltenia"
+  ],
+  "ben": [
+   "Autoritate publică locală",
+   "Parteneriate",
+   "UAT rural"
+  ],
+  "tip": "Necompetitiv, în ordinea depunerii",
+  "w": [
+   "A"
+  ],
+  "s": "deschis",
+  "open": "31.07.2026",
+  "close": "31.12.2026",
+  "sum": "33,4 mil. €",
+  "url": "https://oportunitati-ue.gov.ro/apel/strategii-teritoriale-integrate-pentru-localitatile-rurale/",
+  "pg": null,
+  "slug": "strategii-teritoriale-rurale-sud-vest-oltenia",
+  "mon": true
+ },
+ {
+  "n": "Platformă open-innovation smart-city, Centru (apel 2)",
+  "full": "2.1.2. Platformă regională pilot de open-inovation în domeniul smart-city (Apel 2)",
+  "prog": [
+   "Programe Regionale",
+   "Programul Regional Centru"
+  ],
+  "ben": [
+   "Autoritate publică locală",
+   "Centre și instituții de cercetare",
+   "Parteneriate",
+   "UAT"
+  ],
+  "tip": "Competitiv, cu termen-limită",
+  "w": [
+   "F",
+   "O",
+   "A"
+  ],
+  "s": "urmeaza",
+  "open": "02.12.2026",
+  "close": "15.01.2027",
+  "sum": "1,8 mil. €",
+  "url": "https://oportunitati-ue.gov.ro/apel/ghidul-solicitantului-2-1-2-platforma-regionala-pilot-de-open-inovation-in-domeniul-smart-city-apel-2-octombrie-2026/",
+  "pg": null,
+  "slug": "platforma-open-innovation-smart-city-centru",
+  "mon": true
+ },
+ {
+  "n": "Energie verde accesibilă și mobilitate nepoluantă, PDDTJ",
+  "full": "Energie verde accesibilă și mobilitate nepoluantă",
+  "prog": [
+   "Programul Dezvoltare Durabilă și Tranziție Justă"
+  ],
+  "ben": [
+   "Autoritate publică locală",
+   "Comunitatea de energie din surse regenerabile",
+   "Consiliul Județean",
+   "ONG",
+   "Parteneriate",
+   "UAT"
+  ],
+  "tip": "Competitiv, cu termen-limită",
+  "w": [
+   "O",
+   "A"
+  ],
+  "s": "deschis",
+  "open": "30.09.2026",
+  "close": "31.03.2027",
+  "sum": "87,4 mil. €",
+  "url": "https://oportunitati-ue.gov.ro/apel/ghidul-solicitantului-pentru-actiunea-energie-verde-accesibila-si-mobilitate-nepoluanta/",
+  "pg": null,
+  "slug": "energie-verde-accesibila-pddtj",
+  "mon": true
+ },
+ {
+  "n": "Clustere inovative: sprijin pentru parteneri IMM, Centru",
+  "full": "Schema de ajutor de stat și de minimis „Clustere inovative – sprijin pentru parteneri IMM-uri”",
+  "prog": [
+   "Programe Regionale",
+   "Programul Regional Centru"
+  ],
+  "ben": [
+   "Microîntreprindere",
+   "IMM",
+   "Parteneriate"
+  ],
+  "tip": null,
+  "w": [
+   "F"
+  ],
+  "s": "deschis",
+  "open": "05.06.2026",
+  "close": "31.12.2027",
+  "sum": "4,4 mil. €",
+  "url": "https://oportunitati-ue.gov.ro/apel/schema-de-ajutor-de-stat-si-de-minimis-clustere-inovative-sprijin-pentru-parteneri-imm-uri/",
+  "pg": null,
+  "slug": "clustere-inovative-parteneri-imm-centru",
+  "mon": true
  }
 ]

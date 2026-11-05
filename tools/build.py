@@ -502,14 +502,14 @@ def plain(t): return ''.join(ch for ch in unicodedata.normalize('NFD', t.lower()
 
 def build_rest():
     keep = ['n', 'prog', 'w', 's', 'open', 'close', 'when', 'sum', 'slug']
-    rows = [dict({k: c.get(k) for k in keep}, q=plain(' '.join([c['n'], ' '.join(c['prog']), c.get('full', ''), c.get('cod', ''), c.get('rez', ''), ' '.join(c.get('ben') or [])]))) for c in calls]
+    rows = [dict({k: c.get(k) for k in keep}, q=plain(' '.join([c['n'], ' '.join(c['prog']), c.get('full', ''), c.get('cod', ''), c.get('rez', ''), ' '.join(c.get('ben') or [])])), **({'mon': 1, 'url': c['url']} if c.get('mon') else {})) for c in calls]
     data_js = '<script>window.CALLS=%s;</script>\n' % json.dumps(rows, ensure_ascii=False, separators=(',', ':'))
     write_page('/apeluri/', 'Calendar apeluri de finanțare | BIG Solutions',
                'Apelurile deschise și cele care urmează din programele pe care lucrăm: cine poate aplica, termenul și bugetul. Actualizat săptămânal.',
                read('views/apeluri.html'), data_js)
     elig = [dict(n=c['n'], slug=c['slug'], s=c['s'], w=c['w'], pg=c['pg'] or '', prog=c['prog'][-1], sum=c['sum'], when=when(c), z=zone(c),
                  q=plain(' '.join([c['n'], c.get('full', ''), c.get('rez', ''), c['pg'] or ''])))
-            for c in sort_calls([c for c in calls if c['s'] in ('deschis', 'urmeaza')])]
+            for c in sort_calls([c for c in calls if c['s'] in ('deschis', 'urmeaza') and not c.get('mon')])]
     write_page('/verifica-eligibilitatea/', 'Verificați eligibilitatea | BIG Solutions',
                'În 5 pași vedeți apelurile deschise care se potrivesc proiectului dumneavoastră. Discuția de principiu e gratuită.', read('views/eligibilitate.html'),
                '<script>window.ELIG=%s;</script>\n' % json.dumps(elig, ensure_ascii=False, separators=(',', ':')))
@@ -581,7 +581,9 @@ def main():
     for p in programs:
         if p['n'] != 'Autoconsum și stocare': build_prog(p['n'])
     for t in TRACK_BY_NAME: build_prog(t, track=True)
-    for c in calls: build_call(c)
+    # apelurile monitorizate („mon”) stau doar în calendar, cu link spre pagina oficială; nu au fișă proprie
+    for c in calls:
+        if not c.get('mon'): build_call(c)
     build_news(); build_rest()
     pages_all = sorted(p.relative_to(DIST).parent.as_posix() for p in DIST.rglob('index.html'))
     urls = [SITE + '/' + ('' if p == '.' else p + '/') for p in pages_all]

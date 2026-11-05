@@ -100,7 +100,7 @@
     /* căutarea ignoră diacriticele: „stocare”, „ștocare” și „STOCARE” găsesc același lucru */
     function plain(t){return t.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');}
     var qin=$('#cf-q');function words(){return qin?plain(qin.value).split(/\s+/).filter(Boolean):[];}
-    function link(c,txt){var a=el('a','link',txt);a.href=c.slug+'/'+ix;return a;}
+    function link(c,txt){var a=el('a','link',txt);if(c.mon){a.href=c.url;a.target='_blank';a.rel='noopener';}else a.href=c.slug+'/'+ix;return a;}
     function renderPager(pages){
       var nav=$('#cpager');nav.textContent='';nav.hidden=pages<2;if(pages<2)return;
       function btn(label,page,o){var b=el('button',null,label);b.type='button';if(o.cur)b.setAttribute('aria-current','page');if(o.dis)b.disabled=true;b.setAttribute('aria-label',o.aria);
@@ -125,11 +125,11 @@
       if(!list.length){var er=el('div','empty');er.setAttribute('role','row');var ec=cell();ec.textContent=q.length?'Niciun apel nu se potrivește cu „'+qin.value.trim()+'”. Încercați alt cuvânt sau ștergeți căutarea.':'Niciun apel pentru filtrele alese. Schimbați solicitantul, programul sau starea.';er.appendChild(ec);crows.appendChild(er);return;}
       vis.forEach(function(c){
         var r=el('div','crow');r.setAttribute('role','row');
-        var c1=cell();var t=el('div','t');t.appendChild(link(c,c.n));c1.appendChild(t);c1.appendChild(el('div','f',c.prog.join(' · ')));r.appendChild(c1);
+        var c1=cell();var t=el('div','t');t.appendChild(link(c,c.n));c1.appendChild(t);c1.appendChild(el('div','f',c.prog.join(' · ')));if(c.mon)c1.appendChild(el('span','tag mon','Monitorizat'));r.appendChild(c1);
         var c2=cell('w');c.w.forEach(function(x){c2.appendChild(el('span','tag',WHO[x]));});r.appendChild(c2);
         var c3=cell('d');c3.appendChild(badge(c.s));c3.appendChild(el('small',null,when(c)));r.appendChild(c3);
         var c4=cell('s');c4.textContent=c.sum;r.appendChild(c4);
-        var c5=cell('x');c5.appendChild(link(c,'Fișa apelului'));r.appendChild(c5);
+        var c5=cell('x');c5.appendChild(link(c,c.mon?'Pagina oficială ↗':'Fișa apelului'));r.appendChild(c5);
         crows.appendChild(r);
       });
     }

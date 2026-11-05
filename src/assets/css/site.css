@@ -375,6 +375,7 @@ p{margin:0}
 .crow .t a{color:inherit;text-decoration:none}
 .crow .t a:hover{text-decoration:underline}
 .crow .f{font-size:var(--t-xs);color:var(--mut);margin-top:2px}
+.crow .tag.mon{margin-top:6px}
 .crow .w{display:flex;flex-wrap:wrap;align-items:center;gap:4px}
 .crow .d{font-size:var(--t-sm);display:flex;flex-direction:column;align-items:flex-start;gap:4px}
 .crow .d small{display:block;color:var(--mut);font-size:var(--t-xs)}
