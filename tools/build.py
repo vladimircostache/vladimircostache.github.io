@@ -38,12 +38,15 @@ def read_news():
     return out
 news = read_news()
 # Starea apelurilor se recalculează la fiecare construcție (site-ul se reconstruiește în fiecare noapte):
-# un apel al cărui termen a trecut devine „Închis”, oricum ar fi scris în calls.json.
+# un apel al cărui termen a trecut devine „Închis”, oricum ar fi scris în calls.json, iar unul „Urmează”
+# devine „Deschis” la data deschiderii. În open stă doar o dată confirmată; o dată estimată rămâne în when.
 # Pentru încercări se poate simula altă zi: BIG_TODAY=2026-11-28 python3 tools/build.py --test
 TODAY = (datetime.date.fromisoformat(os.environ['BIG_TODAY']) if os.environ.get('BIG_TODAY')
          else datetime.datetime.now(ZoneInfo('Europe/Bucharest')).date())
 def ddate(d): return datetime.date(*map(int, reversed(d.split('.')))) if d else None
 for _c in calls:
+    if _c['s'] == 'urmeaza' and _c.get('open') and _c['close'] and ddate(_c['open']) <= TODAY:
+        _c['s'], _c['when'] = 'deschis', ''
     if _c['s'] != 'inchis' and _c['close'] and ddate(_c['close']) < TODAY:
         _c['s'], _c['when'] = 'inchis', ''
 # Versiunea stilurilor și a scriptului se schimbă odată cu conținutul lor, ca browserele să nu păstreze varianta veche.
@@ -491,6 +494,7 @@ JTF = ['Dolj', 'Galați', 'Gorj', 'Hunedoara', 'Mureș', 'Prahova']
 ITI = {'delta-dunarii': ['Tulcea', 'Constanța'], 'valea-jiului': ['Hunedoara'], 'tara-fagarasului': ['Brașov', 'Sibiu'],
        'motii-tara-de-piatra': ['Alba', 'Arad', 'Bihor', 'Cluj', 'Hunedoara'], 'ptj-dolj': ['Dolj']}
 def zone(c):
+    if c.get('zona'): return c['zona']  # apel care nu acoperă exact regiunea sau zona ITI din nume
     z = next((z for k, z in ITI.items() if k in c['slug']), None)
     if z: return z
     for p in c['prog']:
