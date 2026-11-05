@@ -283,7 +283,7 @@
  },
  {
   "n": "Microîntreprinderi din ITI Delta Dunării, Sud-Est",
-  "full": "Sprijinirea dezvoltării microîntreprinderilor din ITI Delta Dunării",
+  "full": "Creșterea competitivității microîntreprinderilor din ITI Delta Dunării",
   "prog": [
    "Programe Regionale",
    "Programul Regional Sud – Est"
@@ -296,17 +296,15 @@
    "F"
   ],
   "s": "urmeaza",
-  "open": "",
-  "close": "",
-  "when": "în pregătire; dată estimativă în calendarul MIPE",
+  "open": "21.12.2026",
+  "close": "29.01.2027",
   "sum": "9,6 mil. €",
-  "url": "https://mfe.gov.ro/calendar-apeluri-de-finantare/",
-  "src": "Ministerul Investițiilor și Proiectelor Europene, calendarul estimativ al apelurilor",
-  "srcname": "calendarul MIPE",
+  "url": "https://oportunitati-ue.gov.ro/apel/cresterea-competitivitatii-microintreprinderilor-din-iti-delta-dunarii/",
   "pg": "Investiții pentru IMM-uri",
-  "rez": "Investiții pentru microîntreprinderile din teritoriul ITI Delta Dunării. Apelul e în pregătire.",
+  "rez": "Spații de producție sau servicii și dotări pentru microîntreprinderile din mediul urban din ITI Delta Dunării. Finanțare de până la 90% din valoarea eligibilă, în limita plafonului de minimis.",
   "slug": "microintreprinderi-iti-delta-dunarii-sud-est",
-  "cod": "PRSE/1.6/A1/1/ITI/2026"
+  "cod": "PRSE/1.6/A.1/ITI/1/2026",
+  "ghid": "19.10.2026"
  },
  {
   "n": "IMM-uri din ITI Delta Dunării, Sud-Est",
@@ -365,31 +363,45 @@
   "cod": "PRSE/1.5/2026"
  },
  {
-  "n": "IMM-uri din ITI Țara Făgărașului, Centru",
-  "full": "Creșterea competitivității IMM din cadrul ITI – Apel ITI Microregiunea Țara Făgărașului",
+  "n": "IMM-uri din ITI Țara Făgărașului și Moții, Centru",
+  "full": "1.4.3 Creșterea competitivității IMM din cadrul ITI",
   "prog": [
    "Programe Regionale",
    "Programul Regional Centru"
   ],
   "ben": [
-   "IMM"
+   "Microîntreprindere",
+   "IMM",
+   "Start-up"
   ],
   "tip": "Competitiv, cu termen-limită",
   "w": [
    "F"
   ],
   "s": "urmeaza",
-  "open": "",
-  "close": "",
-  "when": "în pregătire; dată estimativă în calendarul MIPE",
+  "open": "16.11.2026",
+  "close": "16.12.2026",
   "sum": "7,6 mil. €",
-  "url": "https://mfe.gov.ro/calendar-apeluri-de-finantare/",
-  "src": "Ministerul Investițiilor și Proiectelor Europene, calendarul estimativ al apelurilor",
-  "srcname": "calendarul MIPE",
+  "url": "https://oportunitati-ue.gov.ro/apel/1-4-3-cresterea-competitivitatii-imm-din-cadrul-iti/",
   "pg": "Investiții pentru IMM-uri",
-  "rez": "Investiții pentru întreprinderile mici și mijlocii din microregiunea Țara Făgărașului. Apelul e în pregătire.",
+  "rez": "Spații de producție, echipamente, active necorporale și instruire pentru IMM-urile și start-up-urile din ITI Țara Făgărașului și ITI Moții, Țara de Piatră. Între 25.000 și 200.000 € pe proiect.",
   "slug": "imm-iti-tara-fagarasului-centru",
-  "cod": "Intervenția 1.4.3"
+  "cod": "Intervenția 1.4.3",
+  "ghid": "25.09.2026",
+  "extra": [
+   [
+    "25.000–200.000 €",
+    "finanțare pe proiect; până la 100.000 € pentru start-up-urile fără un an fiscal încheiat"
+   ],
+   [
+    "5,35 mil. €",
+    "alocarea pentru ITI Țara Făgărașului"
+   ],
+   [
+    "2,29 mil. €",
+    "alocarea pentru ITI Moții, Țara de Piatră"
+   ]
+  ]
  },
  {
   "n": "Digitalizarea IMM-urilor, Sud-Est",
@@ -418,6 +430,42 @@
   "rez": "Digitalizarea microîntreprinderilor și a IMM-urilor din regiunea Sud-Est. Apelul e în pregătire.",
   "slug": "digitalizarea-imm-sud-est",
   "cod": "PRSE/1.3/2026"
+ },
+ {
+  "n": "Digitalizarea IMM-urilor, Centru (apel 2)",
+  "full": "Acțiunea 2.2 Întreprinderi digitale pentru o economie avansată – Apel 2",
+  "prog": [
+   "Programe Regionale",
+   "Programul Regional Centru"
+  ],
+  "ben": [
+   "Microîntreprindere",
+   "IMM"
+  ],
+  "tip": "Competitiv, cu termen-limită",
+  "w": [
+   "F"
+  ],
+  "s": "urmeaza",
+  "open": "02.12.2026",
+  "close": "02.02.2027",
+  "sum": "14,1 mil. €",
+  "url": "https://oportunitati-ue.gov.ro/apel/apel-2-2-intreprinderi-digitale-pentru-o-economie-avansata-apel-2-noiembrie-2026/",
+  "pg": "Inovare și tehnologie",
+  "rez": "Tehnologii digitale pentru procesele interne, soluții de inteligență artificială, e-facturare și audit de maturitate digitală, pentru microîntreprinderile și IMM-urile din regiunea Centru.",
+  "slug": "digitalizarea-imm-centru-apel-2",
+  "cod": "Acțiunea 2.2, Apel 2",
+  "ghid": "30.10.2026",
+  "extra": [
+   [
+    "90%",
+    "finanțare maximă din valoarea eligibilă, în limita plafonului de minimis"
+   ],
+   [
+    "10%",
+    "contribuția proprie minimă"
+   ]
+  ]
  },
  {
   "n": "TechUp România: tehnologii avansate",
@@ -941,11 +989,11 @@
   "srcname": "contorul AFIR și oportunitati-ue.gov.ro",
   "extra": [
    [
-    "399",
+    "451",
     "proiecte depuse până acum (contor AFIR)"
    ],
    [
-    "75,1 mil. €",
+    "84,9 mil. €",
     "valoarea proiectelor depuse"
    ]
   ],
@@ -979,12 +1027,12 @@
   "srcname": "contorul AFIR și oportunitati-ue.gov.ro",
   "extra": [
    [
-    "1.619",
-    "proiecte depuse până acum (contor AFIR)"
+    "1.009",
+    "proiecte depuse pe componentele încă deschise (contor AFIR)"
    ],
    [
-    "76,2 mil. €",
-    "valoarea proiectelor depuse"
+    "47,9 mil. €",
+    "valoarea proiectelor depuse pe aceste componente"
    ],
    [
     "epuizate",
@@ -1022,11 +1070,11 @@
   "srcname": "contorul AFIR și oportunitati-ue.gov.ro",
   "extra": [
    [
-    "29",
+    "44",
     "proiecte depuse până acum (contor AFIR)"
    ],
    [
-    "2,5 mil. €",
+    "3,9 mil. €",
     "valoarea proiectelor depuse"
    ]
   ],
@@ -1074,15 +1122,17 @@
   "s": "urmeaza",
   "open": "",
   "close": "",
-  "when": "schema e aprobată, apelul nu e lansat încă",
+  "when": "ghidul e în consultare publică până pe 18.11.2026; apelul nu e lansat încă",
   "sum": "15 mil. €",
   "url": "https://fonduri.mt.ro/documente-si-publicatii/finantari-fm/scheme-de-ajutor-de-stat/schema-de-ajutor-de-stat-8",
   "src": "Ministerul Transporturilor și Infrastructurii, OMTI nr. 2.291/2025",
   "pg": "Mobilitate electrică",
-  "rez": "Autoturisme electrice noi pentru IMM-uri, până la 30.000 € pe autoturism. Schema e aprobată; apelul de proiecte nu e lansat încă.",
+  "rez": "Autoturisme electrice noi pentru IMM-uri, până la 30.000 € pe autoturism. Ghidul e în consultare publică până pe 18.11.2026; apelul de proiecte nu e lansat încă.",
   "slug": "e-drive-masura-1",
   "srcname": "Ministerul Transporturilor (DGPET), schema 8 „e-DRIVE”",
-  "cod": "Schema 8, Măsura 1"
+  "cod": "Schema 8, Măsura 1",
+  "url2": "https://www.mt.ro/spatiul-media/comunicate-de-presa/fm-comunicate/fm03112026",
+  "label2": "Ministerul Transporturilor: consultarea publică a ghidurilor (03.11.2026)"
  },
  {
   "n": "e-MOVE RO: stații de încărcare pentru firme și comunități",
@@ -1219,8 +1269,8 @@
   ],
   "s": "deschis",
   "open": "06.10.2026",
-  "close": "",
-  "when": "din 06.10.2026, 30 de zile, prelungibil până la ocuparea locurilor",
+  "close": "27.11.2026",
+  "when": "până pe 27.11.2026, ora 20:00; peste 11.400 de locuri libere la 04.11.2026",
   "sum": "17.600 de locuri",
   "url": "https://www.imm.gov.ro/start-up-nation-2024/",
   "src": "Ministerul Economiei, Digitalizării, Antreprenoriatului și Turismului, OG nr. 29/2024",
@@ -1228,6 +1278,8 @@
   "pg": "Start-Up Nation",
   "rez": "Cursuri gratuite de antreprenoriat pentru tinerii de 18–29 de ani. Absolvenții își înființează firma și pot cere apoi până la 250.000 lei.",
   "slug": "start-up-nation-cursuri-sesiunea-2",
-  "cod": "Pilonul I"
+  "cod": "Pilonul I",
+  "url2": "https://economie.gov.ro/start-up-nation-peste-11-400-de-locuri-disponibile-la-cursurile-gratuite-de-antreprenoriat-inscrierile-continua-pana-pe-27-noiembri/",
+  "label2": "Ministerul Economiei: prelungirea înscrierilor (04.11.2026)"
  }
 ]
