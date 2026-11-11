@@ -204,6 +204,9 @@ p{margin:0}
 
 /* echipa: poza deasupra, numele, rolul, apoi textul */
 .team{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px;align-items:stretch}
+/* un singur om în echipă: cardul stă pe orizontală, fotografia la stânga */
+.team.one{grid-template-columns:minmax(0,1fr);max-width:780px}
+.team.one .person{grid-template-columns:112px minmax(0,1fr);gap:20px}
 .person{display:grid;grid-template-columns:minmax(0,1fr);gap:16px;align-content:start;border:1px solid var(--line);border-radius:var(--r-m);padding:20px;background:var(--white)}
 .person h3,.person .h3{font-size:var(--t-md)}
 .person .role{font-size:var(--t-sm);font-weight:600;color:var(--or-d);margin-top:2px}
@@ -211,7 +214,8 @@ p{margin:0}
 /* <picture> rămâne un singur element în grilă (cu display:contents, <source> ocupa o celulă) */
 .person picture{display:block}
 .pphoto{width:112px;height:112px;border-radius:var(--r-m);object-fit:cover;object-position:50% 35%;display:block}
-@container site (max-width:760px){.team{grid-template-columns:1fr}.pphoto{width:96px;height:96px}}
+@container site (max-width:760px){.team{grid-template-columns:1fr}.pphoto{width:96px;height:96px}.team.one .person{grid-template-columns:96px minmax(0,1fr);gap:16px}}
+@container site (max-width:480px){.team.one .person{grid-template-columns:1fr}}
 
 /* fișele gratuite */
 .magnets{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;align-items:stretch}
