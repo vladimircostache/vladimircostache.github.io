@@ -8,7 +8,7 @@ from zoneinfo import ZoneInfo
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 SRC, DIST = ROOT / 'src', ROOT / 'dist'
 TEST = '--test' in sys.argv
-UPD = '05.11.2026'
+UPD = '12.11.2026'
 SITE = 'https://bigsolutions.ro'
 LEGAL_UPD = '30.10.2026'
 # Cheia publică Web3Forms: cererile din formulare ajung pe vladimir.costache@bigsolutions.ro.

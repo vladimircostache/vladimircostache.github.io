@@ -994,15 +994,20 @@
   "srcname": "contorul AFIR și oportunitati-ue.gov.ro",
   "extra": [
    [
-    "451",
-    "proiecte depuse până acum (contor AFIR)"
+    "298",
+    "proiecte depuse pe componenta sector zootehnic (contor AFIR)"
    ],
    [
-    "84,9 mil. €",
-    "valoarea proiectelor depuse"
+    "54,7 mil. €",
+    "valoarea proiectelor depuse pe sectorul zootehnic, la o alocare de 84,8 mil. €"
+   ],
+   [
+    "epuizate",
+    "fondurile pe componenta „alte sectoare”: 2.078 de cereri, 380,5 mil. €"
    ]
   ],
-  "cod": "DR-12"
+  "cod": "DR-12",
+  "when": "termen 02.12.2026, doar pentru sectorul zootehnic; „alte sectoare” s-a închis pe 11.11.2026"
  },
  {
   "n": "DR-14: investiții în fermele mici",
@@ -1032,11 +1037,11 @@
   "srcname": "contorul AFIR și oportunitati-ue.gov.ro",
   "extra": [
    [
-    "1.009",
+    "1.081",
     "proiecte depuse pe componentele încă deschise (contor AFIR)"
    ],
    [
-    "47,9 mil. €",
+    "51,3 mil. €",
     "valoarea proiectelor depuse pe aceste componente"
    ],
    [
@@ -1075,11 +1080,11 @@
   "srcname": "contorul AFIR și oportunitati-ue.gov.ro",
   "extra": [
    [
-    "44",
+    "45",
     "proiecte depuse până acum (contor AFIR)"
    ],
    [
-    "3,9 mil. €",
+    "4,0 mil. €",
     "valoarea proiectelor depuse"
    ]
   ],

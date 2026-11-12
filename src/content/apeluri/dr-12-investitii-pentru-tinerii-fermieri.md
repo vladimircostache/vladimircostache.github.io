@@ -2,7 +2,7 @@
 
 Pentru fermierii care conduc deja o exploatație de cel puțin 12.000 € SO și vor să o dezvolte. Tinerii fermieri instalați, de până la 40 de ani, cu competențe în domeniu, primesc 80% din cheltuielile eligibile. Ceilalți fermieri eligibili, de până la 45 de ani, primesc 65%. Sprijinul ajunge la 200.000 € pe proiect.
 
-Apelul merită mai ales pentru investițiile mari: construcții și modernizări în fermă, sere și solarii, livezi, utilaje, tractoare, irigații și echipamente digitale. Bugetul, de 169,6 mil. €, e împărțit egal între sectorul zootehnic și celelalte sectoare.
+Apelul merită mai ales pentru investițiile mari: construcții și modernizări în fermă, sere și solarii, livezi, utilaje, tractoare, irigații și echipamente digitale. Bugetul, de 169,6 mil. €, e împărțit egal între sectorul zootehnic și celelalte sectoare. Pe 11.11.2026, componenta „alte sectoare” s-a închis, pentru că cererile depuse au depășit plafonul sesiunii. Până pe 02.12.2026 se mai depune doar pentru sectorul zootehnic.
 
 ## Unde se greșește des
 
@@ -20,4 +20,4 @@ Apelul merită mai ales pentru investițiile mari: construcții și modernizări
 - câte două oferte de preț pentru utilajele și echipamentele noi
 - un extras de cont sau o discuție cu banca pentru credit, pentru cofinanțare
 
-Surse: pagina apelului DR-12 pe oportunitati-ue.gov.ro; Ghidul solicitantului, publicat de AFIR pe 18.09.2026. Material informativ, sub rezerva Ghidului solicitantului.
+Surse: pagina apelului DR-12 pe oportunitati-ue.gov.ro; Ghidul solicitantului, publicat de AFIR pe 18.09.2026; comunicatul AFIR din 11.11.2026. Material informativ, sub rezerva Ghidului solicitantului.
