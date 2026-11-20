@@ -18,6 +18,6 @@ Pentru firmele de transport rutier de mărfuri (cod CAEN 4941) care vor să înl
 - certificatele de înmatriculare și documentele care arată folosirea vehiculelor înlocuite în ultimele 12 luni
 - centralizatorul de kilometri
 
-Termenul e 16.11.2026, în MySMIS2021. Lista cu punctaje e programată pe 18.12.2026, iar semnarea contractelor în mai 2027.
+Termenul a fost prelungit până pe 07.12.2026, prin OMTI nr. 1141/16.11.2026; depunerea se face în MySMIS2021. Evaluarea ține între 08.12.2026 și 08.01.2027, lista cu punctaje e programată pe 11.01.2027, iar semnarea contractelor între 22 și 28 iunie 2027.
 
-Surse: Ghidul solicitantului pentru achiziția de vehicule (septembrie 2026) și anexele lui, pe fonduri.mt.ro; calendarul apelurilor și clarificările Ministerului Transporturilor din 09.09.2026 și 14.09.2026; pagina apelului pe oportunitati-ue.gov.ro. Material informativ, sub rezerva Ghidului solicitantului.
+Surse: Ghidul solicitantului pentru achiziția de vehicule (septembrie 2026) și anexele lui, pe fonduri.mt.ro; calendarul apelurilor și clarificările Ministerului Transporturilor din 09.09.2026 și 14.09.2026; OMTI nr. 1141/16.11.2026, care prelungește termenul; pagina apelului pe oportunitati-ue.gov.ro. Material informativ, sub rezerva Ghidului solicitantului.

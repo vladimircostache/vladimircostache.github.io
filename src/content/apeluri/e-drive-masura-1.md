@@ -23,6 +23,6 @@ Transportatorii de persoane (CAEN 4931, 4932, 4933) au Măsura 2, cu licitație:
 - cel puțin 2 oferte de preț pentru vehiculul electric, cu specificațiile tehnice
 - confirmarea locului de asamblare finală a modelului ales
 
-La 05.11.2026, schema e aprobată, Ghidul solicitantului e în consultare publică până pe 18.11.2026, iar apelul nu e deschis. Calendarul depunerii se anunță după aprobarea ghidului. Lista finală a documentelor se confirmă prin ghidul aprobat.
+La 19.11.2026, schema e aprobată, consultarea publică a Ghidului solicitantului s-a încheiat pe 18.11.2026, iar apelul nu e deschis. Calendarul depunerii se anunță după aprobarea ghidului. Lista finală a documentelor se confirmă prin ghidul aprobat.
 
 Surse: OMTI nr. 2.291/2025, modificat prin OMTI nr. 742/2026 și nr. 817/2026; Ministerul Transporturilor și Infrastructurii, fonduri.mt.ro. Material informativ, sub rezerva Ghidului solicitantului.
